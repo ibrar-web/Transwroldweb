@@ -1,0 +1,106 @@
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+.mapSideBar{
+    height: 100%;
+    width: 20%;
+    background: lightgray;
+    transition: all 1s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.mapSideBarShorten{
+    width: 2%;
+}
+
+.tracks{
+    height: calc(100% - 40px);
+    border-bottom: 2px solid black;
+    overflow: auto;
+}
+
+.filterApplied{
+  color: rgb(235, 176, 16);
+}
+
+.filters{
+    height: 50%;
+}
+
+.map{
+    height: 100%;
+    width: 80%;
+    transition: all 1s ease;
+}
+
+.mapBigger{
+  width: 98%;
+}
+
+.GisView_report{
+    position: absolute;
+    height: 100%;
+    background: lightslategrey;
+    width: 30%;
+    right: 0;
+    top: 0;
+    right: 0;
+    z-index: 10000000;
+    color: white;
+    animation: mymove 1s;
+    animation-fill-mode: forwards;
+    overflow: hidden;
+    
+}
+
+.GisView_image{
+  position: absolute;
+    height: 100%;
+    background: lightslategrey;
+    width: 30%;
+    right: 0;
+    top: 0;
+    right: 0;
+    z-index: 10000000;
+    color: white;
+    animation: mymove 1s;
+    animation-fill-mode: forwards;
+    overflow: auto;
+}
+
+.GisView_filterWindow{
+  z-index: -1;
+  background: lightgray;
+  color: black;
+  font-size: 12px;
+  animation: mymoveside 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes mymoveside {
+  from {top: -100%;}
+  to {top: 0;}
+}
+
+@keyframes mymove {
+    from {right: -100%;}
+    to {right: 0px;}
+  }
