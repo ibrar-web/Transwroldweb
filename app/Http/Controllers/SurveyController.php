@@ -68,6 +68,8 @@ class SurveyController extends Controller
                 "region"=>$region,
                 "media"=>$media,
             ]);
+            $data['access_token'] = DB::table('users')->where('id', $worker_id)->pluck('access_token')[0];
+            
             return $data;
         } else {
             return abort(500, 'You are not allowed1');
@@ -95,5 +97,10 @@ class SurveyController extends Controller
         } else {
             return abort(500, 'You are not allowed1');
         }
+    }
+
+    public function token(Request $request)
+    {
+        return $request->input();
     }
 }

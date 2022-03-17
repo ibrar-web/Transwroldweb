@@ -21,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/surveylogin',[SurveyController::class,'surveylogin']);
 Route::post('/surveydata',[SurveyController::class,'surveydata']);
 Route::post('/surveymedia',[SurveyController::class,'surveymedia']);
+
+Route::post('/token',[SurveyController::class,'token']);

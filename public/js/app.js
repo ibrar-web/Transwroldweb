@@ -13868,7 +13868,8 @@ var GisView = /*#__PURE__*/function (_React$Component) {
         lat: 0,
         lng: 0
       },
-      detailsToShowType: ''
+      detailsToShowType: '',
+      filter: []
     });
 
     _defineProperty(_assertThisInitialized(_this), "hideSideBar", function () {
@@ -13899,7 +13900,9 @@ var GisView = /*#__PURE__*/function (_React$Component) {
         console.log(tempTracks.length);
         tempTracks.forEach(function (val) {
           JSON.parse(val.alldata).forEach(function (value) {
-            tempMarkers.push(value);
+            if (_this.state.filter.includes(value.markertype) || _this.state.filter.length === 0) {
+              tempMarkers.push(value);
+            }
           });
         });
         tempMarkers = tempMarkers.map(function (val) {
@@ -13915,7 +13918,9 @@ var GisView = /*#__PURE__*/function (_React$Component) {
         tempTracks.push(val);
         tempTracks.forEach(function (val) {
           JSON.parse(val.alldata).forEach(function (value) {
-            tempMarkers.push(value);
+            if (_this.state.filter.includes(value.markertype) || _this.state.filter.length === 0) {
+              tempMarkers.push(value);
+            }
           });
         });
         tempMarkers = tempMarkers.map(function (val) {
@@ -13995,8 +14000,9 @@ var GisView = /*#__PURE__*/function (_React$Component) {
         console.log('data elements array');
         tempDetailsToShowType = 'floor';
         value.data.forEach(function (val, index) {
+          var num = index + 1;
           var temp = {
-            floor: 'floor ' + index,
+            floor: 'Floor ' + num,
             data: []
           };
           val.forEach(function (v) {
@@ -14028,6 +14034,94 @@ var GisView = /*#__PURE__*/function (_React$Component) {
         detailsToShowType: tempDetailsToShowType
       }, function () {
         console.log('checkState', _this.state.detailsToShowType);
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "logoutClicked", function () {
+      console.log('logout clicked');
+      axios__WEBPACK_IMPORTED_MODULE_1___default().post('./logout').then(function (res) {
+        console.log(res);
+        window.history.back();
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "residentialClicked", function () {
+      var tempFilter = _this.state.filter;
+      var tempTracks = _this.state.tracksShow;
+      var tempMarkers = [];
+
+      if (tempFilter.includes('Residentail')) {
+        var index = tempFilter.indexOf('Residentail');
+
+        if (index !== -1) {
+          tempFilter.splice(index, 1);
+        }
+      } else {
+        tempFilter.push('Residentail');
+      }
+
+      tempTracks.forEach(function (val) {
+        JSON.parse(val.alldata).forEach(function (value) {
+          if (tempFilter.includes(value.markertype) || _this.state.filter.length === 0) {
+            tempMarkers.push(value);
+          }
+        });
+      });
+      tempMarkers = tempMarkers.map(function (val) {
+        var position = {
+          lat: val.postion[0],
+          lng: val.postion[1]
+        };
+        val.position = position;
+        return val;
+      });
+
+      _this.setState({
+        filter: tempFilter,
+        tracksShow: tempTracks,
+        markersShow: tempMarkers
+      }, function () {
+        console.log(_this.state.filter);
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "commercialClicked", function () {
+      var tempFilter = _this.state.filter;
+      var tempTracks = _this.state.tracksShow;
+      var tempMarkers = [];
+
+      if (tempFilter.includes('Commercail')) {
+        var index = tempFilter.indexOf('Commercail');
+
+        if (index !== -1) {
+          tempFilter.splice(index, 1);
+        }
+      } else {
+        tempFilter.push('Commercail');
+      }
+
+      tempTracks.forEach(function (val) {
+        JSON.parse(val.alldata).forEach(function (value) {
+          if (tempFilter.includes(value.markertype) || _this.state.filter.length === 0) {
+            tempMarkers.push(value);
+          }
+        });
+      });
+      tempMarkers = tempMarkers.map(function (val) {
+        var position = {
+          lat: val.postion[0],
+          lng: val.postion[1]
+        };
+        val.position = position;
+        return val;
+      });
+
+      _this.setState({
+        filter: tempFilter,
+        tracksShow: tempTracks,
+        markersShow: tempMarkers
+      }, function () {
+        console.log(_this.state.filter);
       });
     });
 
@@ -14084,90 +14178,57 @@ var GisView = /*#__PURE__*/function (_React$Component) {
                   width: '10%',
                   textAlign: 'center'
                 },
-                title: "Home",
+                title: "Logout",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
-                  href: "/logout",
+                  href: "logout",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
-                    className: "fa fa-home",
+                    className: "fa fa-sign-out",
                     style: {
                       color: 'black'
                     }
                   })
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: this.state.filter.includes('Residentail') ? "orange" : "",
                 style: {
                   cursor: 'pointer',
                   heigth: '20px',
                   width: '10%',
-                  textAlign: 'center',
-                  color: 'lightgray'
+                  textAlign: 'center'
                 },
+                title: "Residential Markers",
                 onClick: function onClick() {
-                  return _this2.showImages();
+                  return _this2.residentialClicked();
                 },
-                title: "Images"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                style: {
-                  cursor: 'pointer',
-                  heigth: '20px',
-                  width: '10%',
-                  textAlign: 'center',
-                  color: 'lightgray'
-                },
-                onClick: function onClick() {
-                  return _this2.addToMarkers('N/W Elements');
-                },
-                title: "N/W Elements",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
-                  "class": "fa fa-map-marker",
-                  "aria-hidden": "true"
+                  className: "fa fa-home",
+                  style: {
+                    color: 'black'
+                  }
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: this.state.filter.includes('Commercail') ? "orange" : "",
+                style: {
+                  cursor: 'pointer',
+                  heigth: '20px',
+                  width: '10%',
+                  textAlign: 'center'
+                },
+                title: "Commercial Markers",
+                onClick: function onClick() {
+                  return _this2.commercialClicked();
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                  className: "fa fa-building",
+                  style: {
+                    color: 'black'
+                  }
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                 style: {
                   cursor: 'pointer',
                   heigth: '20px',
-                  width: '10%',
-                  textAlign: 'center',
-                  color: 'lightgray'
-                },
-                onClick: function onClick() {
-                  return _this2.addToMarkers('Audits');
-                },
-                title: "Audits",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
-                  "class": "fa fa-book"
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                style: {
-                  color: 'lightgray'
-                },
-                onClick: function onClick() {
-                  return _this2.resetFilter();
-                },
-                title: "Reset All",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
-                  className: "fa fa-refresh"
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                style: {
-                  cursor: 'pointer',
-                  heigth: '20px',
-                  width: '10%',
-                  textAlign: 'center',
-                  color: 'lightgray'
-                },
-                onClick: function onClick() {
-                  return _this2.openFilterWindow();
-                },
-                title: "Filters",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
-                  className: "fa fa-filter"
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                style: {
-                  cursor: 'pointer',
-                  heigth: '20px',
-                  width: '40%',
+                  width: '70%',
                   textAlign: 'right'
                 },
                 onClick: function onClick() {
@@ -14268,15 +14329,12 @@ var GisView = /*#__PURE__*/function (_React$Component) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
           className: "map ".concat(this.state.sideBarHide ? "mapBigger" : ""),
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_6__.LoadScript, {
-            googleMapsApiKey: "AIzaSyDuvOMVbQ1iJ2EyZOEEUGReTjUk0pXW56w",
+            googleMapsApiKey: "AIzaSyC7heras8LxUkJxZSbXmJvPBB1qMStJTM4",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_6__.GoogleMap, {
               mapContainerStyle: containerStyle,
               center: this.state.center,
               zoom: 14,
               labels: true,
-              options: {
-                mapTypeId: 'hybrid'
-              },
               children: [this.state.markersShow.map(function (value, index) {
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_6__.Marker, {
@@ -14284,7 +14342,7 @@ var GisView = /*#__PURE__*/function (_React$Component) {
                       return _this2.markerClicked(value);
                     },
                     icon: {
-                      url: "https://joyndigital.com/Latitude/public/Audit/auditMarker.png",
+                      url: "./markers/".concat(value.markertype, ".png"),
                       scaledSize: {
                         width: 30,
                         height: 30
@@ -19596,7 +19654,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* width */\r\n::-webkit-scrollbar {\r\n    width: 10px;\r\n  }\r\n  \r\n  /* Track */\r\n  ::-webkit-scrollbar-track {\r\n    background: #f1f1f1;\r\n  }\r\n  \r\n  /* Handle */\r\n  ::-webkit-scrollbar-thumb {\r\n    background: #888;\r\n  }\r\n  \r\n  /* Handle on hover */\r\n  ::-webkit-scrollbar-thumb:hover {\r\n    background: #555;\r\n  }\r\n\r\n.mapSideBar{\r\n    height: 100%;\r\n    width: 20%;\r\n    background: lightgray;\r\n    transition: all 1s ease;\r\n    position: relative;\r\n    z-index: 2;\r\n}\r\n\r\n.mapSideBarShorten{\r\n    width: 2%;\r\n}\r\n\r\n.tracks{\r\n    height: calc(100% - 40px);\r\n    border-bottom: 2px solid black;\r\n    overflow: auto;\r\n}\r\n\r\n.filterApplied{\r\n  color: rgb(235, 176, 16);\r\n}\r\n\r\n.filters{\r\n    height: 50%;\r\n}\r\n\r\n.map{\r\n    height: 100%;\r\n    width: 80%;\r\n    transition: all 1s ease;\r\n}\r\n\r\n.mapBigger{\r\n  width: 98%;\r\n}\r\n\r\n.GisView_report{\r\n    position: absolute;\r\n    height: 100%;\r\n    background: lightslategrey;\r\n    width: 30%;\r\n    right: 0;\r\n    top: 0;\r\n    right: 0;\r\n    z-index: 10000000;\r\n    color: white;\r\n    -webkit-animation: mymove 1s;\r\n            animation: mymove 1s;\r\n    -webkit-animation-fill-mode: forwards;\r\n            animation-fill-mode: forwards;\r\n    overflow: hidden;\r\n    \r\n}\r\n\r\n.GisView_image{\r\n  position: absolute;\r\n    height: 100%;\r\n    background: lightslategrey;\r\n    width: 30%;\r\n    right: 0;\r\n    top: 0;\r\n    right: 0;\r\n    z-index: 10000000;\r\n    color: white;\r\n    -webkit-animation: mymove 1s;\r\n            animation: mymove 1s;\r\n    -webkit-animation-fill-mode: forwards;\r\n            animation-fill-mode: forwards;\r\n    overflow: auto;\r\n}\r\n\r\n.GisView_filterWindow{\r\n  z-index: -1;\r\n  background: lightgray;\r\n  color: black;\r\n  font-size: 12px;\r\n  -webkit-animation: mymoveside 1s;\r\n          animation: mymoveside 1s;\r\n    -webkit-animation-fill-mode: forwards;\r\n            animation-fill-mode: forwards;\r\n}\r\n\r\n@-webkit-keyframes mymoveside {\r\n  from {top: -100%;}\r\n  to {top: 0;}\r\n}\r\n\r\n@keyframes mymoveside {\r\n  from {top: -100%;}\r\n  to {top: 0;}\r\n}\r\n\r\n@-webkit-keyframes mymove {\r\n    from {right: -100%;}\r\n    to {right: 0px;}\r\n  }\r\n\r\n@keyframes mymove {\r\n    from {right: -100%;}\r\n    to {right: 0px;}\r\n  }", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* width */\r\n::-webkit-scrollbar {\r\n    width: 10px;\r\n  }\r\n  \r\n  /* Track */\r\n  ::-webkit-scrollbar-track {\r\n    background: #f1f1f1;\r\n  }\r\n  \r\n  /* Handle */\r\n  ::-webkit-scrollbar-thumb {\r\n    background: #888;\r\n  }\r\n  \r\n  /* Handle on hover */\r\n  ::-webkit-scrollbar-thumb:hover {\r\n    background: #555;\r\n  }\r\n\r\n.mapSideBar{\r\n    height: 100%;\r\n    width: 20%;\r\n    background: lightgray;\r\n    transition: all 1s ease;\r\n    position: relative;\r\n    z-index: 2;\r\n}\r\n\r\n.mapSideBarShorten{\r\n    width: 2%;\r\n}\r\n\r\n.tracks{\r\n    height: calc(100% - 40px);\r\n    border-bottom: 2px solid black;\r\n    overflow: auto;\r\n}\r\n\r\n.filterApplied{\r\n  color: rgb(235, 176, 16) !important;\r\n}\r\n\r\n.orange{\r\n  background-color: orange;\r\n}\r\n\r\n.filters{\r\n    height: 50%;\r\n}\r\n\r\n.map{\r\n    height: 100%;\r\n    width: 80%;\r\n    transition: all 1s ease;\r\n}\r\n\r\n.mapBigger{\r\n  width: 98%;\r\n}\r\n\r\n.GisView_report{\r\n    position: absolute;\r\n    height: 100%;\r\n    background: lightslategrey;\r\n    width: 30%;\r\n    right: 0;\r\n    top: 0;\r\n    right: 0;\r\n    z-index: 10000000;\r\n    color: white;\r\n    -webkit-animation: mymove 1s;\r\n            animation: mymove 1s;\r\n    -webkit-animation-fill-mode: forwards;\r\n            animation-fill-mode: forwards;\r\n    overflow: hidden;\r\n    \r\n}\r\n\r\n.GisView_image{\r\n  position: absolute;\r\n    height: 100%;\r\n    background: lightslategrey;\r\n    width: 30%;\r\n    right: 0;\r\n    top: 0;\r\n    right: 0;\r\n    z-index: 10000000;\r\n    color: white;\r\n    -webkit-animation: mymove 1s;\r\n            animation: mymove 1s;\r\n    -webkit-animation-fill-mode: forwards;\r\n            animation-fill-mode: forwards;\r\n    overflow: auto;\r\n}\r\n\r\n.GisView_filterWindow{\r\n  z-index: -1;\r\n  background: lightgray;\r\n  color: black;\r\n  font-size: 12px;\r\n  -webkit-animation: mymoveside 1s;\r\n          animation: mymoveside 1s;\r\n    -webkit-animation-fill-mode: forwards;\r\n            animation-fill-mode: forwards;\r\n}\r\n\r\n@-webkit-keyframes mymoveside {\r\n  from {top: -100%;}\r\n  to {top: 0;}\r\n}\r\n\r\n@keyframes mymoveside {\r\n  from {top: -100%;}\r\n  to {top: 0;}\r\n}\r\n\r\n@-webkit-keyframes mymove {\r\n    from {right: -100%;}\r\n    to {right: 0px;}\r\n  }\r\n\r\n@keyframes mymove {\r\n    from {right: -100%;}\r\n    to {right: 0px;}\r\n  }", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -89,7 +89,9 @@ class GisView extends React.Component {
 
         detailsToShow: [],
         detailsToShowPosition: { lat: 0, lng: 0 },
-        detailsToShowType: ''
+        detailsToShowType: '',
+
+        filter: []
     }
     // infowindowclosed = () => {
     //     var temp = { lat: 0, lng: 0 }
@@ -1085,7 +1087,9 @@ class GisView extends React.Component {
 
             tempTracks.forEach((val) => {
                 JSON.parse(val.alldata).forEach((value) => {
-                    tempMarkers.push(value)
+                    if(this.state.filter.includes(value.markertype) || this.state.filter.length === 0){
+                        tempMarkers.push(value)
+                    }
                 })
             })
 
@@ -1104,7 +1108,9 @@ class GisView extends React.Component {
 
             tempTracks.forEach((val) => {
                 JSON.parse(val.alldata).forEach((value) => {
-                    tempMarkers.push(value)
+                    if(this.state.filter.includes(value.markertype) || this.state.filter.length === 0){
+                        tempMarkers.push(value)
+                    }
                 })
             })
 
@@ -1176,7 +1182,9 @@ class GisView extends React.Component {
             tempDetailsToShowType = 'floor'
             value.data.forEach((val, index) => {
 
-                let temp = { floor: 'floor ' + index, data: [] }
+                let num = index + 1;
+
+                let temp = { floor: 'Floor ' + num, data: [] }
 
                 val.forEach(v => {
                     temp.data.push({ name: v.name, value: v.Value })
@@ -1204,6 +1212,86 @@ class GisView extends React.Component {
 
     }
 
+    logoutClicked = () => {
+        console.log('logout clicked')
+
+        Axios.post('./logout').then(res => {
+            console.log(res)
+            window.history.back()
+        })
+    }
+
+    residentialClicked = () => {
+        let tempFilter = this.state.filter;
+        let tempTracks = this.state.tracksShow;
+        let tempMarkers = [];
+        if (tempFilter.includes('Residentail')) {
+            var index = tempFilter.indexOf('Residentail');
+            if (index !== -1) {
+                tempFilter.splice(index, 1);
+            }
+        }else{
+            tempFilter.push('Residentail');
+        }
+
+        tempTracks.forEach((val) => {
+            JSON.parse(val.alldata).forEach((value) => {
+                if(tempFilter.includes(value.markertype) || this.state.filter.length === 0){
+                    tempMarkers.push(value)
+                }
+            })
+        })
+
+        tempMarkers = tempMarkers.map(val => {
+
+            let position = { lat: val.postion[0], lng: val.postion[1] };
+
+            val.position = position
+
+            return val;
+        })
+
+        this.setState({filter: tempFilter, tracksShow: tempTracks, markersShow: tempMarkers } , () => {
+            console.log(this.state.filter)
+        })
+
+    }
+
+    commercialClicked = () => {
+        let tempFilter = this.state.filter;
+        let tempTracks = this.state.tracksShow;
+        let tempMarkers = [];
+        if (tempFilter.includes('Commercail')) {
+            var index = tempFilter.indexOf('Commercail');
+            if (index !== -1) {
+                tempFilter.splice(index, 1);
+            }
+        }else{
+            tempFilter.push('Commercail');
+        }
+
+        tempTracks.forEach((val) => {
+            JSON.parse(val.alldata).forEach((value) => {
+                if(tempFilter.includes(value.markertype) || this.state.filter.length === 0){
+                    tempMarkers.push(value)
+                }
+            })
+        })
+
+        tempMarkers = tempMarkers.map(val => {
+
+            let position = { lat: val.postion[0], lng: val.postion[1] };
+
+            val.position = position
+
+            return val;
+        })
+
+        this.setState({filter: tempFilter, tracksShow: tempTracks, markersShow: tempMarkers } , () => {
+            console.log(this.state.filter)
+        })
+    }
+
     render() {
 
         var track = this.state.track;
@@ -1225,17 +1313,11 @@ class GisView extends React.Component {
                     {this.state.sideBarHide == false &&
                         <>
                             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-                                <div style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center' }} title="Home"><a href='/logout'><i className="fa fa-home" style={{ color: 'black' }}></i></a></div>
-                                <div style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center', color: 'lightgray' }} onClick={() => this.showImages()} title="Images">
-                                    {/* <i className="fa fa-image"></i> */}
-                                </div>
-                                <div style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center', color: 'lightgray' }} onClick={() => this.addToMarkers('N/W Elements')} title="N/W Elements"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
-                                <div style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center', color: 'lightgray' }} onClick={() => this.addToMarkers('Audits')} title="Audits"><i class="fa fa-book"></i></div>
+                                <div style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center' }} title="Logout"><a href='logout'><i className="fa fa-sign-out" style={{ color: 'black' }}></i></a></div>
+                                <div className={this.state.filter.includes('Residentail') ? "orange" : ""} style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center' }} title="Residential Markers" onClick={() => this.residentialClicked()}><i className="fa fa-home" style={{ color: 'black' }}></i></div>
+                                <div className={this.state.filter.includes('Commercail') ? "orange" : ""} style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center' }} title="Commercial Markers" onClick={() => this.commercialClicked()}><i className="fa fa-building" style={{ color: 'black' }}></i></div>
 
-
-                                <div style={{ color: 'lightgray' }} onClick={() => this.resetFilter()} title="Reset All" ><i className="fa fa-refresh"></i></div>
-                                <div style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center', color: 'lightgray' }} onClick={() => this.openFilterWindow()} title="Filters"><i className="fa fa-filter"></i></div>
-                                <div style={{ cursor: 'pointer', heigth: '20px', width: '40%', textAlign: 'right' }} onClick={() => this.hideSideBar()} ><i className="fa fa-arrow-left" ></i></div>
+                                <div style={{ cursor: 'pointer', heigth: '20px', width: '70%', textAlign: 'right' }} onClick={() => this.hideSideBar()} ><i className="fa fa-arrow-left" ></i></div>
                             </div>
                             <hr></hr>
                             <div className="tracks">
@@ -1324,16 +1406,14 @@ class GisView extends React.Component {
 
                 <div className={`map ${this.state.sideBarHide ? "mapBigger" : ""}`}>
                     <LoadScript
-                        googleMapsApiKey="AIzaSyDuvOMVbQ1iJ2EyZOEEUGReTjUk0pXW56w"
+                        googleMapsApiKey="AIzaSyC7heras8LxUkJxZSbXmJvPBB1qMStJTM4"
                     >
                         <GoogleMap
                             mapContainerStyle={containerStyle}
                             center={this.state.center}
                             zoom={14}
                             labels={true}
-                            options={{
-                                mapTypeId: 'hybrid'
-                            }}
+
                         >
                             {this.state.markersShow.map((value, index) => {
                                 return (
@@ -1342,7 +1422,7 @@ class GisView extends React.Component {
                                             key={index}
                                             onClick={() => this.markerClicked(value)}
                                             icon={{
-                                                url: `https://joyndigital.com/Latitude/public/Audit/auditMarker.png`,
+                                                url: `./markers/${value.markertype}.png`,
                                                 scaledSize: { width: 30, height: 30 },
                                                 anchor: { x: 5, y: 20 }
                                             }}
