@@ -24,15 +24,15 @@ Route::get('/register', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::middleware('auth:web')->group(function () {
+// Route::middleware('auth:web')->group(function () {
+// Route::post('/findmydata',[SurveyController::class,'findmydata']);
+
+// });
 Route::post('/findmydata',[SurveyController::class,'findmydata']);
-
-});
-
 Route::get('/logout', function () {
     Auth::logout();
     return view('layouts.app');
 });
 
-
+Route::post('/findmydata',[SurveyController::class,'findmydata']);
 

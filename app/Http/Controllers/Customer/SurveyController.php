@@ -23,7 +23,10 @@ class SurveyController extends Controller
         );
     }
     public function findmydata(Request $request)
-    {
+    {   
+        $data['data']=DB::table('surveydata')->get();
+        return $data;
+        
         $data = [];
         $userid = Auth::user()->id;
         $accesstoken = $request->input('accesstoken');
