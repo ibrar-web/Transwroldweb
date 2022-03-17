@@ -3202,6 +3202,8245 @@ function withinMaxClamp(min, value, max) {
 
 /***/ }),
 
+/***/ "./node_modules/@react-google-maps/api/dist/esm.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@react-google-maps/api/dist/esm.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Autocomplete": () => (/* binding */ Autocomplete),
+/* harmony export */   "BicyclingLayer": () => (/* binding */ BicyclingLayer),
+/* harmony export */   "Circle": () => (/* binding */ Circle),
+/* harmony export */   "Data": () => (/* binding */ Data),
+/* harmony export */   "DirectionsRenderer": () => (/* binding */ DirectionsRenderer),
+/* harmony export */   "DirectionsService": () => (/* binding */ DirectionsService),
+/* harmony export */   "DistanceMatrixService": () => (/* binding */ DistanceMatrixService),
+/* harmony export */   "DrawingManager": () => (/* binding */ DrawingManager),
+/* harmony export */   "GoogleMap": () => (/* binding */ GoogleMap),
+/* harmony export */   "GoogleMapsMarkerClusterer": () => (/* binding */ index_esm),
+/* harmony export */   "GoogleMarkerClusterer": () => (/* binding */ GoogleMarkerClusterer),
+/* harmony export */   "GroundOverlay": () => (/* binding */ GroundOverlay),
+/* harmony export */   "HeatmapLayer": () => (/* binding */ HeatmapLayer),
+/* harmony export */   "InfoBox": () => (/* binding */ InfoBoxComponent),
+/* harmony export */   "InfoWindow": () => (/* binding */ InfoWindow),
+/* harmony export */   "KmlLayer": () => (/* binding */ KmlLayer),
+/* harmony export */   "LoadScript": () => (/* binding */ LoadScript),
+/* harmony export */   "LoadScriptNext": () => (/* binding */ LoadScriptNext$1),
+/* harmony export */   "MapContext": () => (/* binding */ MapContext),
+/* harmony export */   "Marker": () => (/* binding */ Marker),
+/* harmony export */   "MarkerClusterer": () => (/* binding */ ClustererComponent),
+/* harmony export */   "OverlayView": () => (/* binding */ OverlayView),
+/* harmony export */   "Polygon": () => (/* binding */ Polygon),
+/* harmony export */   "Polyline": () => (/* binding */ Polyline),
+/* harmony export */   "Rectangle": () => (/* binding */ Rectangle),
+/* harmony export */   "StandaloneSearchBox": () => (/* binding */ StandaloneSearchBox),
+/* harmony export */   "StreetViewPanorama": () => (/* binding */ StreetViewPanorama),
+/* harmony export */   "StreetViewService": () => (/* binding */ StreetViewService),
+/* harmony export */   "TrafficLayer": () => (/* binding */ TrafficLayer),
+/* harmony export */   "TransitLayer": () => (/* binding */ TransitLayer),
+/* harmony export */   "useGoogleMap": () => (/* binding */ useGoogleMap),
+/* harmony export */   "useJsApiLoader": () => (/* binding */ useJsApiLoader),
+/* harmony export */   "useLoadScript": () => (/* binding */ useLoadScript)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+
+
+
+
+var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof __webpack_require__.g !== 'undefined' ? __webpack_require__.g : typeof self !== 'undefined' ? self : {};
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
+ * Use invariant() to assert state which your program assumes to be true.
+ *
+ * Provide sprintf-style format (only %s is supported) and arguments
+ * to provide information about what broke and what you were
+ * expecting.
+ *
+ * The invariant message will be stripped in production, but the invariant
+ * will remain to ensure logic does not differ in production.
+ */
+
+var NODE_ENV = "development";
+
+var invariant = function(condition, format, a, b, c, d, e, f) {
+  if (NODE_ENV !== 'production') {
+    if (format === undefined) {
+      throw new Error('invariant requires an error message argument');
+    }
+  }
+
+  if (!condition) {
+    var error;
+    if (format === undefined) {
+      error = new Error(
+        'Minified exception occurred; use the non-minified dev environment ' +
+        'for the full error message and additional helpful warnings.'
+      );
+    } else {
+      var args = [a, b, c, d, e, f];
+      var argIndex = 0;
+      error = new Error(
+        format.replace(/%s/g, function() { return args[argIndex++]; })
+      );
+      error.name = 'Invariant Violation';
+    }
+
+    error.framesToPop = 1; // we don't care about invariant's own frame
+    throw error;
+  }
+};
+
+var invariant_1 = invariant;
+
+const MapContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)(null);
+function useGoogleMap() {
+    invariant_1(!!react__WEBPACK_IMPORTED_MODULE_0__.useContext, 'useGoogleMap is React hook and requires React version 16.8+');
+    const map = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(MapContext);
+    invariant_1(!!map, 'useGoogleMap needs a GoogleMap available up in the tree');
+    return map;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const reduce = (obj, fn, acc) => {
+    return Object.keys(obj).reduce(function reducer(newAcc, key) {
+        return fn(newAcc, obj[key], key);
+    }, acc);
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function forEach(obj, fn) {
+    Object.keys(obj).forEach(function iterator(key) {
+        return fn(obj[key], key);
+    });
+}
+
+/* global google */
+const applyUpdaterToNextProps = (
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+updaterMap, 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+prevProps, 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+nextProps, 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+instance
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const map = {};
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const iter = (fn, key) => {
+        const nextValue = nextProps[key];
+        if (nextValue !== prevProps[key]) {
+            map[key] = nextValue;
+            fn(instance, nextValue);
+        }
+    };
+    forEach(updaterMap, iter);
+    return map;
+};
+function registerEvents(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+props, 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+instance, eventMap) {
+    const registeredList = reduce(eventMap, function reducer(acc, googleEventName, 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onEventName) {
+        if (typeof props[onEventName] === 'function') {
+            acc.push(google.maps.event.addListener(instance, googleEventName, props[onEventName]));
+        }
+        return acc;
+    }, []);
+    return registeredList;
+}
+function unregisterEvent(registered) {
+    google.maps.event.removeListener(registered);
+}
+function unregisterEvents(events = []) {
+    events.forEach(unregisterEvent);
+}
+function applyUpdatersToPropsAndRegisterEvents({ updaterMap, eventMap, prevProps, nextProps, instance, }) {
+    const registeredEvents = registerEvents(nextProps, instance, eventMap);
+    applyUpdaterToNextProps(updaterMap, prevProps, nextProps, instance);
+    return registeredEvents;
+}
+
+const eventMap$i = {
+    onDblClick: 'dblclick',
+    onDragEnd: 'dragend',
+    onDragStart: 'dragstart',
+    onMapTypeIdChanged: 'maptypeid_changed',
+    onMouseMove: 'mousemove',
+    onMouseOut: 'mouseout',
+    onMouseOver: 'mouseover',
+    onMouseDown: 'mousedown',
+    onMouseUp: 'mouseup',
+    onRightClick: 'rightclick',
+    onTilesLoaded: 'tilesloaded',
+    onBoundsChanged: 'bounds_changed',
+    onCenterChanged: 'center_changed',
+    onClick: 'click',
+    onDrag: 'drag',
+    onHeadingChanged: 'heading_changed',
+    onIdle: 'idle',
+    onProjectionChanged: 'projection_changed',
+    onResize: 'resize',
+    onTiltChanged: 'tilt_changed',
+    onZoomChanged: 'zoom_changed',
+};
+const updaterMap$i = {
+    extraMapTypes(map, extra) {
+        extra.forEach(function forEachExtra(it, i) {
+            map.mapTypes.set(String(i), it);
+        });
+    },
+    center(map, center) {
+        map.setCenter(center);
+    },
+    clickableIcons(map, clickable) {
+        map.setClickableIcons(clickable);
+    },
+    heading(map, heading) {
+        map.setHeading(heading);
+    },
+    mapTypeId(map, mapTypeId) {
+        map.setMapTypeId(mapTypeId);
+    },
+    options(map, options) {
+        map.setOptions(options);
+    },
+    streetView(map, streetView) {
+        map.setStreetView(streetView);
+    },
+    tilt(map, tilt) {
+        map.setTilt(tilt);
+    },
+    zoom(map, zoom) {
+        map.setZoom(zoom);
+    },
+};
+// function GoogleMapFunctional({ children, options, id, mapContainerStyle, center, clickableIcons, extraMapTypes, heading, mapContainerClassName, mapTypeId, onBoundsChanged, onCenterChanged, onClick, onDblClick, onDrag, onDragEnd, onDragStart, onHeadingChanged, onIdle, onProjectionChanged, onResize, onTiltChanged, onLoad }: GoogleMapProps): JSX.Element {
+//   const [map, setMap] = React.useState<google.maps.Map | null>(null)
+//   const ref = React.useRef<HTMLDivElement | null>(null)
+//   const getInstance = React.useCallback(() => {
+//     if (ref.current === null) {
+//       return null
+//     }
+//     return new google.maps.Map(ref.current, options)
+//   }, [options])
+//   React.useEffect(() => {
+//   }, [])
+//   const panTo = React.useCallback((latLng: google.maps.LatLng | google.maps.LatLngLiteral): void => {
+//     const map = getInstance()
+//     if (map) {
+//       map.panTo(latLng)
+//     }
+//   }, [])
+//   React.useEffect(() => {
+//     const map = getInstance()
+//   }, [])
+//   return (
+//     <div
+//         id={id}
+//         ref={ref}
+//         style={mapContainerStyle}
+//         className={mapContainerClassName}
+//       >
+//         <MapContext.Provider value={map}>
+//           {map !== null ? children : <></>}
+//         </MapContext.Provider>
+//       </div>
+//   )
+// }
+class GoogleMap extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.state = {
+            map: null,
+        };
+        this.registeredEvents = [];
+        this.mapRef = null;
+        this.getInstance = () => {
+            if (this.mapRef === null) {
+                return null;
+            }
+            return new google.maps.Map(this.mapRef, this.props.options);
+        };
+        this.panTo = (latLng) => {
+            const map = this.getInstance();
+            if (map) {
+                map.panTo(latLng);
+            }
+        };
+        this.setMapCallback = () => {
+            if (this.state.map !== null) {
+                if (this.props.onLoad) {
+                    this.props.onLoad(this.state.map);
+                }
+            }
+        };
+        this.getRef = (ref) => {
+            this.mapRef = ref;
+        };
+    }
+    componentDidMount() {
+        const map = this.getInstance();
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap: updaterMap$i,
+            eventMap: eventMap$i,
+            prevProps: {},
+            nextProps: this.props,
+            instance: map,
+        });
+        this.setState(function setMap() {
+            return {
+                map,
+            };
+        }, this.setMapCallback);
+    }
+    componentDidUpdate(prevProps) {
+        if (this.state.map !== null) {
+            unregisterEvents(this.registeredEvents);
+            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                updaterMap: updaterMap$i,
+                eventMap: eventMap$i,
+                prevProps,
+                nextProps: this.props,
+                instance: this.state.map,
+            });
+        }
+    }
+    componentWillUnmount() {
+        if (this.state.map !== null) {
+            if (this.props.onUnmount) {
+                this.props.onUnmount(this.state.map);
+            }
+            unregisterEvents(this.registeredEvents);
+        }
+    }
+    render() {
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: this.props.id, ref: this.getRef, style: this.props.mapContainerStyle, className: this.props.mapContainerClassName },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(MapContext.Provider, { value: this.state.map }, this.state.map !== null ? this.props.children : react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null))));
+    }
+}
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+
+function __rest$1(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+const isBrowser = typeof document !== 'undefined';
+
+const injectScript = ({ url, id, nonce }) => {
+    if (!isBrowser) {
+        return Promise.reject(new Error('document is undefined'));
+    }
+    return new Promise(function injectScriptCallback(resolve, reject) {
+        const existingScript = document.getElementById(id);
+        const windowWithGoogleMap = window;
+        if (existingScript) {
+            // Same script id/url: keep same script
+            const dataStateAttribute = existingScript.getAttribute('data-state');
+            if (existingScript.src === url && dataStateAttribute !== 'error') {
+                if (dataStateAttribute === 'ready') {
+                    return resolve(id);
+                }
+                else {
+                    const originalInitMap = windowWithGoogleMap.initMap;
+                    const originalErrorCallback = existingScript.onerror;
+                    windowWithGoogleMap.initMap = function initMap() {
+                        if (originalInitMap) {
+                            originalInitMap();
+                        }
+                        resolve(id);
+                    };
+                    existingScript.onerror = function (err) {
+                        if (originalErrorCallback) {
+                            originalErrorCallback(err);
+                        }
+                        reject(err);
+                    };
+                    return;
+                }
+            }
+            // Same script id, but either
+            // 1. requested URL is different
+            // 2. script failed to load
+            else {
+                existingScript.remove();
+            }
+        }
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = url;
+        script.id = id;
+        script.async = true;
+        script.nonce = nonce;
+        script.onerror = function onerror(err) {
+            script.setAttribute('data-state', 'error');
+            reject(err);
+        };
+        windowWithGoogleMap.initMap = function onload() {
+            script.setAttribute('data-state', 'ready');
+            resolve(id);
+        };
+        document.head.appendChild(script);
+    }).catch(err => {
+        console.error('injectScript error: ', err);
+        throw err;
+    });
+};
+
+const isRobotoStyle = (element) => {
+    // roboto font download
+    if (element.href &&
+        element.href.indexOf('https://fonts.googleapis.com/css?family=Roboto') ===
+            0) {
+        return true;
+    }
+    // roboto style elements
+    if (element.tagName.toLowerCase() === 'style' &&
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        element.styleSheet &&
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        element.styleSheet.cssText &&
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        element.styleSheet.cssText.replace('\r\n', '').indexOf('.gm-style') === 0) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        element.styleSheet.cssText = '';
+        return true;
+    }
+    // roboto style elements for other browsers
+    if (element.tagName.toLowerCase() === 'style' &&
+        element.innerHTML &&
+        element.innerHTML.replace('\r\n', '').indexOf('.gm-style') === 0) {
+        element.innerHTML = '';
+        return true;
+    }
+    // when google tries to add empty style
+    if (element.tagName.toLowerCase() === 'style' &&
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        !element.styleSheet &&
+        !element.innerHTML) {
+        return true;
+    }
+    return false;
+};
+// Preventing the Google Maps library from downloading an extra font
+const preventGoogleFonts = () => {
+    // we override these methods only for one particular head element
+    // default methods for other elements are not affected
+    const head = document.getElementsByTagName('head')[0];
+    const trueInsertBefore = head.insertBefore.bind(head);
+    // TODO: adding return before reflect solves the TS issue
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    head.insertBefore = function insertBefore(newElement, referenceElement) {
+        if (!isRobotoStyle(newElement)) {
+            Reflect.apply(trueInsertBefore, head, [newElement, referenceElement]);
+        }
+    };
+    const trueAppend = head.appendChild.bind(head);
+    // TODO: adding return before reflect solves the TS issue
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    head.appendChild = function appendChild(textNode) {
+        if (!isRobotoStyle(textNode)) {
+            Reflect.apply(trueAppend, head, [textNode]);
+        }
+    };
+};
+
+function makeLoadScriptUrl({ googleMapsApiKey, googleMapsClientId, version = 'weekly', language, region, libraries, channel, mapIds }) {
+    const params = [];
+    invariant_1((googleMapsApiKey && googleMapsClientId) || !(googleMapsApiKey && googleMapsClientId), 'You need to specify either googleMapsApiKey or googleMapsClientId for @react-google-maps/api load script to work. You cannot use both at the same time.');
+    if (googleMapsApiKey) {
+        params.push(`key=${googleMapsApiKey}`);
+    }
+    else if (googleMapsClientId) {
+        params.push(`client=${googleMapsClientId}`);
+    }
+    if (version) {
+        params.push(`v=${version}`);
+    }
+    if (language) {
+        params.push(`language=${language}`);
+    }
+    if (region) {
+        params.push(`region=${region}`);
+    }
+    if (libraries && libraries.length) {
+        params.push(`libraries=${libraries.sort().join(',')}`);
+    }
+    if (channel) {
+        params.push(`channel=${channel}`);
+    }
+    if (mapIds && mapIds.length) {
+        params.push(`map_ids=${mapIds.join(',')}`);
+    }
+    params.push('callback=initMap');
+    return `https://maps.googleapis.com/maps/api/js?${params.join('&')}`;
+}
+
+let cleaningUp = false;
+function DefaultLoadingElement() {
+    return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, `Loading...`);
+}
+const defaultLoadScriptProps = {
+    id: 'script-loader',
+    version: 'weekly',
+};
+class LoadScript extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.check = react__WEBPACK_IMPORTED_MODULE_0__.createRef();
+        this.state = {
+            loaded: false,
+        };
+        this.cleanupCallback = () => {
+            // @ts-ignore
+            delete window.google.maps;
+            this.injectScript();
+        };
+        this.isCleaningUp = () => __awaiter(this, void 0, void 0, function* () {
+            function promiseCallback(resolve) {
+                if (!cleaningUp) {
+                    resolve();
+                }
+                else {
+                    if (isBrowser) {
+                        const timer = window.setInterval(function interval() {
+                            if (!cleaningUp) {
+                                window.clearInterval(timer);
+                                resolve();
+                            }
+                        }, 1);
+                    }
+                }
+                return;
+            }
+            return new Promise(promiseCallback);
+        });
+        this.cleanup = () => {
+            cleaningUp = true;
+            const script = document.getElementById(this.props.id);
+            if (script && script.parentNode) {
+                script.parentNode.removeChild(script);
+            }
+            Array.prototype.slice
+                .call(document.getElementsByTagName('script'))
+                .filter(function filter(script) {
+                return typeof script.src === 'string' && script.src.includes('maps.googleapis');
+            })
+                .forEach(function forEach(script) {
+                if (script.parentNode) {
+                    script.parentNode.removeChild(script);
+                }
+            });
+            Array.prototype.slice
+                .call(document.getElementsByTagName('link'))
+                .filter(function filter(link) {
+                return (link.href === 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans');
+            })
+                .forEach(function forEach(link) {
+                if (link.parentNode) {
+                    link.parentNode.removeChild(link);
+                }
+            });
+            Array.prototype.slice
+                .call(document.getElementsByTagName('style'))
+                .filter(function filter(style) {
+                return (style.innerText !== undefined &&
+                    style.innerText.length > 0 &&
+                    style.innerText.includes('.gm-'));
+            })
+                .forEach(function forEach(style) {
+                if (style.parentNode) {
+                    style.parentNode.removeChild(style);
+                }
+            });
+        };
+        this.injectScript = () => {
+            if (this.props.preventGoogleFontsLoading) {
+                preventGoogleFonts();
+            }
+            invariant_1(!!this.props.id, 'LoadScript requires "id" prop to be a string: %s', this.props.id);
+            const injectScriptOptions = {
+                id: this.props.id,
+                nonce: this.props.nonce,
+                url: makeLoadScriptUrl(this.props),
+            };
+            injectScript(injectScriptOptions)
+                .then(() => {
+                if (this.props.onLoad) {
+                    this.props.onLoad();
+                }
+                this.setState(function setLoaded() {
+                    return {
+                        loaded: true,
+                    };
+                });
+                return;
+            })
+                .catch(err => {
+                if (this.props.onError) {
+                    this.props.onError(err);
+                }
+                console.error(`
+          There has been an Error with loading Google Maps API script, please check that you provided correct google API key (${this
+                    .props.googleMapsApiKey || '-'}) or Client ID (${this.props.googleMapsClientId ||
+                    '-'}) to <LoadScript />
+          Otherwise it is a Network issue.
+        `);
+            });
+        };
+    }
+    componentDidMount() {
+        if (isBrowser) {
+            if (window.google && window.google.maps && !cleaningUp) {
+                console.error('google api is already presented');
+                return;
+            }
+            this.isCleaningUp()
+                .then(this.injectScript)
+                .catch(function error(err) {
+                console.error('Error at injecting script after cleaning up: ', err);
+            });
+        }
+    }
+    componentDidUpdate(prevProps) {
+        if (this.props.libraries !== prevProps.libraries) {
+            console.warn('Performance warning! LoadScript has been reloaded unintentionally! You should not pass `libraries` prop as new array. Please keep an array of libraries as static class property for Components and PureComponents, or just a const variable outside of component, or somewhere in config files or ENV variables');
+        }
+        if (isBrowser && prevProps.language !== this.props.language) {
+            this.cleanup();
+            // TODO: refactor to use gDSFP maybe... wait for hooks refactoring.
+            // eslint-disable-next-line react/no-did-update-set-state
+            this.setState(function setLoaded() {
+                return {
+                    loaded: false,
+                };
+            }, this.cleanupCallback);
+        }
+    }
+    componentWillUnmount() {
+        if (isBrowser) {
+            this.cleanup();
+            const timeoutCallback = () => {
+                if (!this.check.current) {
+                    // @ts-ignore
+                    delete window.google;
+                    cleaningUp = false;
+                }
+            };
+            window.setTimeout(timeoutCallback, 1);
+            if (this.props.onUnmount) {
+                this.props.onUnmount();
+            }
+        }
+    }
+    render() {
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { ref: this.check }),
+            this.state.loaded
+                ? this.props.children
+                : this.props.loadingElement || react__WEBPACK_IMPORTED_MODULE_0__.createElement(DefaultLoadingElement, null)));
+    }
+}
+LoadScript.defaultProps = defaultLoadScriptProps;
+
+/* eslint-disable filenames/match-regex */
+let previouslyLoadedUrl;
+function useLoadScript({ id = defaultLoadScriptProps.id, version = defaultLoadScriptProps.version, nonce, googleMapsApiKey, googleMapsClientId, language, region, libraries, preventGoogleFontsLoading, channel, mapIds, }) {
+    const isMounted = react__WEBPACK_IMPORTED_MODULE_0__.useRef(false);
+    const [isLoaded, setLoaded] = react__WEBPACK_IMPORTED_MODULE_0__.useState(false);
+    const [loadError, setLoadError] = react__WEBPACK_IMPORTED_MODULE_0__.useState(undefined);
+    react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function trackMountedState() {
+        isMounted.current = true;
+        return () => {
+            isMounted.current = false;
+        };
+    }, []);
+    react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function applyPreventGoogleFonts() {
+        if (isBrowser && preventGoogleFontsLoading) {
+            preventGoogleFonts();
+        }
+    }, [preventGoogleFontsLoading]);
+    react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function validateLoadedState() {
+        if (isLoaded) {
+            invariant_1(!!window.google, 'useLoadScript was marked as loaded, but window.google is not present. Something went wrong.');
+        }
+    }, [isLoaded]);
+    const url = makeLoadScriptUrl({
+        version,
+        googleMapsApiKey,
+        googleMapsClientId,
+        language,
+        region,
+        libraries,
+        channel,
+        mapIds
+    });
+    react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function loadScriptAndModifyLoadedState() {
+        if (!isBrowser) {
+            return;
+        }
+        function setLoadedIfMounted() {
+            if (isMounted.current) {
+                setLoaded(true);
+                previouslyLoadedUrl = url;
+            }
+        }
+        if (window.google && window.google.maps && previouslyLoadedUrl === url) {
+            setLoadedIfMounted();
+            return;
+        }
+        injectScript({ id, url, nonce })
+            .then(setLoadedIfMounted)
+            .catch(function handleInjectError(err) {
+            if (isMounted.current) {
+                setLoadError(err);
+            }
+            console.warn(`
+        There has been an Error with loading Google Maps API script, please check that you provided correct google API key (${googleMapsApiKey ||
+                '-'}) or Client ID (${googleMapsClientId || '-'})
+        Otherwise it is a Network issue.
+      `);
+            console.error(err);
+        });
+    }, [id, url, nonce]);
+    const prevLibraries = react__WEBPACK_IMPORTED_MODULE_0__.useRef();
+    react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function checkPerformance() {
+        if (prevLibraries.current && libraries !== prevLibraries.current) {
+            console.warn('Performance warning! LoadScript has been reloaded unintentionally! You should not pass `libraries` prop as new array. Please keep an array of libraries as static class property for Components and PureComponents, or just a const variable outside of component, or somewhere in config files or ENV variables');
+        }
+        prevLibraries.current = libraries;
+    }, [libraries]);
+    return { isLoaded, loadError, url };
+}
+
+const defaultLoadingElement = react__WEBPACK_IMPORTED_MODULE_0__.createElement(DefaultLoadingElement, null);
+function LoadScriptNext(_a) {
+    var { loadingElement, onLoad, onError, onUnmount, children } = _a, hookOptions = __rest$1(_a, ["loadingElement", "onLoad", "onError", "onUnmount", "children"]);
+    const { isLoaded, loadError } = useLoadScript(hookOptions);
+    react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function handleOnLoad() {
+        if (isLoaded && typeof onLoad === 'function') {
+            onLoad();
+        }
+    }, [isLoaded, onLoad]);
+    react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function handleOnError() {
+        if (loadError && typeof onError === 'function') {
+            onError(loadError);
+        }
+    }, [loadError, onError]);
+    react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function handleOnUnmount() {
+        return () => {
+            if (onUnmount) {
+                onUnmount();
+            }
+        };
+    }, [onUnmount]);
+    return isLoaded ? children : loadingElement || defaultLoadingElement;
+}
+var LoadScriptNext$1 = react__WEBPACK_IMPORTED_MODULE_0__.memo(LoadScriptNext);
+
+// do not edit .js files directly - edit src/index.jst
+
+
+
+var fastDeepEqual = function equal(a, b) {
+  if (a === b) return true;
+
+  if (a && b && typeof a == 'object' && typeof b == 'object') {
+    if (a.constructor !== b.constructor) return false;
+
+    var length, i, keys;
+    if (Array.isArray(a)) {
+      length = a.length;
+      if (length != b.length) return false;
+      for (i = length; i-- !== 0;)
+        if (!equal(a[i], b[i])) return false;
+      return true;
+    }
+
+
+
+    if (a.constructor === RegExp) return a.source === b.source && a.flags === b.flags;
+    if (a.valueOf !== Object.prototype.valueOf) return a.valueOf() === b.valueOf();
+    if (a.toString !== Object.prototype.toString) return a.toString() === b.toString();
+
+    keys = Object.keys(a);
+    length = keys.length;
+    if (length !== Object.keys(b).length) return false;
+
+    for (i = length; i-- !== 0;)
+      if (!Object.prototype.hasOwnProperty.call(b, keys[i])) return false;
+
+    for (i = length; i-- !== 0;) {
+      var key = keys[i];
+
+      if (!equal(a[key], b[key])) return false;
+    }
+
+    return true;
+  }
+
+  // true if both NaN, false otherwise
+  return a!==a && b!==b;
+};
+
+/**
+ * Copyright 2019 Google LLC. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at.
+ *
+ *      Http://www.apache.org/licenses/LICENSE-2.0.
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+const DEFAULT_ID = "__googleMapsScriptId";
+/**
+ * [[Loader]] makes it easier to add Google Maps JavaScript API to your application
+ * dynamically using
+ * [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+ * It works by dynamically creating and appending a script node to the the
+ * document head and wrapping the callback function so as to return a promise.
+ *
+ * ```
+ * const loader = new Loader({
+ *   apiKey: "",
+ *   version: "weekly",
+ *   libraries: ["places"]
+ * });
+ *
+ * loader.load().then((google) => {
+ *   const map = new google.maps.Map(...)
+ * })
+ * ```
+ */
+class Loader {
+    /**
+     * Creates an instance of Loader using [[LoaderOptions]]. No defaults are set
+     * using this library, instead the defaults are set by the Google Maps
+     * JavaScript API server.
+     *
+     * ```
+     * const loader = Loader({apiKey, version: 'weekly', libraries: ['places']});
+     * ```
+     */
+    constructor({ apiKey, channel, client, id = DEFAULT_ID, libraries = [], language, region, version, mapIds, nonce, retries = 3, url = "https://maps.googleapis.com/maps/api/js", }) {
+        this.CALLBACK = "__googleMapsCallback";
+        this.callbacks = [];
+        this.done = false;
+        this.loading = false;
+        this.errors = [];
+        this.version = version;
+        this.apiKey = apiKey;
+        this.channel = channel;
+        this.client = client;
+        this.id = id || DEFAULT_ID; // Do not allow empty string
+        this.libraries = libraries;
+        this.language = language;
+        this.region = region;
+        this.mapIds = mapIds;
+        this.nonce = nonce;
+        this.retries = retries;
+        this.url = url;
+        if (Loader.instance) {
+            if (!fastDeepEqual(this.options, Loader.instance.options)) {
+                throw new Error(`Loader must not be called again with different options. ${JSON.stringify(this.options)} !== ${JSON.stringify(Loader.instance.options)}`);
+            }
+            return Loader.instance;
+        }
+        Loader.instance = this;
+    }
+    get options() {
+        return {
+            version: this.version,
+            apiKey: this.apiKey,
+            channel: this.channel,
+            client: this.client,
+            id: this.id,
+            libraries: this.libraries,
+            language: this.language,
+            region: this.region,
+            mapIds: this.mapIds,
+            nonce: this.nonce,
+            url: this.url,
+        };
+    }
+    get failed() {
+        return this.done && !this.loading && this.errors.length >= this.retries + 1;
+    }
+    /**
+     * CreateUrl returns the Google Maps JavaScript API script url given the [[LoaderOptions]].
+     *
+     * @ignore
+     */
+    createUrl() {
+        let url = this.url;
+        url += `?callback=${this.CALLBACK}`;
+        if (this.apiKey) {
+            url += `&key=${this.apiKey}`;
+        }
+        if (this.channel) {
+            url += `&channel=${this.channel}`;
+        }
+        if (this.client) {
+            url += `&client=${this.client}`;
+        }
+        if (this.libraries.length > 0) {
+            url += `&libraries=${this.libraries.join(",")}`;
+        }
+        if (this.language) {
+            url += `&language=${this.language}`;
+        }
+        if (this.region) {
+            url += `&region=${this.region}`;
+        }
+        if (this.version) {
+            url += `&v=${this.version}`;
+        }
+        if (this.mapIds) {
+            url += `&map_ids=${this.mapIds.join(",")}`;
+        }
+        return url;
+    }
+    deleteScript() {
+        const script = document.getElementById(this.id);
+        if (script) {
+            script.remove();
+        }
+    }
+    /**
+     * Load the Google Maps JavaScript API script and return a Promise.
+     */
+    load() {
+        return this.loadPromise();
+    }
+    /**
+     * Load the Google Maps JavaScript API script and return a Promise.
+     *
+     * @ignore
+     */
+    loadPromise() {
+        return new Promise((resolve, reject) => {
+            this.loadCallback((err) => {
+                if (!err) {
+                    resolve(window.google);
+                }
+                else {
+                    reject(err.error);
+                }
+            });
+        });
+    }
+    /**
+     * Load the Google Maps JavaScript API script with a callback.
+     */
+    loadCallback(fn) {
+        this.callbacks.push(fn);
+        this.execute();
+    }
+    /**
+     * Set the script on document.
+     */
+    setScript() {
+        if (document.getElementById(this.id)) {
+            // TODO wrap onerror callback for cases where the script was loaded elsewhere
+            this.callback();
+            return;
+        }
+        const url = this.createUrl();
+        const script = document.createElement("script");
+        script.id = this.id;
+        script.type = "text/javascript";
+        script.src = url;
+        script.onerror = this.loadErrorCallback.bind(this);
+        script.defer = true;
+        script.async = true;
+        if (this.nonce) {
+            script.nonce = this.nonce;
+        }
+        document.head.appendChild(script);
+    }
+    /**
+     * Reset the loader state.
+     */
+    reset() {
+        this.deleteScript();
+        this.done = false;
+        this.loading = false;
+        this.errors = [];
+        this.onerrorEvent = null;
+    }
+    resetIfRetryingFailed() {
+        if (this.failed) {
+            this.reset();
+        }
+    }
+    loadErrorCallback(e) {
+        this.errors.push(e);
+        if (this.errors.length <= this.retries) {
+            const delay = this.errors.length * Math.pow(2, this.errors.length);
+            console.log(`Failed to load Google Maps script, retrying in ${delay} ms.`);
+            setTimeout(() => {
+                this.deleteScript();
+                this.setScript();
+            }, delay);
+        }
+        else {
+            this.onerrorEvent = e;
+            this.callback();
+        }
+    }
+    setCallback() {
+        window.__googleMapsCallback = this.callback.bind(this);
+    }
+    callback() {
+        this.done = true;
+        this.loading = false;
+        this.callbacks.forEach((cb) => {
+            cb(this.onerrorEvent);
+        });
+        this.callbacks = [];
+    }
+    execute() {
+        this.resetIfRetryingFailed();
+        if (this.done) {
+            this.callback();
+        }
+        else {
+            // short circuit and warn if google.maps is already loaded
+            if (window.google && window.google.maps && window.google.maps.version) {
+                console.warn("Google Maps already loaded outside @googlemaps/js-api-loader." +
+                    "This may result in undesirable behavior as options and script parameters may not match.");
+                this.callback();
+                return;
+            }
+            if (this.loading) ;
+            else {
+                this.loading = true;
+                this.setCallback();
+                this.setScript();
+            }
+        }
+    }
+}
+
+/* eslint-disable filenames/match-regex */
+function useJsApiLoader({ id = defaultLoadScriptProps.id, version = defaultLoadScriptProps.version, nonce, googleMapsApiKey, 
+// googleMapsClientId,
+language, region, libraries, preventGoogleFontsLoading, 
+// channel,
+mapIds, }) {
+    const isMounted = react__WEBPACK_IMPORTED_MODULE_0__.useRef(false);
+    const [isLoaded, setLoaded] = react__WEBPACK_IMPORTED_MODULE_0__.useState(false);
+    const [loadError, setLoadError] = react__WEBPACK_IMPORTED_MODULE_0__.useState(undefined);
+    react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function trackMountedState() {
+        isMounted.current = true;
+        return () => {
+            isMounted.current = false;
+        };
+    }, []);
+    const loader = react__WEBPACK_IMPORTED_MODULE_0__.useMemo(function memo() {
+        return new Loader({
+            id,
+            apiKey: googleMapsApiKey,
+            version,
+            libraries,
+            language,
+            region,
+            mapIds,
+            nonce,
+        });
+    }, [id, googleMapsApiKey, version, libraries, language, region, mapIds, nonce]);
+    react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function effect() {
+        if (isLoaded) {
+            return;
+        }
+        else {
+            loader.load().then(function then() {
+                if (isMounted.current)
+                    setLoaded(true);
+            })
+                .catch(function onrejected(error) {
+                setLoadError(error);
+            });
+        }
+    }, []);
+    react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function applyPreventGoogleFonts() {
+        if (isBrowser && preventGoogleFontsLoading) {
+            preventGoogleFonts();
+        }
+    }, [preventGoogleFontsLoading]);
+    const prevLibraries = react__WEBPACK_IMPORTED_MODULE_0__.useRef();
+    react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function effect() {
+        if (prevLibraries.current && libraries !== prevLibraries.current) {
+            console.warn('Performance warning! LoadScript has been reloaded unintentionally! You should not pass `libraries` prop as new array. Please keep an array of libraries as static class property for Components and PureComponents, or just a const variable outside of component, or somewhere in config files or ENV variables');
+        }
+        prevLibraries.current = libraries;
+    }, [libraries]);
+    return { isLoaded, loadError };
+}
+
+const eventMap$h = {};
+const updaterMap$h = {
+    options(instance, options) {
+        instance.setOptions(options);
+    },
+};
+class TrafficLayer extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.state = {
+            trafficLayer: null,
+        };
+        this.setTrafficLayerCallback = () => {
+            if (this.state.trafficLayer !== null) {
+                if (this.props.onLoad) {
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                    // @ts-ignore
+                    this.props.onLoad(this.state.trafficLayer);
+                }
+            }
+        };
+        this.registeredEvents = [];
+    }
+    componentDidMount() {
+        const trafficLayer = new google.maps.TrafficLayer(Object.assign(Object.assign({}, (this.props.options || {})), { map: this.context }));
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap: updaterMap$h,
+            eventMap: eventMap$h,
+            prevProps: {},
+            nextProps: this.props,
+            instance: trafficLayer,
+        });
+        this.setState(function setTrafficLayer() {
+            return {
+                trafficLayer,
+            };
+        }, this.setTrafficLayerCallback);
+    }
+    componentDidUpdate(prevProps) {
+        if (this.state.trafficLayer !== null) {
+            unregisterEvents(this.registeredEvents);
+            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                updaterMap: updaterMap$h,
+                eventMap: eventMap$h,
+                prevProps,
+                nextProps: this.props,
+                instance: this.state.trafficLayer,
+            });
+        }
+    }
+    componentWillUnmount() {
+        if (this.state.trafficLayer !== null) {
+            if (this.props.onUnmount) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                // @ts-ignore
+                this.props.onUnmount(this.state.trafficLayer);
+            }
+            unregisterEvents(this.registeredEvents);
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            this.state.trafficLayer.setMap(null);
+        }
+    }
+    render() {
+        return null;
+    }
+}
+TrafficLayer.contextType = MapContext;
+
+class BicyclingLayer extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.state = {
+            bicyclingLayer: null,
+        };
+        this.setBicyclingLayerCallback = () => {
+            if (this.state.bicyclingLayer !== null) {
+                // TODO: how is this possibly null if we're doing a null check
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                // @ts-ignore
+                this.state.bicyclingLayer.setMap(this.context);
+                if (this.props.onLoad) {
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                    // @ts-ignore
+                    this.props.onLoad(this.state.bicyclingLayer);
+                }
+            }
+        };
+    }
+    componentDidMount() {
+        const bicyclingLayer = new google.maps.BicyclingLayer();
+        this.setState(function setBicyclingLayer() {
+            return {
+                bicyclingLayer,
+            };
+        }, this.setBicyclingLayerCallback);
+    }
+    componentWillUnmount() {
+        if (this.state.bicyclingLayer !== null) {
+            if (this.props.onUnmount) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                // @ts-ignore
+                this.props.onUnmount(this.state.bicyclingLayer);
+            }
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            this.state.bicyclingLayer.setMap(null);
+        }
+    }
+    render() {
+        return null;
+    }
+}
+BicyclingLayer.contextType = MapContext;
+
+class TransitLayer extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.state = {
+            transitLayer: null,
+        };
+        this.setTransitLayerCallback = () => {
+            if (this.state.transitLayer !== null) {
+                // TODO: how is this possibly null if we're doing a null check
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                // @ts-ignore
+                this.state.transitLayer.setMap(this.context);
+                if (this.props.onLoad) {
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                    // @ts-ignore
+                    this.props.onLoad(this.state.transitLayer);
+                }
+            }
+        };
+    }
+    componentDidMount() {
+        const transitLayer = new google.maps.TransitLayer();
+        this.setState(function setTransitLayer() {
+            return {
+                transitLayer,
+            };
+        }, this.setTransitLayerCallback);
+    }
+    componentWillUnmount() {
+        if (this.state.transitLayer !== null) {
+            if (this.props.onUnmount) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                // @ts-ignore
+                this.props.onUnmount(this.state.transitLayer);
+            }
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            this.state.transitLayer.setMap(null);
+        }
+    }
+    render() {
+        return null;
+    }
+}
+TransitLayer.contextType = MapContext;
+
+/* globals google */
+const eventMap$g = {
+    onCircleComplete: 'circlecomplete',
+    onMarkerComplete: 'markercomplete',
+    onOverlayComplete: 'overlaycomplete',
+    onPolygonComplete: 'polygoncomplete',
+    onPolylineComplete: 'polylinecomplete',
+    onRectangleComplete: 'rectanglecomplete',
+};
+const updaterMap$g = {
+    drawingMode(instance, drawingMode) {
+        instance.setDrawingMode(drawingMode);
+    },
+    options(instance, options) {
+        instance.setOptions(options);
+    },
+};
+class DrawingManager extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor(props) {
+        super(props);
+        this.registeredEvents = [];
+        this.state = {
+            drawingManager: null,
+        };
+        this.setDrawingManagerCallback = () => {
+            if (this.state.drawingManager !== null && this.props.onLoad) {
+                this.props.onLoad(this.state.drawingManager);
+            }
+        };
+        invariant_1(!!google.maps.drawing, `Did you include prop libraries={['drawing']} in the URL? %s`, google.maps.drawing);
+    }
+    componentDidMount() {
+        const drawingManager = new google.maps.drawing.DrawingManager(Object.assign(Object.assign({}, (this.props.options || {})), { map: this.context }));
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap: updaterMap$g,
+            eventMap: eventMap$g,
+            prevProps: {},
+            nextProps: this.props,
+            instance: drawingManager,
+        });
+        this.setState(function setDrawingManager() {
+            return {
+                drawingManager,
+            };
+        }, this.setDrawingManagerCallback);
+    }
+    componentDidUpdate(prevProps) {
+        if (this.state.drawingManager !== null) {
+            unregisterEvents(this.registeredEvents);
+            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                updaterMap: updaterMap$g,
+                eventMap: eventMap$g,
+                prevProps,
+                nextProps: this.props,
+                instance: this.state.drawingManager,
+            });
+        }
+    }
+    componentWillUnmount() {
+        if (this.state.drawingManager !== null) {
+            if (this.props.onUnmount) {
+                this.props.onUnmount(this.state.drawingManager);
+            }
+            unregisterEvents(this.registeredEvents);
+            this.state.drawingManager.setMap(null);
+        }
+    }
+    render() {
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
+    }
+}
+DrawingManager.contextType = MapContext;
+
+const eventMap$f = {
+    onAnimationChanged: 'animation_changed',
+    onClick: 'click',
+    onClickableChanged: 'clickable_changed',
+    onCursorChanged: 'cursor_changed',
+    onDblClick: 'dblclick',
+    onDrag: 'drag',
+    onDragEnd: 'dragend',
+    onDraggableChanged: 'draggable_changed',
+    onDragStart: 'dragstart',
+    onFlatChanged: 'flat_changed',
+    onIconChanged: 'icon_changed',
+    onMouseDown: 'mousedown',
+    onMouseOut: 'mouseout',
+    onMouseOver: 'mouseover',
+    onMouseUp: 'mouseup',
+    onPositionChanged: 'position_changed',
+    onRightClick: 'rightclick',
+    onShapeChanged: 'shape_changed',
+    onTitleChanged: 'title_changed',
+    onVisibleChanged: 'visible_changed',
+    onZindexChanged: 'zindex_changed',
+};
+const updaterMap$f = {
+    animation(instance, animation) {
+        instance.setAnimation(animation);
+    },
+    clickable(instance, clickable) {
+        instance.setClickable(clickable);
+    },
+    cursor(instance, cursor) {
+        instance.setCursor(cursor);
+    },
+    draggable(instance, draggable) {
+        instance.setDraggable(draggable);
+    },
+    icon(instance, icon) {
+        instance.setIcon(icon);
+    },
+    label(instance, label) {
+        instance.setLabel(label);
+    },
+    map(instance, map) {
+        instance.setMap(map);
+    },
+    opacity(instance, opacity) {
+        instance.setOpacity(opacity);
+    },
+    options(instance, options) {
+        instance.setOptions(options);
+    },
+    position(instance, position) {
+        instance.setPosition(position);
+    },
+    shape(instance, shape) {
+        instance.setShape(shape);
+    },
+    title(instance, title) {
+        instance.setTitle(title);
+    },
+    visible(instance, visible) {
+        instance.setVisible(visible);
+    },
+    zIndex(instance, zIndex) {
+        instance.setZIndex(zIndex);
+    },
+};
+class Marker extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.registeredEvents = [];
+    }
+    componentDidMount() {
+        const markerOptions = Object.assign(Object.assign(Object.assign({}, (this.props.options || {})), (this.props.clusterer ? {} : { map: this.context })), { position: this.props.position });
+        // Unfortunately we can't just do this in the contstructor, because the
+        // `MapContext` might not be filled in yet.
+        this.marker = new google.maps.Marker(markerOptions);
+        if (this.props.clusterer) {
+            this.props.clusterer.addMarker(this.marker, !!this.props.noClustererRedraw);
+        }
+        else {
+            this.marker.setMap(this.context);
+        }
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap: updaterMap$f,
+            eventMap: eventMap$f,
+            prevProps: {},
+            nextProps: this.props,
+            instance: this.marker,
+        });
+        if (this.props.onLoad) {
+            this.props.onLoad(this.marker);
+        }
+    }
+    componentDidUpdate(prevProps) {
+        if (this.marker) {
+            unregisterEvents(this.registeredEvents);
+            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                updaterMap: updaterMap$f,
+                eventMap: eventMap$f,
+                prevProps,
+                nextProps: this.props,
+                instance: this.marker,
+            });
+        }
+    }
+    componentWillUnmount() {
+        if (this.marker) {
+            if (this.props.onUnmount) {
+                this.props.onUnmount(this.marker);
+            }
+            unregisterEvents(this.registeredEvents);
+            if (this.props.clusterer) {
+                this.props.clusterer.removeMarker(this.marker, !!this.props.noClustererRedraw);
+            }
+            else {
+                this.marker && this.marker.setMap(null);
+            }
+        }
+    }
+    render() {
+        let children = null;
+        if (this.props.children) {
+            children = react__WEBPACK_IMPORTED_MODULE_0__.Children.map(this.props.children, child => {
+                if (!react__WEBPACK_IMPORTED_MODULE_0__.isValidElement(child)) {
+                    return child;
+                }
+                let elementChild = child;
+                return react__WEBPACK_IMPORTED_MODULE_0__.cloneElement(elementChild, { anchor: this.marker });
+            });
+        }
+        return children || null;
+    }
+}
+Marker.contextType = MapContext;
+
+var ClusterIcon = /** @class */ (function () {
+    function ClusterIcon(cluster, styles) {
+        cluster.getClusterer().extend(ClusterIcon, google.maps.OverlayView);
+        this.cluster = cluster;
+        this.clusterClassName = this.cluster.getClusterer().getClusterClass();
+        this.className = this.clusterClassName;
+        this.styles = styles;
+        this.center = undefined;
+        this.div = null;
+        this.sums = null;
+        this.visible = false;
+        this.boundsChangedListener = null;
+        this.url = '';
+        this.height = 0;
+        this.width = 0;
+        this.anchorText = [0, 0];
+        this.anchorIcon = [0, 0];
+        this.textColor = 'black';
+        this.textSize = 11;
+        this.textDecoration = 'none';
+        this.fontWeight = 'bold';
+        this.fontStyle = 'normal';
+        this.fontFamily = 'Arial,sans-serif';
+        this.backgroundPosition = '0 0';
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        this.setMap(cluster.getMap()); // Note: this causes onAdd to be called
+    }
+    ClusterIcon.prototype.onAdd = function () {
+        var _this = this;
+        var cMouseDownInCluster;
+        var cDraggingMapByCluster;
+        this.div = document.createElement('div');
+        this.div.className = this.className;
+        if (this.visible) {
+            this.show();
+        }
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        this.getPanes().overlayMouseTarget.appendChild(this.div);
+        // Fix for Issue 157
+        this.boundsChangedListener = google.maps.event.addListener(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        this.getMap(), 'boundschanged', function boundsChanged() {
+            cDraggingMapByCluster = cMouseDownInCluster;
+        });
+        google.maps.event.addDomListener(this.div, 'mousedown', function onMouseDown() {
+            cMouseDownInCluster = true;
+            cDraggingMapByCluster = false;
+        });
+        // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
+        google.maps.event.addDomListener(this.div, 'click', 
+        // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
+        function (event) {
+            cMouseDownInCluster = false;
+            if (!cDraggingMapByCluster) {
+                var markerClusterer_1 = _this.cluster.getClusterer();
+                /**
+                 * This event is fired when a cluster marker is clicked.
+                 * @name MarkerClusterer#click
+                 * @param {Cluster} c The cluster that was clicked.
+                 * @event
+                 */
+                google.maps.event.trigger(markerClusterer_1, 'click', _this.cluster);
+                google.maps.event.trigger(markerClusterer_1, 'clusterclick', _this.cluster); // deprecated name
+                // The default click handler follows. Disable it by setting
+                // the zoomOnClick property to false.
+                if (markerClusterer_1.getZoomOnClick()) {
+                    // Zoom into the cluster.
+                    var maxZoom_1 = markerClusterer_1.getMaxZoom();
+                    var bounds_1 = _this.cluster.getBounds();
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                    // @ts-ignore
+                    markerClusterer_1.getMap().fitBounds(bounds_1);
+                    // There is a fix for Issue 170 here:
+                    setTimeout(function timeout() {
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                        // @ts-ignore
+                        markerClusterer_1.getMap().fitBounds(bounds_1);
+                        // Don't zoom beyond the max zoom level
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                        // @ts-ignore
+                        if (maxZoom_1 !== null && markerClusterer_1.getMap().getZoom() > maxZoom_1) {
+                            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                            // @ts-ignore
+                            markerClusterer_1.getMap().setZoom(maxZoom_1 + 1);
+                        }
+                    }, 100);
+                }
+                // Prevent event propagation to the map:
+                event.cancelBubble = true;
+                if (event.stopPropagation) {
+                    event.stopPropagation();
+                }
+            }
+        });
+        google.maps.event.addDomListener(this.div, 'mouseover', 
+        // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
+        function () {
+            /**
+             * This event is fired when the mouse moves over a cluster marker.
+             * @name MarkerClusterer#mouseover
+             * @param {Cluster} c The cluster that the mouse moved over.
+             * @event
+             */
+            google.maps.event.trigger(_this.cluster.getClusterer(), 'mouseover', _this.cluster);
+        });
+        // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
+        google.maps.event.addDomListener(this.div, 'mouseout', 
+        // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
+        function () {
+            /**
+             * This event is fired when the mouse moves out of a cluster marker.
+             * @name MarkerClusterer#mouseout
+             * @param {Cluster} c The cluster that the mouse moved out of.
+             * @event
+             */
+            google.maps.event.trigger(_this.cluster.getClusterer(), 'mouseout', _this.cluster);
+        });
+    };
+    ClusterIcon.prototype.onRemove = function () {
+        if (this.div && this.div.parentNode) {
+            this.hide();
+            if (this.boundsChangedListener !== null) {
+                google.maps.event.removeListener(this.boundsChangedListener);
+            }
+            google.maps.event.clearInstanceListeners(this.div);
+            this.div.parentNode.removeChild(this.div);
+            this.div = null;
+        }
+    };
+    ClusterIcon.prototype.draw = function () {
+        if (this.visible && this.div !== null && this.center) {
+            var _a = this.getPosFromLatLng(this.center), x = _a.x, y = _a.y;
+            this.div.style.top = y + 'px';
+            this.div.style.left = x + 'px';
+        }
+    };
+    ClusterIcon.prototype.hide = function () {
+        if (this.div) {
+            this.div.style.display = 'none';
+        }
+        this.visible = false;
+    };
+    ClusterIcon.prototype.show = function () {
+        if (this.div && this.center) {
+            var img = '', divTitle = '';
+            // NOTE: values must be specified in px units
+            var bp = this.backgroundPosition.split(' ');
+            var spriteH = parseInt(bp[0].replace(/^\s+|\s+$/g, ''), 10);
+            var spriteV = parseInt(bp[1].replace(/^\s+|\s+$/g, ''), 10);
+            var pos = this.getPosFromLatLng(this.center);
+            if (this.sums === null || typeof this.sums.title === 'undefined' || this.sums.title === '') {
+                divTitle = this.cluster.getClusterer().getTitle();
+            }
+            else {
+                divTitle = this.sums.title;
+            }
+            this.div.style.cssText = this.createCss(pos);
+            img =
+                "<img alt='" +
+                    divTitle +
+                    "' src='" +
+                    this.url +
+                    "' style='position: absolute; top: " +
+                    spriteV +
+                    'px; left: ' +
+                    spriteH +
+                    'px; ';
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            //@ts-ignore
+            if (!this.cluster.getClusterer().enableRetinaIcons) {
+                img +=
+                    'clip: rect(' +
+                        -1 * spriteV +
+                        'px, ' +
+                        (-1 * spriteH + this.width) +
+                        'px, ' +
+                        (-1 * spriteV + this.height) +
+                        'px, ' +
+                        -1 * spriteH +
+                        'px);';
+            }
+            img += "'>";
+            this.div.innerHTML =
+                img +
+                    "<div style='" +
+                    'position: absolute;' +
+                    'top: ' +
+                    this.anchorText[0] +
+                    'px;' +
+                    'left: ' +
+                    this.anchorText[1] +
+                    'px;' +
+                    'color: ' +
+                    this.textColor +
+                    ';' +
+                    'font-size: ' +
+                    this.textSize +
+                    'px;' +
+                    'font-family: ' +
+                    this.fontFamily +
+                    ';' +
+                    'font-weight: ' +
+                    this.fontWeight +
+                    ';' +
+                    'font-style: ' +
+                    this.fontStyle +
+                    ';' +
+                    'text-decoration: ' +
+                    this.textDecoration +
+                    ';' +
+                    'text-align: center;' +
+                    'width: ' +
+                    this.width +
+                    'px;' +
+                    'line-height:' +
+                    this.height +
+                    'px;' +
+                    "'>" +
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                    // @ts-ignore
+                    this.sums.text +
+                    '</div>';
+            this.div.title = divTitle;
+            this.div.style.display = '';
+        }
+        this.visible = true;
+    };
+    ClusterIcon.prototype.useStyle = function (sums) {
+        this.sums = sums;
+        var styles = this.cluster.getClusterer().getStyles();
+        var style = styles[Math.min(styles.length - 1, Math.max(0, sums.index - 1))];
+        this.url = style.url;
+        this.height = style.height;
+        this.width = style.width;
+        if (style.className)
+            this.className = this.clusterClassName + " " + style.className;
+        this.anchorText = style.anchorText || [0, 0];
+        this.anchorIcon = style.anchorIcon || [this.height / 2, this.width / 2];
+        this.textColor = style.textColor || 'black';
+        this.textSize = style.textSize || 11;
+        this.textDecoration = style.textDecoration || 'none';
+        this.fontWeight = style.fontWeight || 'bold';
+        this.fontStyle = style.fontStyle || 'normal';
+        this.fontFamily = style.fontFamily || 'Arial,sans-serif';
+        this.backgroundPosition = style.backgroundPosition || '0 0';
+    };
+    ClusterIcon.prototype.setCenter = function (center) {
+        this.center = center;
+    };
+    ClusterIcon.prototype.createCss = function (pos) {
+        var style = [];
+        style.push('cursor: pointer;');
+        style.push('position: absolute; top: ' + pos.y + 'px; left: ' + pos.x + 'px;');
+        style.push('width: ' + this.width + 'px; height: ' + this.height + 'px;');
+        return style.join('');
+    };
+    ClusterIcon.prototype.getPosFromLatLng = function (latlng) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        var pos = this.getProjection().fromLatLngToDivPixel(latlng);
+        pos.x -= this.anchorIcon[1];
+        pos.y -= this.anchorIcon[0];
+        // pos.x = pos.x
+        // pos.y = pos.y
+        return pos;
+    };
+    return ClusterIcon;
+}());
+
+var Cluster$1 = /** @class */ (function () {
+    function Cluster(markerClusterer) {
+        this.markerClusterer = markerClusterer;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        this.map = this.markerClusterer.getMap();
+        this.gridSize = this.markerClusterer.getGridSize();
+        this.minClusterSize = this.markerClusterer.getMinimumClusterSize();
+        this.averageCenter = this.markerClusterer.getAverageCenter();
+        this.markers = [];
+        this.center = undefined;
+        this.bounds = null;
+        this.clusterIcon = new ClusterIcon(this, this.markerClusterer.getStyles());
+    }
+    Cluster.prototype.getSize = function () {
+        return this.markers.length;
+    };
+    Cluster.prototype.getMarkers = function () {
+        return this.markers;
+    };
+    Cluster.prototype.getCenter = function () {
+        return this.center;
+    };
+    Cluster.prototype.getMap = function () {
+        return this.map;
+    };
+    Cluster.prototype.getClusterer = function () {
+        return this.markerClusterer;
+    };
+    Cluster.prototype.getBounds = function () {
+        var bounds = new google.maps.LatLngBounds(this.center, this.center);
+        var markers = this.getMarkers();
+        for (var i = 0; i < markers.length; i++) {
+            var position = markers[i].getPosition();
+            if (position) {
+                bounds.extend(position);
+            }
+        }
+        return bounds;
+    };
+    Cluster.prototype.remove = function () {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        this.clusterIcon.setMap(null);
+        this.markers = [];
+        // @ts-ignore
+        delete this.markers;
+    };
+    Cluster.prototype.addMarker = function (marker) {
+        if (this.isMarkerAlreadyAdded(marker)) {
+            return false;
+        }
+        if (!this.center) {
+            var position = marker.getPosition();
+            if (position) {
+                this.center = position;
+                this.calculateBounds();
+            }
+        }
+        else {
+            if (this.averageCenter) {
+                var position = marker.getPosition();
+                if (position) {
+                    var length_1 = this.markers.length + 1;
+                    this.center = new google.maps.LatLng((this.center.lat() * (length_1 - 1) + position.lat()) / length_1, (this.center.lng() * (length_1 - 1) + position.lng()) / length_1);
+                    this.calculateBounds();
+                }
+            }
+        }
+        marker.isAdded = true;
+        this.markers.push(marker);
+        var mCount = this.markers.length;
+        var maxZoom = this.markerClusterer.getMaxZoom();
+        var zoom = this.map.getZoom();
+        if (maxZoom !== null && typeof zoom !== 'undefined' && zoom > maxZoom) {
+            // Zoomed in past max zoom, so show the marker.
+            if (marker.getMap() !== this.map) {
+                marker.setMap(this.map);
+            }
+        }
+        else if (mCount < this.minClusterSize) {
+            // Min cluster size not reached so show the marker.
+            if (marker.getMap() !== this.map) {
+                marker.setMap(this.map);
+            }
+        }
+        else if (mCount === this.minClusterSize) {
+            // Hide the markers that were showing.
+            for (var i = 0; i < mCount; i++) {
+                this.markers[i].setMap(null);
+            }
+        }
+        else {
+            marker.setMap(null);
+        }
+        return true;
+    };
+    Cluster.prototype.isMarkerInClusterBounds = function (marker) {
+        if (this.bounds !== null) {
+            var position = marker.getPosition();
+            if (position) {
+                return this.bounds.contains(position);
+            }
+        }
+        return false;
+    };
+    Cluster.prototype.calculateBounds = function () {
+        this.bounds = this.markerClusterer.getExtendedBounds(new google.maps.LatLngBounds(this.center, this.center));
+    };
+    Cluster.prototype.updateIcon = function () {
+        var mCount = this.markers.length;
+        var maxZoom = this.markerClusterer.getMaxZoom();
+        var zoom = this.map.getZoom();
+        if (maxZoom !== null && typeof zoom !== 'undefined' && zoom > maxZoom) {
+            this.clusterIcon.hide();
+            return;
+        }
+        if (mCount < this.minClusterSize) {
+            // Min cluster size not yet reached.
+            this.clusterIcon.hide();
+            return;
+        }
+        if (this.center) {
+            this.clusterIcon.setCenter(this.center);
+        }
+        this.clusterIcon.useStyle(this.markerClusterer.getCalculator()(this.markers, this.markerClusterer.getStyles().length));
+        this.clusterIcon.show();
+    };
+    Cluster.prototype.isMarkerAlreadyAdded = function (marker) {
+        if (this.markers.includes) {
+            return this.markers.includes(marker);
+        }
+        else {
+            for (var i = 0; i < this.markers.length; i++) {
+                if (marker === this.markers[i]) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
+    return Cluster;
+}());
+
+/* global google */
+/**
+ * Supports up to 9007199254740991 (Number.MAX_SAFE_INTEGER) markers
+ * which is not a problem as max array length is 4294967296 (2**32)
+ */
+var CALCULATOR = function CALCULATOR(markers, numStyles) {
+    var count = markers.length;
+    var numberOfDigits = count.toString().length;
+    var index = Math.min(numberOfDigits, numStyles);
+    return {
+        text: count.toString(),
+        index: index,
+        title: '',
+    };
+};
+var BATCH_SIZE = 2000;
+var BATCH_SIZE_IE = 500;
+var IMAGE_PATH = 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m';
+var IMAGE_EXTENSION = 'png';
+var IMAGE_SIZES = [53, 56, 66, 78, 90];
+var CLUSTERER_CLASS = 'cluster';
+var Clusterer = /** @class */ (function () {
+    function Clusterer(map, optMarkers, optOptions) {
+        if (optMarkers === void 0) { optMarkers = []; }
+        if (optOptions === void 0) { optOptions = {}; }
+        this.extend(Clusterer, google.maps.OverlayView);
+        this.markers = [];
+        this.clusters = [];
+        this.listeners = [];
+        this.activeMap = null;
+        this.ready = false;
+        this.gridSize = optOptions.gridSize || 60;
+        this.minClusterSize = optOptions.minimumClusterSize || 2;
+        this.maxZoom = optOptions.maxZoom || null;
+        this.styles = optOptions.styles || [];
+        this.title = optOptions.title || '';
+        this.zoomOnClick = true;
+        if (optOptions.zoomOnClick !== undefined) {
+            this.zoomOnClick = optOptions.zoomOnClick;
+        }
+        this.averageCenter = false;
+        if (optOptions.averageCenter !== undefined) {
+            this.averageCenter = optOptions.averageCenter;
+        }
+        this.ignoreHidden = false;
+        if (optOptions.ignoreHidden !== undefined) {
+            this.ignoreHidden = optOptions.ignoreHidden;
+        }
+        this.enableRetinaIcons = false;
+        if (optOptions.enableRetinaIcons !== undefined) {
+            this.enableRetinaIcons = optOptions.enableRetinaIcons;
+        }
+        this.imagePath = optOptions.imagePath || IMAGE_PATH;
+        this.imageExtension = optOptions.imageExtension || IMAGE_EXTENSION;
+        this.imageSizes = optOptions.imageSizes || IMAGE_SIZES;
+        this.calculator = optOptions.calculator || CALCULATOR;
+        this.batchSize = optOptions.batchSize || BATCH_SIZE;
+        this.batchSizeIE = optOptions.batchSizeIE || BATCH_SIZE_IE;
+        this.clusterClass = optOptions.clusterClass || CLUSTERER_CLASS;
+        if (navigator.userAgent.toLowerCase().indexOf('msie') !== -1) {
+            // Try to avoid IE timeout when processing a huge number of markers:
+            this.batchSize = this.batchSizeIE;
+        }
+        this.timerRefStatic = null;
+        this.setupStyles();
+        this.addMarkers(optMarkers, true);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        this.setMap(map); // Note: this causes onAdd to be called
+    }
+    Clusterer.prototype.onAdd = function () {
+        var _this = this;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        this.activeMap = this.getMap();
+        this.ready = true;
+        this.repaint();
+        // Add the map event listeners
+        this.listeners = [
+            google.maps.event.addListener(
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            this.getMap(), 'zoom_changed', 
+            // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
+            function () {
+                _this.resetViewport(false);
+                // Workaround for this Google bug: when map is at level 0 and "-" of
+                // zoom slider is clicked, a "zoom_changed" event is fired even though
+                // the map doesn't zoom out any further. In this situation, no "idle"
+                // event is triggered so the cluster markers that have been removed
+                // do not get redrawn. Same goes for a zoom in at maxZoom.
+                if (
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                // @ts-ignore
+                _this.getMap().getZoom() === (_this.get('minZoom') || 0) ||
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                    // @ts-ignore
+                    _this.getMap().getZoom() === _this.get('maxZoom')) {
+                    google.maps.event.trigger(_this, 'idle');
+                }
+            }),
+            google.maps.event.addListener(
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            this.getMap(), 'idle', 
+            // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
+            function () {
+                _this.redraw();
+            }),
+        ];
+    };
+    // eslint-disable-next-line @getify/proper-arrows/this
+    Clusterer.prototype.onRemove = function () {
+        // Put all the managed markers back on the map:
+        for (var i = 0; i < this.markers.length; i++) {
+            if (this.markers[i].getMap() !== this.activeMap) {
+                this.markers[i].setMap(this.activeMap);
+            }
+        }
+        // Remove all clusters:
+        for (var i = 0; i < this.clusters.length; i++) {
+            this.clusters[i].remove();
+        }
+        this.clusters = [];
+        // Remove map event listeners:
+        for (var i = 0; i < this.listeners.length; i++) {
+            google.maps.event.removeListener(this.listeners[i]);
+        }
+        this.listeners = [];
+        this.activeMap = null;
+        this.ready = false;
+    };
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    Clusterer.prototype.draw = function () { };
+    Clusterer.prototype.setupStyles = function () {
+        if (this.styles.length > 0) {
+            return;
+        }
+        for (var i = 0; i < this.imageSizes.length; i++) {
+            this.styles.push({
+                url: this.imagePath + (i + 1) + '.' + this.imageExtension,
+                height: this.imageSizes[i],
+                width: this.imageSizes[i],
+            });
+        }
+    };
+    Clusterer.prototype.fitMapToMarkers = function () {
+        var markers = this.getMarkers();
+        var bounds = new google.maps.LatLngBounds();
+        for (var i = 0; i < markers.length; i++) {
+            var position = markers[i].getPosition();
+            if (position) {
+                bounds.extend(position);
+            }
+        }
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        this.getMap().fitBounds(bounds);
+    };
+    Clusterer.prototype.getGridSize = function () {
+        return this.gridSize;
+    };
+    Clusterer.prototype.setGridSize = function (gridSize) {
+        this.gridSize = gridSize;
+    };
+    Clusterer.prototype.getMinimumClusterSize = function () {
+        return this.minClusterSize;
+    };
+    Clusterer.prototype.setMinimumClusterSize = function (minimumClusterSize) {
+        this.minClusterSize = minimumClusterSize;
+    };
+    Clusterer.prototype.getMaxZoom = function () {
+        return this.maxZoom;
+    };
+    Clusterer.prototype.setMaxZoom = function (maxZoom) {
+        this.maxZoom = maxZoom;
+    };
+    Clusterer.prototype.getStyles = function () {
+        return this.styles;
+    };
+    Clusterer.prototype.setStyles = function (styles) {
+        this.styles = styles;
+    };
+    Clusterer.prototype.getTitle = function () {
+        return this.title;
+    };
+    Clusterer.prototype.setTitle = function (title) {
+        this.title = title;
+    };
+    Clusterer.prototype.getZoomOnClick = function () {
+        return this.zoomOnClick;
+    };
+    Clusterer.prototype.setZoomOnClick = function (zoomOnClick) {
+        this.zoomOnClick = zoomOnClick;
+    };
+    Clusterer.prototype.getAverageCenter = function () {
+        return this.averageCenter;
+    };
+    Clusterer.prototype.setAverageCenter = function (averageCenter) {
+        this.averageCenter = averageCenter;
+    };
+    Clusterer.prototype.getIgnoreHidden = function () {
+        return this.ignoreHidden;
+    };
+    Clusterer.prototype.setIgnoreHidden = function (ignoreHidden) {
+        this.ignoreHidden = ignoreHidden;
+    };
+    Clusterer.prototype.getEnableRetinaIcons = function () {
+        return this.enableRetinaIcons;
+    };
+    Clusterer.prototype.setEnableRetinaIcons = function (enableRetinaIcons) {
+        this.enableRetinaIcons = enableRetinaIcons;
+    };
+    Clusterer.prototype.getImageExtension = function () {
+        return this.imageExtension;
+    };
+    Clusterer.prototype.setImageExtension = function (imageExtension) {
+        this.imageExtension = imageExtension;
+    };
+    Clusterer.prototype.getImagePath = function () {
+        return this.imagePath;
+    };
+    Clusterer.prototype.setImagePath = function (imagePath) {
+        this.imagePath = imagePath;
+    };
+    Clusterer.prototype.getImageSizes = function () {
+        return this.imageSizes;
+    };
+    Clusterer.prototype.setImageSizes = function (imageSizes) {
+        this.imageSizes = imageSizes;
+    };
+    Clusterer.prototype.getCalculator = function () {
+        return this.calculator;
+    };
+    Clusterer.prototype.setCalculator = function (calculator) {
+        this.calculator = calculator;
+    };
+    Clusterer.prototype.getBatchSizeIE = function () {
+        return this.batchSizeIE;
+    };
+    Clusterer.prototype.setBatchSizeIE = function (batchSizeIE) {
+        this.batchSizeIE = batchSizeIE;
+    };
+    Clusterer.prototype.getClusterClass = function () {
+        return this.clusterClass;
+    };
+    Clusterer.prototype.setClusterClass = function (clusterClass) {
+        this.clusterClass = clusterClass;
+    };
+    Clusterer.prototype.getMarkers = function () {
+        return this.markers;
+    };
+    Clusterer.prototype.getTotalMarkers = function () {
+        return this.markers.length;
+    };
+    Clusterer.prototype.getClusters = function () {
+        return this.clusters;
+    };
+    Clusterer.prototype.getTotalClusters = function () {
+        return this.clusters.length;
+    };
+    Clusterer.prototype.addMarker = function (marker, optNoDraw) {
+        this.pushMarkerTo(marker);
+        if (!optNoDraw) {
+            this.redraw();
+        }
+    };
+    Clusterer.prototype.addMarkers = function (markers, optNoDraw) {
+        for (var key in markers) {
+            if (markers.hasOwnProperty(key)) {
+                this.pushMarkerTo(markers[key]);
+            }
+        }
+        if (!optNoDraw) {
+            this.redraw();
+        }
+    };
+    Clusterer.prototype.pushMarkerTo = function (marker) {
+        var _this = this;
+        // If the marker is draggable add a listener so we can update the clusters on the dragend:
+        if (marker.getDraggable()) {
+            // eslint-disable-next-line @getify/proper-arrows/name, @getify/proper-arrows/this
+            google.maps.event.addListener(marker, 'dragend', function () {
+                if (_this.ready) {
+                    marker.isAdded = false;
+                    _this.repaint();
+                }
+            });
+        }
+        marker.isAdded = false;
+        this.markers.push(marker);
+    };
+    Clusterer.prototype.removeMarker_ = function (marker) {
+        var index = -1;
+        if (this.markers.indexOf) {
+            index = this.markers.indexOf(marker);
+        }
+        else {
+            for (var i = 0; i < this.markers.length; i++) {
+                if (marker === this.markers[i]) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+        if (index === -1) {
+            // Marker is not in our list of markers, so do nothing:
+            return false;
+        }
+        marker.setMap(null);
+        this.markers.splice(index, 1); // Remove the marker from the list of managed markers
+        return true;
+    };
+    Clusterer.prototype.removeMarker = function (marker, optNoDraw) {
+        var removed = this.removeMarker_(marker);
+        if (!optNoDraw && removed) {
+            this.repaint();
+        }
+        return removed;
+    };
+    Clusterer.prototype.removeMarkers = function (markers, optNoDraw) {
+        var removed = false;
+        for (var i = 0; i < markers.length; i++) {
+            removed = removed || this.removeMarker_(markers[i]);
+        }
+        if (!optNoDraw && removed) {
+            this.repaint();
+        }
+        return removed;
+    };
+    Clusterer.prototype.clearMarkers = function () {
+        this.resetViewport(true);
+        this.markers = [];
+    };
+    Clusterer.prototype.repaint = function () {
+        var oldClusters = this.clusters.slice();
+        this.clusters = [];
+        this.resetViewport(false);
+        this.redraw();
+        // Remove the old clusters.
+        // Do it in a timeout to prevent blinking effect.
+        setTimeout(function timeout() {
+            for (var i = 0; i < oldClusters.length; i++) {
+                oldClusters[i].remove();
+            }
+        }, 0);
+    };
+    Clusterer.prototype.getExtendedBounds = function (bounds) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        var projection = this.getProjection();
+        // Convert the points to pixels and the extend out by the grid size.
+        var trPix = projection.fromLatLngToDivPixel(
+        // Turn the bounds into latlng.
+        new google.maps.LatLng(bounds.getNorthEast().lat(), bounds.getNorthEast().lng()));
+        trPix.x += this.gridSize;
+        trPix.y -= this.gridSize;
+        var blPix = projection.fromLatLngToDivPixel(
+        // Turn the bounds into latlng.
+        new google.maps.LatLng(bounds.getSouthWest().lat(), bounds.getSouthWest().lng()));
+        blPix.x -= this.gridSize;
+        blPix.y += this.gridSize;
+        // Extend the bounds to contain the new bounds.
+        bounds.extend(
+        // Convert the pixel points back to LatLng nw
+        projection.fromDivPixelToLatLng(trPix));
+        bounds.extend(
+        // Convert the pixel points back to LatLng sw
+        projection.fromDivPixelToLatLng(blPix));
+        return bounds;
+    };
+    Clusterer.prototype.redraw = function () {
+        // Redraws all the clusters.
+        this.createClusters(0);
+    };
+    Clusterer.prototype.resetViewport = function (optHide) {
+        // Remove all the clusters
+        for (var i = 0; i < this.clusters.length; i++) {
+            this.clusters[i].remove();
+        }
+        this.clusters = [];
+        // Reset the markers to not be added and to be removed from the map.
+        for (var i = 0; i < this.markers.length; i++) {
+            var marker = this.markers[i];
+            marker.isAdded = false;
+            if (optHide) {
+                marker.setMap(null);
+            }
+        }
+    };
+    Clusterer.prototype.distanceBetweenPoints = function (p1, p2) {
+        var R = 6371; // Radius of the Earth in km
+        var dLat = ((p2.lat() - p1.lat()) * Math.PI) / 180;
+        var dLon = ((p2.lng() - p1.lng()) * Math.PI) / 180;
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos((p1.lat() * Math.PI) / 180) *
+                Math.cos((p2.lat() * Math.PI) / 180) *
+                Math.sin(dLon / 2) *
+                Math.sin(dLon / 2);
+        return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+    };
+    Clusterer.prototype.isMarkerInBounds = function (marker, bounds) {
+        var position = marker.getPosition();
+        if (position) {
+            return bounds.contains(position);
+        }
+        return false;
+    };
+    Clusterer.prototype.addToClosestCluster = function (marker) {
+        var cluster;
+        var distance = 40000; // Some large number
+        var clusterToAddTo = null;
+        for (var i = 0; i < this.clusters.length; i++) {
+            cluster = this.clusters[i];
+            var center = cluster.getCenter();
+            var position = marker.getPosition();
+            if (center && position) {
+                var d = this.distanceBetweenPoints(center, position);
+                if (d < distance) {
+                    distance = d;
+                    clusterToAddTo = cluster;
+                }
+            }
+        }
+        if (clusterToAddTo && clusterToAddTo.isMarkerInClusterBounds(marker)) {
+            clusterToAddTo.addMarker(marker);
+        }
+        else {
+            cluster = new Cluster$1(this);
+            cluster.addMarker(marker);
+            this.clusters.push(cluster);
+        }
+    };
+    Clusterer.prototype.createClusters = function (iFirst) {
+        var _this = this;
+        if (!this.ready) {
+            return;
+        }
+        // Cancel previous batch processing if we're working on the first batch:
+        if (iFirst === 0) {
+            /**
+             * This event is fired when the <code>Clusterer</code> begins
+             *  clustering markers.
+             * @name Clusterer#clusteringbegin
+             * @param {Clusterer} mc The Clusterer whose markers are being clustered.
+             * @event
+             */
+            google.maps.event.trigger(this, 'clusteringbegin', this);
+            if (this.timerRefStatic !== null) {
+                window.clearTimeout(this.timerRefStatic);
+                // @ts-ignore
+                delete this.timerRefStatic;
+            }
+        }
+        // Get our current map view bounds.
+        // Create a new bounds object so we don't affect the map.
+        //
+        // See Comments 9 & 11 on Issue 3651 relating to this workaround for a Google Maps bug:
+        var mapBounds = 
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        this.getMap().getZoom() > 3
+            ? new google.maps.LatLngBounds(
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            this.getMap()
+                .getBounds()
+                .getSouthWest(), 
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            this.getMap()
+                .getBounds()
+                .getNorthEast())
+            : new google.maps.LatLngBounds(new google.maps.LatLng(85.02070771743472, -178.48388434375), new google.maps.LatLng(-85.08136444384544, 178.00048865625));
+        var bounds = this.getExtendedBounds(mapBounds);
+        var iLast = Math.min(iFirst + this.batchSize, this.markers.length);
+        for (var i = iFirst; i < iLast; i++) {
+            var marker = this.markers[i];
+            if (!marker.isAdded && this.isMarkerInBounds(marker, bounds)) {
+                if (!this.ignoreHidden || (this.ignoreHidden && marker.getVisible())) {
+                    this.addToClosestCluster(marker);
+                }
+            }
+        }
+        if (iLast < this.markers.length) {
+            this.timerRefStatic = window.setTimeout(
+            // eslint-disable-next-line @getify/proper-arrows/this, @getify/proper-arrows/name
+            function () {
+                _this.createClusters(iLast);
+            }, 0);
+        }
+        else {
+            this.timerRefStatic = null;
+            /**
+             * This event is fired when the <code>Clusterer</code> stops
+             *  clustering markers.
+             * @name Clusterer#clusteringend
+             * @param {Clusterer} mc The Clusterer whose markers are being clustered.
+             * @event
+             */
+            google.maps.event.trigger(this, 'clusteringend', this);
+            for (var i = 0; i < this.clusters.length; i++) {
+                this.clusters[i].updateIcon();
+            }
+        }
+    };
+    Clusterer.prototype.extend = function (obj1, obj2) {
+        return function applyExtend(object) {
+            // eslint-disable-next-line guard-for-in
+            for (var property in object.prototype) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                // @ts-ignore
+                this.prototype[property] = object.prototype[property];
+            }
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            return this;
+        }.apply(obj1, [obj2]);
+    };
+    return Clusterer;
+}());
+
+/* eslint-disable filenames/match-exported */
+const eventMap$e = {
+    onClick: 'click',
+    onClusteringBegin: 'clusteringbegin',
+    onClusteringEnd: 'clusteringend',
+    onMouseOut: 'mouseout',
+    onMouseOver: 'mouseover',
+};
+const updaterMap$e = {
+    averageCenter(instance, averageCenter) {
+        instance.setAverageCenter(averageCenter);
+    },
+    batchSizeIE(instance, batchSizeIE) {
+        instance.setBatchSizeIE(batchSizeIE);
+    },
+    calculator(instance, calculator) {
+        instance.setCalculator(calculator);
+    },
+    clusterClass(instance, clusterClass) {
+        instance.setClusterClass(clusterClass);
+    },
+    enableRetinaIcons(instance, enableRetinaIcons) {
+        instance.setEnableRetinaIcons(enableRetinaIcons);
+    },
+    gridSize(instance, gridSize) {
+        instance.setGridSize(gridSize);
+    },
+    ignoreHidden(instance, ignoreHidden) {
+        instance.setIgnoreHidden(ignoreHidden);
+    },
+    imageExtension(instance, imageExtension) {
+        instance.setImageExtension(imageExtension);
+    },
+    imagePath(instance, imagePath) {
+        instance.setImagePath(imagePath);
+    },
+    imageSizes(instance, imageSizes) {
+        instance.setImageSizes(imageSizes);
+    },
+    maxZoom(instance, maxZoom) {
+        instance.setMaxZoom(maxZoom);
+    },
+    minimumClusterSize(instance, minimumClusterSize) {
+        instance.setMinimumClusterSize(minimumClusterSize);
+    },
+    styles(instance, styles) {
+        instance.setStyles(styles);
+    },
+    title(instance, title) {
+        instance.setTitle(title);
+    },
+    zoomOnClick(instance, zoomOnClick) {
+        instance.setZoomOnClick(zoomOnClick);
+    },
+};
+class ClustererComponent extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.registeredEvents = [];
+        this.state = {
+            markerClusterer: null,
+        };
+        this.setClustererCallback = () => {
+            if (this.state.markerClusterer !== null && this.props.onLoad) {
+                this.props.onLoad(this.state.markerClusterer);
+            }
+        };
+    }
+    componentDidMount() {
+        if (this.context) {
+            const markerClusterer = new Clusterer(this.context, [], this.props.options);
+            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                updaterMap: updaterMap$e,
+                eventMap: eventMap$e,
+                prevProps: {},
+                nextProps: this.props,
+                instance: markerClusterer,
+            });
+            this.setState(function setClusterer() {
+                return {
+                    markerClusterer,
+                };
+            }, this.setClustererCallback);
+        }
+    }
+    componentDidUpdate(prevProps) {
+        if (this.state.markerClusterer) {
+            unregisterEvents(this.registeredEvents);
+            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                updaterMap: updaterMap$e,
+                eventMap: eventMap$e,
+                prevProps,
+                nextProps: this.props,
+                instance: this.state.markerClusterer,
+            });
+        }
+    }
+    componentWillUnmount() {
+        if (this.state.markerClusterer !== null) {
+            if (this.props.onUnmount) {
+                this.props.onUnmount(this.state.markerClusterer);
+            }
+            unregisterEvents(this.registeredEvents);
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            this.state.markerClusterer.setMap(null);
+        }
+    }
+    render() {
+        return this.state.markerClusterer !== null
+            ? this.props.children(this.state.markerClusterer)
+            : null;
+    }
+}
+ClustererComponent.contextType = MapContext;
+
+var InfoBox = /** @class */ (function () {
+    function InfoBox(options) {
+        if (options === void 0) { options = {}; }
+        this.extend(InfoBox, google.maps.OverlayView);
+        // Standard options (in common with google.maps.InfoWindow):
+        this.content = options.content || '';
+        this.disableAutoPan = options.disableAutoPan || false;
+        this.maxWidth = options.maxWidth || 0;
+        this.pixelOffset = options.pixelOffset || new google.maps.Size(0, 0);
+        this.position = options.position || new google.maps.LatLng(0, 0);
+        this.zIndex = options.zIndex || null;
+        // Additional options (unique to InfoBox):
+        this.boxClass = options.boxClass || 'infoBox';
+        this.boxStyle = options.boxStyle || {};
+        this.closeBoxMargin = options.closeBoxMargin || '2px';
+        this.closeBoxURL = options.closeBoxURL || 'http://www.google.com/intl/en_us/mapfiles/close.gif';
+        if (options.closeBoxURL === '') {
+            this.closeBoxURL = '';
+        }
+        this.infoBoxClearance = options.infoBoxClearance || new google.maps.Size(1, 1);
+        if (typeof options.visible === 'undefined') {
+            if (typeof options.isHidden === 'undefined') {
+                options.visible = true;
+            }
+            else {
+                options.visible = !options.isHidden;
+            }
+        }
+        this.isHidden = !options.visible;
+        this.alignBottom = options.alignBottom || false;
+        this.pane = options.pane || 'floatPane';
+        this.enableEventPropagation = options.enableEventPropagation || false;
+        this.div = null;
+        this.closeListener = null;
+        this.moveListener = null;
+        this.mapListener = null;
+        this.contextListener = null;
+        this.eventListeners = null;
+        this.fixedWidthSet = null;
+    }
+    InfoBox.prototype.createInfoBoxDiv = function () {
+        var _this = this;
+        // This handler prevents an event in the InfoBox from being passed on to the map.
+        function cancelHandler(event) {
+            event.cancelBubble = true;
+            if (event.stopPropagation) {
+                event.stopPropagation();
+            }
+        }
+        // This handler ignores the current event in the InfoBox and conditionally prevents
+        // the event from being passed on to the map. It is used for the contextmenu event.
+        // eslint-disable-next-line  @getify/proper-arrows/this
+        var ignoreHandler = function (event) {
+            event.returnValue = false;
+            if (event.preventDefault) {
+                event.preventDefault();
+            }
+            if (!_this.enableEventPropagation) {
+                cancelHandler(event);
+            }
+        };
+        if (!this.div) {
+            this.div = document.createElement('div');
+            this.setBoxStyle();
+            if (typeof this.content === 'string') {
+                this.div.innerHTML = this.getCloseBoxImg() + this.content;
+            }
+            else {
+                this.div.innerHTML = this.getCloseBoxImg();
+                this.div.appendChild(this.content);
+            }
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            var panes = this.getPanes();
+            panes[this.pane].appendChild(this.div); // Add the InfoBox div to the DOM
+            this.addClickHandler();
+            if (this.div.style.width) {
+                this.fixedWidthSet = true;
+            }
+            else {
+                if (this.maxWidth !== 0 && this.div.offsetWidth > this.maxWidth) {
+                    this.div.style.width = this.maxWidth + 'px';
+                    this.fixedWidthSet = true;
+                }
+                else {
+                    // The following code is needed to overcome problems with MSIE
+                    var bw = this.getBoxWidths();
+                    this.div.style.width = this.div.offsetWidth - bw.left - bw.right + 'px';
+                    this.fixedWidthSet = false;
+                }
+            }
+            this.panBox(this.disableAutoPan);
+            if (!this.enableEventPropagation) {
+                this.eventListeners = [];
+                // Cancel event propagation.
+                // Note: mousemove not included (to resolve Issue 152)
+                var events = [
+                    'mousedown',
+                    'mouseover',
+                    'mouseout',
+                    'mouseup',
+                    'click',
+                    'dblclick',
+                    'touchstart',
+                    'touchend',
+                    'touchmove',
+                ];
+                for (var i = 0; i < events.length; i++) {
+                    this.eventListeners.push(google.maps.event.addDomListener(this.div, events[i], cancelHandler));
+                }
+                // Workaround for Google bug that causes the cursor to change to a pointer
+                // when the mouse moves over a marker underneath InfoBox.
+                this.eventListeners.push(google.maps.event.addDomListener(this.div, 'mouseover', 
+                // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
+                function () {
+                    if (_this.div) {
+                        _this.div.style.cursor = 'default';
+                    }
+                }));
+            }
+            this.contextListener = google.maps.event.addDomListener(this.div, 'contextmenu', ignoreHandler);
+            /**
+             * This event is fired when the DIV containing the InfoBox's content is attached to the DOM.
+             * @name InfoBox#domready
+             * @event
+             */
+            google.maps.event.trigger(this, 'domready');
+        }
+    };
+    InfoBox.prototype.getCloseBoxImg = function () {
+        var img = '';
+        if (this.closeBoxURL !== '') {
+            img = '<img alt=""';
+            img += ' aria-hidden="true"';
+            img += " src='" + this.closeBoxURL + "'";
+            img += ' align=right'; // Do this because Opera chokes on style='float: right;'
+            img += " style='";
+            img += ' position: relative;'; // Required by MSIE
+            img += ' cursor: pointer;';
+            img += ' margin: ' + this.closeBoxMargin + ';';
+            img += "'>";
+        }
+        return img;
+    };
+    InfoBox.prototype.addClickHandler = function () {
+        if (this.div && this.div.firstChild && this.closeBoxURL !== '') {
+            var closeBox = this.div.firstChild;
+            this.closeListener = google.maps.event.addDomListener(closeBox, 'click', this.getCloseClickHandler());
+        }
+        else {
+            this.closeListener = null;
+        }
+    };
+    InfoBox.prototype.getCloseClickHandler = function () {
+        var _this = this;
+        // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
+        return function (event) {
+            // 1.0.3 fix: Always prevent propagation of a close box click to the map:
+            event.cancelBubble = true;
+            if (event.stopPropagation) {
+                event.stopPropagation();
+            }
+            /**
+             * This event is fired when the InfoBox's close box is clicked.
+             * @name InfoBox#closeclick
+             * @event
+             */
+            google.maps.event.trigger(_this, 'closeclick');
+            _this.close();
+        };
+    };
+    InfoBox.prototype.panBox = function (disablePan) {
+        if (this.div && !disablePan) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            var map = this.getMap();
+            // Only pan if attached to map, not panorama
+            if (map instanceof google.maps.Map) {
+                var xOffset = 0;
+                var yOffset = 0;
+                var bounds = map.getBounds();
+                if (bounds && !bounds.contains(this.position)) {
+                    // Marker not in visible area of map, so set center
+                    // of map to the marker position first.
+                    map.setCenter(this.position);
+                }
+                var mapDiv = map.getDiv();
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                // @ts-ignore
+                var mapWidth = mapDiv.offsetWidth;
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                // @ts-ignore
+                var mapHeight = mapDiv.offsetHeight;
+                var iwOffsetX = this.pixelOffset.width;
+                var iwOffsetY = this.pixelOffset.height;
+                var iwWidth = this.div.offsetWidth;
+                var iwHeight = this.div.offsetHeight;
+                var padX = this.infoBoxClearance.width;
+                var padY = this.infoBoxClearance.height;
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                // @ts-ignore
+                var projection = this.getProjection();
+                var pixPosition = projection.fromLatLngToContainerPixel(this.position);
+                if (pixPosition !== null) {
+                    if (pixPosition.x < -iwOffsetX + padX) {
+                        xOffset = pixPosition.x + iwOffsetX - padX;
+                    }
+                    else if (pixPosition.x + iwWidth + iwOffsetX + padX > mapWidth) {
+                        xOffset = pixPosition.x + iwWidth + iwOffsetX + padX - mapWidth;
+                    }
+                    if (this.alignBottom) {
+                        if (pixPosition.y < -iwOffsetY + padY + iwHeight) {
+                            yOffset = pixPosition.y + iwOffsetY - padY - iwHeight;
+                        }
+                        else if (pixPosition.y + iwOffsetY + padY > mapHeight) {
+                            yOffset = pixPosition.y + iwOffsetY + padY - mapHeight;
+                        }
+                    }
+                    else {
+                        if (pixPosition.y < -iwOffsetY + padY) {
+                            yOffset = pixPosition.y + iwOffsetY - padY;
+                        }
+                        else if (pixPosition.y + iwHeight + iwOffsetY + padY > mapHeight) {
+                            yOffset = pixPosition.y + iwHeight + iwOffsetY + padY - mapHeight;
+                        }
+                    }
+                }
+                if (!(xOffset === 0 && yOffset === 0)) {
+                    // Move the map to the shifted center.
+                    map.panBy(xOffset, yOffset);
+                }
+            }
+        }
+    };
+    InfoBox.prototype.setBoxStyle = function () {
+        if (this.div) {
+            // Apply style values from the style sheet defined in the boxClass parameter:
+            this.div.className = this.boxClass;
+            // Clear existing inline style values:
+            this.div.style.cssText = '';
+            // Apply style values defined in the boxStyle parameter:
+            var boxStyle = this.boxStyle;
+            for (var i in boxStyle) {
+                if (boxStyle.hasOwnProperty(i)) {
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                    // @ts-ignore
+                    this.div.style[i] = boxStyle[i];
+                }
+            }
+            // Fix for iOS disappearing InfoBox problem
+            // See http://stackoverflow.com/questions/9229535/google-maps-markers-disappear-at-certain-zoom-level-only-on-iphone-ipad
+            this.div.style.webkitTransform = 'translateZ(0)';
+            // Fix up opacity style for benefit of MSIE
+            if (typeof this.div.style.opacity !== 'undefined' && this.div.style.opacity !== '') {
+                // See http://www.quirksmode.org/css/opacity.html
+                var opacity = parseFloat(this.div.style.opacity || '');
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                // @ts-ignore
+                this.div.style.msFilter =
+                    '"progid:DXImageTransform.Microsoft.Alpha(Opacity=' + opacity * 100 + ')"';
+                this.div.style.filter = 'alpha(opacity=' + opacity * 100 + ')';
+            }
+            // Apply required styles
+            this.div.style.position = 'absolute';
+            this.div.style.visibility = 'hidden';
+            if (this.zIndex !== null) {
+                this.div.style.zIndex = this.zIndex + '';
+            }
+            if (!this.div.style.overflow) {
+                this.div.style.overflow = 'auto';
+            }
+        }
+    };
+    InfoBox.prototype.getBoxWidths = function () {
+        var bw = { top: 0, bottom: 0, left: 0, right: 0 };
+        if (!this.div) {
+            return bw;
+        }
+        if (document.defaultView && document.defaultView.getComputedStyle) {
+            var ownerDocument = this.div.ownerDocument;
+            var computedStyle = ownerDocument && ownerDocument.defaultView
+                ? ownerDocument.defaultView.getComputedStyle(this.div, '')
+                : null;
+            if (computedStyle) {
+                // The computed styles are always in pixel units (good!)
+                bw.top = parseInt(computedStyle.borderTopWidth || '', 10) || 0;
+                bw.bottom = parseInt(computedStyle.borderBottomWidth || '', 10) || 0;
+                bw.left = parseInt(computedStyle.borderLeftWidth || '', 10) || 0;
+                bw.right = parseInt(computedStyle.borderRightWidth || '', 10) || 0;
+            }
+        }
+        else if (
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        document.documentElement.currentStyle // MSIE
+        ) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            var currentStyle = this.div.currentStyle;
+            if (currentStyle) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                // The current styles may not be in pixel units, but assume they are (bad!)
+                bw.top = parseInt(currentStyle.borderTopWidth || '', 10) || 0;
+                bw.bottom = parseInt(currentStyle.borderBottomWidth || '', 10) || 0;
+                bw.left = parseInt(currentStyle.borderLeftWidth || '', 10) || 0;
+                bw.right = parseInt(currentStyle.borderRightWidth || '', 10) || 0;
+            }
+        }
+        return bw;
+    };
+    InfoBox.prototype.onRemove = function () {
+        if (this.div && this.div.parentNode) {
+            this.div.parentNode.removeChild(this.div);
+            this.div = null;
+        }
+    };
+    InfoBox.prototype.draw = function () {
+        this.createInfoBoxDiv();
+        if (this.div) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            var projection = this.getProjection();
+            var pixPosition = projection.fromLatLngToDivPixel(this.position);
+            if (pixPosition !== null) {
+                this.div.style.left = pixPosition.x + this.pixelOffset.width + 'px';
+                if (this.alignBottom) {
+                    this.div.style.bottom = -(pixPosition.y + this.pixelOffset.height) + 'px';
+                }
+                else {
+                    this.div.style.top = pixPosition.y + this.pixelOffset.height + 'px';
+                }
+            }
+            if (this.isHidden) {
+                this.div.style.visibility = 'hidden';
+            }
+            else {
+                this.div.style.visibility = 'visible';
+            }
+        }
+    };
+    InfoBox.prototype.setOptions = function (options) {
+        if (options === void 0) { options = {}; }
+        if (typeof options.boxClass !== 'undefined') {
+            // Must be first
+            this.boxClass = options.boxClass;
+            this.setBoxStyle();
+        }
+        if (typeof options.boxStyle !== 'undefined') {
+            // Must be second
+            this.boxStyle = options.boxStyle;
+            this.setBoxStyle();
+        }
+        if (typeof options.content !== 'undefined') {
+            this.setContent(options.content);
+        }
+        if (typeof options.disableAutoPan !== 'undefined') {
+            this.disableAutoPan = options.disableAutoPan;
+        }
+        if (typeof options.maxWidth !== 'undefined') {
+            this.maxWidth = options.maxWidth;
+        }
+        if (typeof options.pixelOffset !== 'undefined') {
+            this.pixelOffset = options.pixelOffset;
+        }
+        if (typeof options.alignBottom !== 'undefined') {
+            this.alignBottom = options.alignBottom;
+        }
+        if (typeof options.position !== 'undefined') {
+            this.setPosition(options.position);
+        }
+        if (typeof options.zIndex !== 'undefined') {
+            this.setZIndex(options.zIndex);
+        }
+        if (typeof options.closeBoxMargin !== 'undefined') {
+            this.closeBoxMargin = options.closeBoxMargin;
+        }
+        if (typeof options.closeBoxURL !== 'undefined') {
+            this.closeBoxURL = options.closeBoxURL;
+        }
+        if (typeof options.infoBoxClearance !== 'undefined') {
+            this.infoBoxClearance = options.infoBoxClearance;
+        }
+        if (typeof options.isHidden !== 'undefined') {
+            this.isHidden = options.isHidden;
+        }
+        if (typeof options.visible !== 'undefined') {
+            this.isHidden = !options.visible;
+        }
+        if (typeof options.enableEventPropagation !== 'undefined') {
+            this.enableEventPropagation = options.enableEventPropagation;
+        }
+        if (this.div) {
+            this.draw();
+        }
+    };
+    InfoBox.prototype.setContent = function (content) {
+        this.content = content;
+        if (this.div) {
+            if (this.closeListener) {
+                google.maps.event.removeListener(this.closeListener);
+                this.closeListener = null;
+            }
+            // Odd code required to make things work with MSIE.
+            if (!this.fixedWidthSet) {
+                this.div.style.width = '';
+            }
+            if (typeof content === 'string') {
+                this.div.innerHTML = this.getCloseBoxImg() + content;
+            }
+            else {
+                this.div.innerHTML = this.getCloseBoxImg();
+                this.div.appendChild(content);
+            }
+            // Perverse code required to make things work with MSIE.
+            // (Ensures the close box does, in fact, float to the right.)
+            if (!this.fixedWidthSet) {
+                this.div.style.width = this.div.offsetWidth + 'px';
+                if (typeof content === 'string') {
+                    this.div.innerHTML = this.getCloseBoxImg() + content;
+                }
+                else {
+                    this.div.innerHTML = this.getCloseBoxImg();
+                    this.div.appendChild(content);
+                }
+            }
+            this.addClickHandler();
+        }
+        /**
+         * This event is fired when the content of the InfoBox changes.
+         * @name InfoBox#content_changed
+         * @event
+         */
+        google.maps.event.trigger(this, 'content_changed');
+    };
+    InfoBox.prototype.setPosition = function (latLng) {
+        this.position = latLng;
+        if (this.div) {
+            this.draw();
+        }
+        /**
+         * This event is fired when the position of the InfoBox changes.
+         * @name InfoBox#position_changed
+         * @event
+         */
+        google.maps.event.trigger(this, 'position_changed');
+    };
+    InfoBox.prototype.setVisible = function (isVisible) {
+        this.isHidden = !isVisible;
+        if (this.div) {
+            this.div.style.visibility = this.isHidden ? 'hidden' : 'visible';
+        }
+    };
+    InfoBox.prototype.setZIndex = function (index) {
+        this.zIndex = index;
+        if (this.div) {
+            this.div.style.zIndex = index + '';
+        }
+        /**
+         * This event is fired when the zIndex of the InfoBox changes.
+         * @name InfoBox#zindex_changed
+         * @event
+         */
+        google.maps.event.trigger(this, 'zindex_changed');
+    };
+    InfoBox.prototype.getContent = function () {
+        return this.content;
+    };
+    InfoBox.prototype.getPosition = function () {
+        return this.position;
+    };
+    InfoBox.prototype.getZIndex = function () {
+        return this.zIndex;
+    };
+    InfoBox.prototype.getVisible = function () {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        var map = this.getMap();
+        var isVisible;
+        if (typeof map === 'undefined' || map === null) {
+            isVisible = false;
+        }
+        else {
+            isVisible = !this.isHidden;
+        }
+        return isVisible;
+    };
+    InfoBox.prototype.show = function () {
+        this.isHidden = false;
+        if (this.div) {
+            this.div.style.visibility = 'visible';
+        }
+    };
+    InfoBox.prototype.hide = function () {
+        this.isHidden = true;
+        if (this.div) {
+            this.div.style.visibility = 'hidden';
+        }
+    };
+    InfoBox.prototype.open = function (map, anchor) {
+        var _this = this;
+        if (anchor) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            this.position = anchor.getPosition();
+            this.moveListener = google.maps.event.addListener(anchor, 'position_changed', 
+            // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
+            function () {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                // @ts-ignore
+                var position = anchor.getPosition();
+                _this.setPosition(position);
+            });
+            this.mapListener = google.maps.event.addListener(anchor, 'map_changed', 
+            // eslint-disable-next-line  @getify/proper-arrows/this, @getify/proper-arrows/name
+            function () {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                // @ts-ignore
+                _this.setMap(anchor.map);
+            });
+        }
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        this.setMap(map);
+        if (this.div) {
+            this.panBox();
+        }
+    };
+    InfoBox.prototype.close = function () {
+        if (this.closeListener) {
+            google.maps.event.removeListener(this.closeListener);
+            this.closeListener = null;
+        }
+        if (this.eventListeners) {
+            for (var i = 0; i < this.eventListeners.length; i++) {
+                google.maps.event.removeListener(this.eventListeners[i]);
+            }
+            this.eventListeners = null;
+        }
+        if (this.moveListener) {
+            google.maps.event.removeListener(this.moveListener);
+            this.moveListener = null;
+        }
+        if (this.mapListener) {
+            google.maps.event.removeListener(this.mapListener);
+            this.mapListener = null;
+        }
+        if (this.contextListener) {
+            google.maps.event.removeListener(this.contextListener);
+            this.contextListener = null;
+        }
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        this.setMap(null);
+    };
+    InfoBox.prototype.extend = function (obj1, obj2) {
+        return function applyExtend(object) {
+            // eslint-disable-next-line guard-for-in
+            for (var property in object.prototype) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                // @ts-ignore
+                if (!this.prototype.hasOwnProperty(property)) {
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                    // @ts-ignore
+                    this.prototype[property] = object.prototype[property];
+                }
+            }
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            return this;
+        }.apply(obj1, [obj2]);
+    };
+    return InfoBox;
+}());
+
+const eventMap$d = {
+    onCloseClick: 'closeclick',
+    onContentChanged: 'content_changed',
+    onDomReady: 'domready',
+    onPositionChanged: 'position_changed',
+    onZindexChanged: 'zindex_changed',
+};
+const updaterMap$d = {
+    options(instance, options) {
+        instance.setOptions(options);
+    },
+    position(instance, position) {
+        if (position instanceof google.maps.LatLng) {
+            instance.setPosition(position);
+        }
+        else {
+            instance.setPosition(new google.maps.LatLng(position.lat, position.lng));
+        }
+    },
+    visible(instance, visible) {
+        instance.setVisible(visible);
+    },
+    zIndex(instance, zIndex) {
+        instance.setZIndex(zIndex);
+    },
+};
+class InfoBoxComponent extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.registeredEvents = [];
+        this.containerElement = null;
+        this.state = {
+            infoBox: null,
+        };
+        this.open = (infoBox, anchor) => {
+            if (anchor) {
+                infoBox.open(this.context, anchor);
+            }
+            else if (infoBox.getPosition()) {
+                infoBox.open(this.context);
+            }
+            else {
+                invariant_1(false, 'You must provide either an anchor or a position prop for <InfoBox>.');
+            }
+        };
+        this.setInfoBoxCallback = () => {
+            const { anchor, onLoad } = this.props;
+            const { infoBox } = this.state;
+            if (infoBox !== null && this.containerElement !== null) {
+                infoBox.setContent(this.containerElement);
+                this.open(infoBox, anchor);
+                if (onLoad) {
+                    onLoad(infoBox);
+                }
+            }
+        };
+    }
+    componentDidMount() {
+        const { options } = this.props;
+        const _a = options || {}, { position } = _a, infoBoxOptions = __rest$1(_a, ["position"]);
+        let positionLatLng;
+        if (position && !(position instanceof google.maps.LatLng)) {
+            positionLatLng = new google.maps.LatLng(position.lat, position.lng);
+        }
+        const infoBox = new InfoBox(Object.assign(Object.assign({}, infoBoxOptions), (positionLatLng ? { position: positionLatLng } : {})));
+        this.containerElement = document.createElement('div');
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap: updaterMap$d,
+            eventMap: eventMap$d,
+            prevProps: {},
+            nextProps: this.props,
+            instance: infoBox,
+        });
+        this.setState({ infoBox }, this.setInfoBoxCallback);
+    }
+    componentDidUpdate(prevProps) {
+        const { infoBox } = this.state;
+        if (infoBox !== null) {
+            unregisterEvents(this.registeredEvents);
+            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                updaterMap: updaterMap$d,
+                eventMap: eventMap$d,
+                prevProps,
+                nextProps: this.props,
+                instance: infoBox,
+            });
+        }
+    }
+    componentWillUnmount() {
+        const { onUnmount } = this.props;
+        const { infoBox } = this.state;
+        if (infoBox !== null) {
+            if (onUnmount) {
+                onUnmount(infoBox);
+            }
+            unregisterEvents(this.registeredEvents);
+            infoBox.close();
+        }
+    }
+    render() {
+        if (!this.containerElement) {
+            return null;
+        }
+        return react_dom__WEBPACK_IMPORTED_MODULE_1__.createPortal(react__WEBPACK_IMPORTED_MODULE_0__.Children.only(this.props.children), this.containerElement);
+    }
+}
+InfoBoxComponent.contextType = MapContext;
+
+/**
+ * @module helpers
+ */
+/**
+ * Earth Radius used with the Harvesine formula and approximates using a spherical (non-ellipsoid) Earth.
+ *
+ * @memberof helpers
+ * @type {number}
+ */
+var earthRadius = 6371008.8;
+/**
+ * Unit of measurement factors using a spherical (non-ellipsoid) earth radius.
+ *
+ * @memberof helpers
+ * @type {Object}
+ */
+var factors = {
+    centimeters: earthRadius * 100,
+    centimetres: earthRadius * 100,
+    degrees: earthRadius / 111325,
+    feet: earthRadius * 3.28084,
+    inches: earthRadius * 39.37,
+    kilometers: earthRadius / 1000,
+    kilometres: earthRadius / 1000,
+    meters: earthRadius,
+    metres: earthRadius,
+    miles: earthRadius / 1609.344,
+    millimeters: earthRadius * 1000,
+    millimetres: earthRadius * 1000,
+    nauticalmiles: earthRadius / 1852,
+    radians: 1,
+    yards: earthRadius * 1.0936,
+};
+/**
+ * Wraps a GeoJSON {@link Geometry} in a GeoJSON {@link Feature}.
+ *
+ * @name feature
+ * @param {Geometry} geometry input geometry
+ * @param {Object} [properties={}] an Object of key-value pairs to add as properties
+ * @param {Object} [options={}] Optional Parameters
+ * @param {Array<number>} [options.bbox] Bounding Box Array [west, south, east, north] associated with the Feature
+ * @param {string|number} [options.id] Identifier associated with the Feature
+ * @returns {Feature} a GeoJSON Feature
+ * @example
+ * var geometry = {
+ *   "type": "Point",
+ *   "coordinates": [110, 50]
+ * };
+ *
+ * var feature = turf.feature(geometry);
+ *
+ * //=feature
+ */
+function feature(geom, properties, options) {
+    if (options === void 0) { options = {}; }
+    var feat = { type: "Feature" };
+    if (options.id === 0 || options.id) {
+        feat.id = options.id;
+    }
+    if (options.bbox) {
+        feat.bbox = options.bbox;
+    }
+    feat.properties = properties || {};
+    feat.geometry = geom;
+    return feat;
+}
+/**
+ * Creates a {@link Point} {@link Feature} from a Position.
+ *
+ * @name point
+ * @param {Array<number>} coordinates longitude, latitude position (each in decimal degrees)
+ * @param {Object} [properties={}] an Object of key-value pairs to add as properties
+ * @param {Object} [options={}] Optional Parameters
+ * @param {Array<number>} [options.bbox] Bounding Box Array [west, south, east, north] associated with the Feature
+ * @param {string|number} [options.id] Identifier associated with the Feature
+ * @returns {Feature<Point>} a Point feature
+ * @example
+ * var point = turf.point([-75.343, 39.984]);
+ *
+ * //=point
+ */
+function point(coordinates, properties, options) {
+    if (options === void 0) { options = {}; }
+    if (!coordinates) {
+        throw new Error("coordinates is required");
+    }
+    if (!Array.isArray(coordinates)) {
+        throw new Error("coordinates must be an Array");
+    }
+    if (coordinates.length < 2) {
+        throw new Error("coordinates must be at least 2 numbers long");
+    }
+    if (!isNumber(coordinates[0]) || !isNumber(coordinates[1])) {
+        throw new Error("coordinates must contain numbers");
+    }
+    var geom = {
+        type: "Point",
+        coordinates: coordinates,
+    };
+    return feature(geom, properties, options);
+}
+/**
+ * Takes one or more {@link Feature|Features} and creates a {@link FeatureCollection}.
+ *
+ * @name featureCollection
+ * @param {Feature[]} features input features
+ * @param {Object} [options={}] Optional Parameters
+ * @param {Array<number>} [options.bbox] Bounding Box Array [west, south, east, north] associated with the Feature
+ * @param {string|number} [options.id] Identifier associated with the Feature
+ * @returns {FeatureCollection} FeatureCollection of Features
+ * @example
+ * var locationA = turf.point([-75.343, 39.984], {name: 'Location A'});
+ * var locationB = turf.point([-75.833, 39.284], {name: 'Location B'});
+ * var locationC = turf.point([-75.534, 39.123], {name: 'Location C'});
+ *
+ * var collection = turf.featureCollection([
+ *   locationA,
+ *   locationB,
+ *   locationC
+ * ]);
+ *
+ * //=collection
+ */
+function featureCollection(features, options) {
+    if (options === void 0) { options = {}; }
+    var fc = { type: "FeatureCollection" };
+    if (options.id) {
+        fc.id = options.id;
+    }
+    if (options.bbox) {
+        fc.bbox = options.bbox;
+    }
+    fc.features = features;
+    return fc;
+}
+/**
+ * Convert a distance measurement (assuming a spherical Earth) from radians to a more friendly unit.
+ * Valid units: miles, nauticalmiles, inches, yards, meters, metres, kilometers, centimeters, feet
+ *
+ * @name radiansToLength
+ * @param {number} radians in radians across the sphere
+ * @param {string} [units="kilometers"] can be degrees, radians, miles, inches, yards, metres,
+ * meters, kilometres, kilometers.
+ * @returns {number} distance
+ */
+function radiansToLength(radians, units) {
+    if (units === void 0) { units = "kilometers"; }
+    var factor = factors[units];
+    if (!factor) {
+        throw new Error(units + " units is invalid");
+    }
+    return radians * factor;
+}
+/**
+ * Convert a distance measurement (assuming a spherical Earth) from a real-world unit into radians
+ * Valid units: miles, nauticalmiles, inches, yards, meters, metres, kilometers, centimeters, feet
+ *
+ * @name lengthToRadians
+ * @param {number} distance in real units
+ * @param {string} [units="kilometers"] can be degrees, radians, miles, inches, yards, metres,
+ * meters, kilometres, kilometers.
+ * @returns {number} radians
+ */
+function lengthToRadians(distance, units) {
+    if (units === void 0) { units = "kilometers"; }
+    var factor = factors[units];
+    if (!factor) {
+        throw new Error(units + " units is invalid");
+    }
+    return distance / factor;
+}
+/**
+ * Converts an angle in degrees to radians
+ *
+ * @name degreesToRadians
+ * @param {number} degrees angle between 0 and 360 degrees
+ * @returns {number} angle in radians
+ */
+function degreesToRadians(degrees) {
+    var radians = degrees % 360;
+    return (radians * Math.PI) / 180;
+}
+/**
+ * Converts a length to the requested unit.
+ * Valid units: miles, nauticalmiles, inches, yards, meters, metres, kilometers, centimeters, feet
+ *
+ * @param {number} length to be converted
+ * @param {Units} [originalUnit="kilometers"] of the length
+ * @param {Units} [finalUnit="kilometers"] returned unit
+ * @returns {number} the converted length
+ */
+function convertLength(length, originalUnit, finalUnit) {
+    if (originalUnit === void 0) { originalUnit = "kilometers"; }
+    if (finalUnit === void 0) { finalUnit = "kilometers"; }
+    if (!(length >= 0)) {
+        throw new Error("length must be a positive number");
+    }
+    return radiansToLength(lengthToRadians(length, originalUnit), finalUnit);
+}
+/**
+ * isNumber
+ *
+ * @param {*} num Number to validate
+ * @returns {boolean} true/false
+ * @example
+ * turf.isNumber(123)
+ * //=true
+ * turf.isNumber('foo')
+ * //=false
+ */
+function isNumber(num) {
+    return !isNaN(num) && num !== null && !Array.isArray(num);
+}
+
+/**
+ * Returns a cloned copy of the passed GeoJSON Object, including possible 'Foreign Members'.
+ * ~3-5x faster than the common JSON.parse + JSON.stringify combo method.
+ *
+ * @name clone
+ * @param {GeoJSON} geojson GeoJSON Object
+ * @returns {GeoJSON} cloned GeoJSON Object
+ * @example
+ * var line = turf.lineString([[-74, 40], [-78, 42], [-82, 35]], {color: 'red'});
+ *
+ * var lineCloned = turf.clone(line);
+ */
+function clone(geojson) {
+    if (!geojson) {
+        throw new Error("geojson is required");
+    }
+    switch (geojson.type) {
+        case "Feature":
+            return cloneFeature(geojson);
+        case "FeatureCollection":
+            return cloneFeatureCollection(geojson);
+        case "Point":
+        case "LineString":
+        case "Polygon":
+        case "MultiPoint":
+        case "MultiLineString":
+        case "MultiPolygon":
+        case "GeometryCollection":
+            return cloneGeometry(geojson);
+        default:
+            throw new Error("unknown GeoJSON type");
+    }
+}
+/**
+ * Clone Feature
+ *
+ * @private
+ * @param {Feature<any>} geojson GeoJSON Feature
+ * @returns {Feature<any>} cloned Feature
+ */
+function cloneFeature(geojson) {
+    var cloned = { type: "Feature" };
+    // Preserve Foreign Members
+    Object.keys(geojson).forEach(function (key) {
+        switch (key) {
+            case "type":
+            case "properties":
+            case "geometry":
+                return;
+            default:
+                cloned[key] = geojson[key];
+        }
+    });
+    // Add properties & geometry last
+    cloned.properties = cloneProperties(geojson.properties);
+    cloned.geometry = cloneGeometry(geojson.geometry);
+    return cloned;
+}
+/**
+ * Clone Properties
+ *
+ * @private
+ * @param {Object} properties GeoJSON Properties
+ * @returns {Object} cloned Properties
+ */
+function cloneProperties(properties) {
+    var cloned = {};
+    if (!properties) {
+        return cloned;
+    }
+    Object.keys(properties).forEach(function (key) {
+        var value = properties[key];
+        if (typeof value === "object") {
+            if (value === null) {
+                // handle null
+                cloned[key] = null;
+            }
+            else if (Array.isArray(value)) {
+                // handle Array
+                cloned[key] = value.map(function (item) {
+                    return item;
+                });
+            }
+            else {
+                // handle generic Object
+                cloned[key] = cloneProperties(value);
+            }
+        }
+        else {
+            cloned[key] = value;
+        }
+    });
+    return cloned;
+}
+/**
+ * Clone Feature Collection
+ *
+ * @private
+ * @param {FeatureCollection<any>} geojson GeoJSON Feature Collection
+ * @returns {FeatureCollection<any>} cloned Feature Collection
+ */
+function cloneFeatureCollection(geojson) {
+    var cloned = { type: "FeatureCollection" };
+    // Preserve Foreign Members
+    Object.keys(geojson).forEach(function (key) {
+        switch (key) {
+            case "type":
+            case "features":
+                return;
+            default:
+                cloned[key] = geojson[key];
+        }
+    });
+    // Add features
+    cloned.features = geojson.features.map(function (feature) {
+        return cloneFeature(feature);
+    });
+    return cloned;
+}
+/**
+ * Clone Geometry
+ *
+ * @private
+ * @param {Geometry<any>} geometry GeoJSON Geometry
+ * @returns {Geometry<any>} cloned Geometry
+ */
+function cloneGeometry(geometry) {
+    var geom = { type: geometry.type };
+    if (geometry.bbox) {
+        geom.bbox = geometry.bbox;
+    }
+    if (geometry.type === "GeometryCollection") {
+        geom.geometries = geometry.geometries.map(function (g) {
+            return cloneGeometry(g);
+        });
+        return geom;
+    }
+    geom.coordinates = deepSlice(geometry.coordinates);
+    return geom;
+}
+/**
+ * Deep Slice coordinates
+ *
+ * @private
+ * @param {Coordinates} coords Coordinates
+ * @returns {Coordinates} all coordinates sliced
+ */
+function deepSlice(coords) {
+    var cloned = coords;
+    if (typeof cloned[0] !== "object") {
+        return cloned.slice();
+    }
+    return cloned.map(function (coord) {
+        return deepSlice(coord);
+    });
+}
+
+/**
+ * Callback for coordEach
+ *
+ * @callback coordEachCallback
+ * @param {Array<number>} currentCoord The current coordinate being processed.
+ * @param {number} coordIndex The current index of the coordinate being processed.
+ * @param {number} featureIndex The current index of the Feature being processed.
+ * @param {number} multiFeatureIndex The current index of the Multi-Feature being processed.
+ * @param {number} geometryIndex The current index of the Geometry being processed.
+ */
+
+/**
+ * Iterate over coordinates in any GeoJSON object, similar to Array.forEach()
+ *
+ * @name coordEach
+ * @param {FeatureCollection|Feature|Geometry} geojson any GeoJSON object
+ * @param {Function} callback a method that takes (currentCoord, coordIndex, featureIndex, multiFeatureIndex)
+ * @param {boolean} [excludeWrapCoord=false] whether or not to include the final coordinate of LinearRings that wraps the ring in its iteration.
+ * @returns {void}
+ * @example
+ * var features = turf.featureCollection([
+ *   turf.point([26, 37], {"foo": "bar"}),
+ *   turf.point([36, 53], {"hello": "world"})
+ * ]);
+ *
+ * turf.coordEach(features, function (currentCoord, coordIndex, featureIndex, multiFeatureIndex, geometryIndex) {
+ *   //=currentCoord
+ *   //=coordIndex
+ *   //=featureIndex
+ *   //=multiFeatureIndex
+ *   //=geometryIndex
+ * });
+ */
+function coordEach(geojson, callback, excludeWrapCoord) {
+  // Handles null Geometry -- Skips this GeoJSON
+  if (geojson === null) return;
+  var j,
+    k,
+    l,
+    geometry,
+    stopG,
+    coords,
+    geometryMaybeCollection,
+    wrapShrink = 0,
+    coordIndex = 0,
+    isGeometryCollection,
+    type = geojson.type,
+    isFeatureCollection = type === "FeatureCollection",
+    isFeature = type === "Feature",
+    stop = isFeatureCollection ? geojson.features.length : 1;
+
+  // This logic may look a little weird. The reason why it is that way
+  // is because it's trying to be fast. GeoJSON supports multiple kinds
+  // of objects at its root: FeatureCollection, Features, Geometries.
+  // This function has the responsibility of handling all of them, and that
+  // means that some of the `for` loops you see below actually just don't apply
+  // to certain inputs. For instance, if you give this just a
+  // Point geometry, then both loops are short-circuited and all we do
+  // is gradually rename the input until it's called 'geometry'.
+  //
+  // This also aims to allocate as few resources as possible: just a
+  // few numbers and booleans, rather than any temporary arrays as would
+  // be required with the normalization approach.
+  for (var featureIndex = 0; featureIndex < stop; featureIndex++) {
+    geometryMaybeCollection = isFeatureCollection
+      ? geojson.features[featureIndex].geometry
+      : isFeature
+      ? geojson.geometry
+      : geojson;
+    isGeometryCollection = geometryMaybeCollection
+      ? geometryMaybeCollection.type === "GeometryCollection"
+      : false;
+    stopG = isGeometryCollection
+      ? geometryMaybeCollection.geometries.length
+      : 1;
+
+    for (var geomIndex = 0; geomIndex < stopG; geomIndex++) {
+      var multiFeatureIndex = 0;
+      var geometryIndex = 0;
+      geometry = isGeometryCollection
+        ? geometryMaybeCollection.geometries[geomIndex]
+        : geometryMaybeCollection;
+
+      // Handles null Geometry -- Skips this geometry
+      if (geometry === null) continue;
+      coords = geometry.coordinates;
+      var geomType = geometry.type;
+
+      wrapShrink =
+        excludeWrapCoord &&
+        (geomType === "Polygon" || geomType === "MultiPolygon")
+          ? 1
+          : 0;
+
+      switch (geomType) {
+        case null:
+          break;
+        case "Point":
+          if (
+            callback(
+              coords,
+              coordIndex,
+              featureIndex,
+              multiFeatureIndex,
+              geometryIndex
+            ) === false
+          )
+            return false;
+          coordIndex++;
+          multiFeatureIndex++;
+          break;
+        case "LineString":
+        case "MultiPoint":
+          for (j = 0; j < coords.length; j++) {
+            if (
+              callback(
+                coords[j],
+                coordIndex,
+                featureIndex,
+                multiFeatureIndex,
+                geometryIndex
+              ) === false
+            )
+              return false;
+            coordIndex++;
+            if (geomType === "MultiPoint") multiFeatureIndex++;
+          }
+          if (geomType === "LineString") multiFeatureIndex++;
+          break;
+        case "Polygon":
+        case "MultiLineString":
+          for (j = 0; j < coords.length; j++) {
+            for (k = 0; k < coords[j].length - wrapShrink; k++) {
+              if (
+                callback(
+                  coords[j][k],
+                  coordIndex,
+                  featureIndex,
+                  multiFeatureIndex,
+                  geometryIndex
+                ) === false
+              )
+                return false;
+              coordIndex++;
+            }
+            if (geomType === "MultiLineString") multiFeatureIndex++;
+            if (geomType === "Polygon") geometryIndex++;
+          }
+          if (geomType === "Polygon") multiFeatureIndex++;
+          break;
+        case "MultiPolygon":
+          for (j = 0; j < coords.length; j++) {
+            geometryIndex = 0;
+            for (k = 0; k < coords[j].length; k++) {
+              for (l = 0; l < coords[j][k].length - wrapShrink; l++) {
+                if (
+                  callback(
+                    coords[j][k][l],
+                    coordIndex,
+                    featureIndex,
+                    multiFeatureIndex,
+                    geometryIndex
+                  ) === false
+                )
+                  return false;
+                coordIndex++;
+              }
+              geometryIndex++;
+            }
+            multiFeatureIndex++;
+          }
+          break;
+        case "GeometryCollection":
+          for (j = 0; j < geometry.geometries.length; j++)
+            if (
+              coordEach(geometry.geometries[j], callback, excludeWrapCoord) ===
+              false
+            )
+              return false;
+          break;
+        default:
+          throw new Error("Unknown Geometry Type");
+      }
+    }
+  }
+}
+
+/**
+ * Callback for featureEach
+ *
+ * @callback featureEachCallback
+ * @param {Feature<any>} currentFeature The current Feature being processed.
+ * @param {number} featureIndex The current index of the Feature being processed.
+ */
+
+/**
+ * Iterate over features in any GeoJSON object, similar to
+ * Array.forEach.
+ *
+ * @name featureEach
+ * @param {FeatureCollection|Feature|Geometry} geojson any GeoJSON object
+ * @param {Function} callback a method that takes (currentFeature, featureIndex)
+ * @returns {void}
+ * @example
+ * var features = turf.featureCollection([
+ *   turf.point([26, 37], {foo: 'bar'}),
+ *   turf.point([36, 53], {hello: 'world'})
+ * ]);
+ *
+ * turf.featureEach(features, function (currentFeature, featureIndex) {
+ *   //=currentFeature
+ *   //=featureIndex
+ * });
+ */
+function featureEach(geojson, callback) {
+  if (geojson.type === "Feature") {
+    callback(geojson, 0);
+  } else if (geojson.type === "FeatureCollection") {
+    for (var i = 0; i < geojson.features.length; i++) {
+      if (callback(geojson.features[i], i) === false) break;
+    }
+  }
+}
+
+/**
+ * Get all coordinates from any GeoJSON object.
+ *
+ * @name coordAll
+ * @param {FeatureCollection|Feature|Geometry} geojson any GeoJSON object
+ * @returns {Array<Array<number>>} coordinate position array
+ * @example
+ * var features = turf.featureCollection([
+ *   turf.point([26, 37], {foo: 'bar'}),
+ *   turf.point([36, 53], {hello: 'world'})
+ * ]);
+ *
+ * var coords = turf.coordAll(features);
+ * //= [[26, 37], [36, 53]]
+ */
+function coordAll(geojson) {
+  var coords = [];
+  coordEach(geojson, function (coord) {
+    coords.push(coord);
+  });
+  return coords;
+}
+
+var distance$1 = {
+	/**
+  * Euclidean distance
+  */
+	eudist: function eudist(v1, v2, sqrt) {
+		var len = v1.length;
+		var sum = 0;
+
+		for (var i = 0; i < len; i++) {
+			var d = (v1[i] || 0) - (v2[i] || 0);
+			sum += d * d;
+		}
+		// Square root not really needed
+		return sqrt ? Math.sqrt(sum) : sum;
+	},
+	mandist: function mandist(v1, v2, sqrt) {
+		var len = v1.length;
+		var sum = 0;
+
+		for (var i = 0; i < len; i++) {
+			sum += Math.abs((v1[i] || 0) - (v2[i] || 0));
+		}
+
+		// Square root not really needed
+		return sqrt ? Math.sqrt(sum) : sum;
+	},
+
+
+	/**
+  * Unidimensional distance
+  */
+	dist: function dist(v1, v2, sqrt) {
+		var d = Math.abs(v1 - v2);
+		return sqrt ? d : d * d;
+	}
+};
+
+var Distance$1 = distance$1,
+    eudist$1 = Distance$1.eudist,
+    dist = Distance$1.dist;
+
+var kinit = {
+	kmrand: function kmrand(data, k) {
+		var map = {},
+		    ks = [],
+		    t = k << 2;
+		var len = data.length;
+		var multi = data[0].length > 0;
+
+		while (ks.length < k && t-- > 0) {
+			var d = data[Math.floor(Math.random() * len)];
+			var key = multi ? d.join("_") : "" + d;
+			if (!map[key]) {
+				map[key] = true;
+				ks.push(d);
+			}
+		}
+
+		if (ks.length < k) throw new Error("Error initializating clusters");else return ks;
+	},
+
+
+	/**
+  * K-means++ initial centroid selection
+  */
+	kmpp: function kmpp(data, k) {
+		var distance = data[0].length ? eudist$1 : dist;
+		var ks = [],
+		    len = data.length;
+		var multi = data[0].length > 0;
+		var map = {};
+
+		// First random centroid
+		var c = data[Math.floor(Math.random() * len)];
+		var key = multi ? c.join("_") : "" + c;
+		ks.push(c);
+		map[key] = true;
+
+		// Retrieve next centroids
+		while (ks.length < k) {
+			// Min Distances between current centroids and data points
+			var dists = [],
+			    lk = ks.length;
+			var dsum = 0,
+			    prs = [];
+
+			for (var i = 0; i < len; i++) {
+				var min = Infinity;
+				for (var j = 0; j < lk; j++) {
+					var _dist = distance(data[i], ks[j]);
+					if (_dist <= min) min = _dist;
+				}
+				dists[i] = min;
+			}
+
+			// Sum all min distances
+			for (var _i = 0; _i < len; _i++) {
+				dsum += dists[_i];
+			}
+
+			// Probabilities and cummulative prob (cumsum)
+			for (var _i2 = 0; _i2 < len; _i2++) {
+				prs[_i2] = { i: _i2, v: data[_i2], pr: dists[_i2] / dsum, cs: 0 };
+			}
+
+			// Sort Probabilities
+			prs.sort(function (a, b) {
+				return a.pr - b.pr;
+			});
+
+			// Cummulative Probabilities
+			prs[0].cs = prs[0].pr;
+			for (var _i3 = 1; _i3 < len; _i3++) {
+				prs[_i3].cs = prs[_i3 - 1].cs + prs[_i3].pr;
+			}
+
+			// Randomize
+			var rnd = Math.random();
+
+			// Gets only the items whose cumsum >= rnd
+			var idx = 0;
+			while (idx < len - 1 && prs[idx++].cs < rnd) {}
+			ks.push(prs[idx - 1].v);
+			/*
+   let done = false;
+   while(!done) {
+   	// this is our new centroid
+   	c = prs[idx-1].v
+   	key = multi? c.join("_") : `${c}`;
+   	if(!map[key]) {
+   		map[key] = true;
+   		ks.push(c);
+   		done = true;
+   	}
+   	else {
+   		idx++;
+   	}
+   }
+   */
+		}
+
+		return ks;
+	}
+};
+
+/*jshint esversion: 6 */
+
+var Distance = distance$1,
+    ClusterInit = kinit,
+    eudist = Distance.eudist,
+    kmrand = ClusterInit.kmrand,
+    kmpp = ClusterInit.kmpp;
+
+var MAX = 10000;
+
+/**
+ * Inits an array with values
+ */
+function init(len, val, v) {
+	v = v || [];
+	for (var i = 0; i < len; i++) {
+		v[i] = val;
+	}return v;
+}
+
+function skmeans(data, k, initial, maxit) {
+	var ks = [],
+	    old = [],
+	    idxs = [],
+	    dist = [];
+	var conv = false,
+	    it = maxit || MAX;
+	var len = data.length,
+	    vlen = data[0].length,
+	    multi = vlen > 0;
+	var count = [];
+
+	if (!initial) {
+		var _idxs = {};
+		while (ks.length < k) {
+			var idx = Math.floor(Math.random() * len);
+			if (!_idxs[idx]) {
+				_idxs[idx] = true;
+				ks.push(data[idx]);
+			}
+		}
+	} else if (initial == "kmrand") {
+		ks = kmrand(data, k);
+	} else if (initial == "kmpp") {
+		ks = kmpp(data, k);
+	} else {
+		ks = initial;
+	}
+
+	do {
+		// Reset k count
+		init(k, 0, count);
+
+		// For each value in data, find the nearest centroid
+		for (var i = 0; i < len; i++) {
+			var min = Infinity,
+			    _idx = 0;
+			for (var j = 0; j < k; j++) {
+				// Multidimensional or unidimensional
+				var dist = multi ? eudist(data[i], ks[j]) : Math.abs(data[i] - ks[j]);
+				if (dist <= min) {
+					min = dist;
+					_idx = j;
+				}
+			}
+			idxs[i] = _idx; // Index of the selected centroid for that value
+			count[_idx]++; // Number of values for this centroid
+		}
+
+		// Recalculate centroids
+		var sum = [],
+		    old = [];
+		for (var _j = 0; _j < k; _j++) {
+			// Multidimensional or unidimensional
+			sum[_j] = multi ? init(vlen, 0, sum[_j]) : 0;
+			old[_j] = ks[_j];
+		}
+
+		// If multidimensional
+		if (multi) {
+			for (var _j2 = 0; _j2 < k; _j2++) {
+				ks[_j2] = [];
+			} // Sum values and count for each centroid
+			for (var _i = 0; _i < len; _i++) {
+				var _idx2 = idxs[_i],
+				    // Centroid for that item
+				vsum = sum[_idx2],
+				    // Sum values for this centroid
+				vect = data[_i]; // Current vector
+
+				// Accumulate value on the centroid for current vector
+				for (var h = 0; h < vlen; h++) {
+					vsum[h] += vect[h];
+				}
+			}
+			// Calculate the average for each centroid
+			conv = true;
+			for (var _j3 = 0; _j3 < k; _j3++) {
+				var ksj = ks[_j3],
+				    // Current centroid
+				sumj = sum[_j3],
+				    // Accumulated centroid values
+				oldj = old[_j3],
+				    // Old centroid value
+				cj = count[_j3]; // Number of elements for this centroid
+
+				// New average
+				for (var _h = 0; _h < vlen; _h++) {
+					ksj[_h] = sumj[_h] / cj || 0; // New centroid
+				}
+
+				// Find if centroids have moved
+				if (conv) {
+					for (var _h2 = 0; _h2 < vlen; _h2++) {
+						if (oldj[_h2] != ksj[_h2]) {
+							conv = false;
+							break;
+						}
+					}
+				}
+			}
+		}
+		// If unidimensional
+		else {
+				// Sum values and count for each centroid
+				for (var _i2 = 0; _i2 < len; _i2++) {
+					var _idx3 = idxs[_i2];
+					sum[_idx3] += data[_i2];
+				}
+				// Calculate the average for each centroid
+				for (var _j4 = 0; _j4 < k; _j4++) {
+					ks[_j4] = sum[_j4] / count[_j4] || 0; // New centroid
+				}
+				// Find if centroids have moved
+				conv = true;
+				for (var _j5 = 0; _j5 < k; _j5++) {
+					if (old[_j5] != ks[_j5]) {
+						conv = false;
+						break;
+					}
+				}
+			}
+
+		conv = conv || --it <= 0;
+	} while (!conv);
+
+	return {
+		it: MAX - it,
+		k: k,
+		idxs: idxs,
+		centroids: ks
+	};
+}
+
+var main = skmeans;
+
+/**
+ * Takes a set of {@link Point|points} and partition them into clusters using the k-mean .
+ * It uses the [k-means algorithm](https://en.wikipedia.org/wiki/K-means_clustering)
+ *
+ * @name clustersKmeans
+ * @param {FeatureCollection<Point>} points to be clustered
+ * @param {Object} [options={}] Optional parameters
+ * @param {number} [options.numberOfClusters=Math.sqrt(numberOfPoints/2)] numberOfClusters that will be generated
+ * @param {boolean} [options.mutate=false] allows GeoJSON input to be mutated (significant performance increase if true)
+ * @returns {FeatureCollection<Point>} Clustered Points with an additional two properties associated to each Feature:
+ * - {number} cluster - the associated clusterId
+ * - {[number, number]} centroid - Centroid of the cluster [Longitude, Latitude]
+ * @example
+ * // create random points with random z-values in their properties
+ * var points = turf.randomPoint(100, {bbox: [0, 30, 20, 50]});
+ * var options = {numberOfClusters: 7};
+ * var clustered = turf.clustersKmeans(points, options);
+ *
+ * //addToMap
+ * var addToMap = [clustered];
+ */
+function clustersKmeans(points, options) {
+    if (options === void 0) { options = {}; }
+    // Default Params
+    var count = points.features.length;
+    options.numberOfClusters =
+        options.numberOfClusters || Math.round(Math.sqrt(count / 2));
+    // numberOfClusters can't be greater than the number of points
+    // fallbacks to count
+    if (options.numberOfClusters > count)
+        options.numberOfClusters = count;
+    // Clone points to prevent any mutations (enabled by default)
+    if (options.mutate !== true)
+        points = clone(points);
+    // collect points coordinates
+    var data = coordAll(points);
+    // create seed to avoid skmeans to drift
+    var initialCentroids = data.slice(0, options.numberOfClusters);
+    // create skmeans clusters
+    var skmeansResult = main(data, options.numberOfClusters, initialCentroids);
+    // store centroids {clusterId: [number, number]}
+    var centroids = {};
+    skmeansResult.centroids.forEach(function (coord, idx) {
+        centroids[idx] = coord;
+    });
+    // add associated cluster number
+    featureEach(points, function (point, index) {
+        var clusterId = skmeansResult.idxs[index];
+        point.properties.cluster = clusterId;
+        point.properties.centroid = centroids[clusterId];
+    });
+    return points;
+}
+
+/**
+ * Unwrap a coordinate from a Point Feature, Geometry or a single coordinate.
+ *
+ * @name getCoord
+ * @param {Array<number>|Geometry<Point>|Feature<Point>} coord GeoJSON Point or an Array of numbers
+ * @returns {Array<number>} coordinates
+ * @example
+ * var pt = turf.point([10, 10]);
+ *
+ * var coord = turf.getCoord(pt);
+ * //= [10, 10]
+ */
+function getCoord(coord) {
+    if (!coord) {
+        throw new Error("coord is required");
+    }
+    if (!Array.isArray(coord)) {
+        if (coord.type === "Feature" &&
+            coord.geometry !== null &&
+            coord.geometry.type === "Point") {
+            return coord.geometry.coordinates;
+        }
+        if (coord.type === "Point") {
+            return coord.coordinates;
+        }
+    }
+    if (Array.isArray(coord) &&
+        coord.length >= 2 &&
+        !Array.isArray(coord[0]) &&
+        !Array.isArray(coord[1])) {
+        return coord;
+    }
+    throw new Error("coord must be GeoJSON Point or an Array of numbers");
+}
+
+//http://en.wikipedia.org/wiki/Haversine_formula
+//http://www.movable-type.co.uk/scripts/latlong.html
+/**
+ * Calculates the distance between two {@link Point|points} in degrees, radians, miles, or kilometers.
+ * This uses the [Haversine formula](http://en.wikipedia.org/wiki/Haversine_formula) to account for global curvature.
+ *
+ * @name distance
+ * @param {Coord | Point} from origin point or coordinate
+ * @param {Coord | Point} to destination point or coordinate
+ * @param {Object} [options={}] Optional parameters
+ * @param {string} [options.units='kilometers'] can be degrees, radians, miles, or kilometers
+ * @returns {number} distance between the two points
+ * @example
+ * var from = turf.point([-75.343, 39.984]);
+ * var to = turf.point([-75.534, 39.123]);
+ * var options = {units: 'miles'};
+ *
+ * var distance = turf.distance(from, to, options);
+ *
+ * //addToMap
+ * var addToMap = [from, to];
+ * from.properties.distance = distance;
+ * to.properties.distance = distance;
+ */
+function distance(from, to, options) {
+    if (options === void 0) { options = {}; }
+    var coordinates1 = getCoord(from);
+    var coordinates2 = getCoord(to);
+    var dLat = degreesToRadians(coordinates2[1] - coordinates1[1]);
+    var dLon = degreesToRadians(coordinates2[0] - coordinates1[0]);
+    var lat1 = degreesToRadians(coordinates1[1]);
+    var lat2 = degreesToRadians(coordinates2[1]);
+    var a = Math.pow(Math.sin(dLat / 2), 2) +
+        Math.pow(Math.sin(dLon / 2), 2) * Math.cos(lat1) * Math.cos(lat2);
+    return radiansToLength(2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)), options.units);
+}
+
+var lib = {exports: {}};
+
+var DBSCAN = {exports: {}};
+
+/**
+ * DBSCAN - Density based clustering
+ *
+ * @author Lukasz Krawczyk <contact@lukaszkrawczyk.eu>
+ * @copyright MIT
+ */
+
+(function (module) {
+/**
+ * DBSCAN class construcotr
+ * @constructor
+ *
+ * @param {Array} dataset
+ * @param {number} epsilon
+ * @param {number} minPts
+ * @param {function} distanceFunction
+ * @returns {DBSCAN}
+ */
+function DBSCAN(dataset, epsilon, minPts, distanceFunction) {
+  /** @type {Array} */
+  this.dataset = [];
+  /** @type {number} */
+  this.epsilon = 1;
+  /** @type {number} */
+  this.minPts = 2;
+  /** @type {function} */
+  this.distance = this._euclideanDistance;
+  /** @type {Array} */
+  this.clusters = [];
+  /** @type {Array} */
+  this.noise = [];
+
+  // temporary variables used during computation
+
+  /** @type {Array} */
+  this._visited = [];
+  /** @type {Array} */
+  this._assigned = [];
+  /** @type {number} */
+  this._datasetLength = 0;
+
+  this._init(dataset, epsilon, minPts, distanceFunction);
+}
+/******************************************************************************/
+// public functions
+
+/**
+ * Start clustering
+ *
+ * @param {Array} dataset
+ * @param {number} epsilon
+ * @param {number} minPts
+ * @param {function} distanceFunction
+ * @returns {undefined}
+ * @access public
+ */
+DBSCAN.prototype.run = function(dataset, epsilon, minPts, distanceFunction) {
+  this._init(dataset, epsilon, minPts, distanceFunction);
+
+  for (var pointId = 0; pointId < this._datasetLength; pointId++) {
+    // if point is not visited, check if it forms a cluster
+    if (this._visited[pointId] !== 1) {
+      this._visited[pointId] = 1;
+
+      // if closest neighborhood is too small to form a cluster, mark as noise
+      var neighbors = this._regionQuery(pointId);
+
+      if (neighbors.length < this.minPts) {
+        this.noise.push(pointId);
+      } else {
+        // create new cluster and add point
+        var clusterId = this.clusters.length;
+        this.clusters.push([]);
+        this._addToCluster(pointId, clusterId);
+
+        this._expandCluster(clusterId, neighbors);
+      }
+    }
+  }
+
+  return this.clusters;
+};
+
+/******************************************************************************/
+// protected functions
+
+/**
+ * Set object properties
+ *
+ * @param {Array} dataset
+ * @param {number} epsilon
+ * @param {number} minPts
+ * @param {function} distance
+ * @returns {undefined}
+ * @access protected
+ */
+DBSCAN.prototype._init = function(dataset, epsilon, minPts, distance) {
+
+  if (dataset) {
+
+    if (!(dataset instanceof Array)) {
+      throw Error('Dataset must be of type array, ' +
+        typeof dataset + ' given');
+    }
+
+    this.dataset = dataset;
+    this.clusters = [];
+    this.noise = [];
+
+    this._datasetLength = dataset.length;
+    this._visited = new Array(this._datasetLength);
+    this._assigned = new Array(this._datasetLength);
+  }
+
+  if (epsilon) {
+    this.epsilon = epsilon;
+  }
+
+  if (minPts) {
+    this.minPts = minPts;
+  }
+
+  if (distance) {
+    this.distance = distance;
+  }
+};
+
+/**
+ * Expand cluster to closest points of given neighborhood
+ *
+ * @param {number} clusterId
+ * @param {Array} neighbors
+ * @returns {undefined}
+ * @access protected
+ */
+DBSCAN.prototype._expandCluster = function(clusterId, neighbors) {
+
+  /**
+   * It's very important to calculate length of neighbors array each time,
+   * as the number of elements changes over time
+   */
+  for (var i = 0; i < neighbors.length; i++) {
+    var pointId2 = neighbors[i];
+
+    if (this._visited[pointId2] !== 1) {
+      this._visited[pointId2] = 1;
+      var neighbors2 = this._regionQuery(pointId2);
+
+      if (neighbors2.length >= this.minPts) {
+        neighbors = this._mergeArrays(neighbors, neighbors2);
+      }
+    }
+
+    // add to cluster
+    if (this._assigned[pointId2] !== 1) {
+      this._addToCluster(pointId2, clusterId);
+    }
+  }
+};
+
+/**
+ * Add new point to cluster
+ *
+ * @param {number} pointId
+ * @param {number} clusterId
+ */
+DBSCAN.prototype._addToCluster = function(pointId, clusterId) {
+  this.clusters[clusterId].push(pointId);
+  this._assigned[pointId] = 1;
+};
+
+/**
+ * Find all neighbors around given point
+ *
+ * @param {number} pointId,
+ * @param {number} epsilon
+ * @returns {Array}
+ * @access protected
+ */
+DBSCAN.prototype._regionQuery = function(pointId) {
+  var neighbors = [];
+
+  for (var id = 0; id < this._datasetLength; id++) {
+    var dist = this.distance(this.dataset[pointId], this.dataset[id]);
+    if (dist < this.epsilon) {
+      neighbors.push(id);
+    }
+  }
+
+  return neighbors;
+};
+
+/******************************************************************************/
+// helpers
+
+/**
+ * @param {Array} a
+ * @param {Array} b
+ * @returns {Array}
+ * @access protected
+ */
+DBSCAN.prototype._mergeArrays = function(a, b) {
+  var len = b.length;
+
+  for (var i = 0; i < len; i++) {
+    var P = b[i];
+    if (a.indexOf(P) < 0) {
+      a.push(P);
+    }
+  }
+
+  return a;
+};
+
+/**
+ * Calculate euclidean distance in multidimensional space
+ *
+ * @param {Array} p
+ * @param {Array} q
+ * @returns {number}
+ * @access protected
+ */
+DBSCAN.prototype._euclideanDistance = function(p, q) {
+  var sum = 0;
+  var i = Math.min(p.length, q.length);
+
+  while (i--) {
+    sum += (p[i] - q[i]) * (p[i] - q[i]);
+  }
+
+  return Math.sqrt(sum);
+};
+
+if (module.exports) {
+  module.exports = DBSCAN;
+}
+}(DBSCAN));
+
+var KMEANS = {exports: {}};
+
+(function (module) {
+/**
+ * KMEANS clustering
+ *
+ * @author Lukasz Krawczyk <contact@lukaszkrawczyk.eu>
+ * @copyright MIT
+ */
+
+/**
+ * KMEANS class constructor
+ * @constructor
+ *
+ * @param {Array} dataset
+ * @param {number} k - number of clusters
+ * @param {function} distance - distance function
+ * @returns {KMEANS}
+ */
+ function KMEANS(dataset, k, distance) {
+  this.k = 3; // number of clusters
+  this.dataset = []; // set of feature vectors
+  this.assignments = []; // set of associated clusters for each feature vector
+  this.centroids = []; // vectors for our clusters
+
+  this.init(dataset, k, distance);
+}
+
+/**
+ * @returns {undefined}
+ */
+KMEANS.prototype.init = function(dataset, k, distance) {
+  this.assignments = [];
+  this.centroids = [];
+
+  if (typeof dataset !== 'undefined') {
+    this.dataset = dataset;
+  }
+
+  if (typeof k !== 'undefined') {
+    this.k = k;
+  }
+
+  if (typeof distance !== 'undefined') {
+    this.distance = distance;
+  }
+};
+
+/**
+ * @returns {undefined}
+ */
+KMEANS.prototype.run = function(dataset, k) {
+  this.init(dataset, k);
+
+  var len = this.dataset.length;
+
+  // initialize centroids
+  for (var i = 0; i < this.k; i++) {
+    this.centroids[i] = this.randomCentroid();
+	}
+
+  var change = true;
+  while(change) {
+
+    // assign feature vectors to clusters
+    change = this.assign();
+
+    // adjust location of centroids
+    for (var centroidId = 0; centroidId < this.k; centroidId++) {
+      var mean = new Array(maxDim);
+      var count = 0;
+
+      // init mean vector
+      for (var dim = 0; dim < maxDim; dim++) {
+        mean[dim] = 0;
+      }
+
+      for (var j = 0; j < len; j++) {
+        var maxDim = this.dataset[j].length;
+
+        // if current cluster id is assigned to point
+        if (centroidId === this.assignments[j]) {
+          for (var dim = 0; dim < maxDim; dim++) {
+            mean[dim] += this.dataset[j][dim];
+          }
+          count++;
+        }
+      }
+
+      if (count > 0) {
+        // if cluster contain points, adjust centroid position
+        for (var dim = 0; dim < maxDim; dim++) {
+          mean[dim] /= count;
+        }
+        this.centroids[centroidId] = mean;
+      } else {
+        // if cluster is empty, generate new random centroid
+        this.centroids[centroidId] = this.randomCentroid();
+        change = true;
+      }
+    }
+  }
+
+  return this.getClusters();
+};
+
+/**
+ * Generate random centroid
+ *
+ * @returns {Array}
+ */
+KMEANS.prototype.randomCentroid = function() {
+  var maxId = this.dataset.length -1;
+  var centroid;
+  var id;
+
+  do {
+    id = Math.round(Math.random() * maxId);
+    centroid = this.dataset[id];
+  } while (this.centroids.indexOf(centroid) >= 0);
+
+  return centroid;
+};
+
+/**
+ * Assign points to clusters
+ *
+ * @returns {boolean}
+ */
+KMEANS.prototype.assign = function() {
+  var change = false;
+  var len = this.dataset.length;
+  var closestCentroid;
+
+  for (var i = 0; i < len; i++) {
+    closestCentroid = this.argmin(this.dataset[i], this.centroids, this.distance);
+
+    if (closestCentroid != this.assignments[i]) {
+      this.assignments[i] = closestCentroid;
+      change = true;
+    }
+  }
+
+  return change;
+};
+
+/**
+ * Extract information about clusters
+ *
+ * @returns {undefined}
+ */
+KMEANS.prototype.getClusters = function() {
+  var clusters = new Array(this.k);
+  var centroidId;
+
+  for (var pointId = 0; pointId < this.assignments.length; pointId++) {
+    centroidId = this.assignments[pointId];
+
+    // init empty cluster
+    if (typeof clusters[centroidId] === 'undefined') {
+      clusters[centroidId] = [];
+    }
+
+    clusters[centroidId].push(pointId);
+  }
+
+  return clusters;
+};
+
+// utils
+
+/**
+ * @params {Array} point
+ * @params {Array.<Array>} set
+ * @params {Function} f
+ * @returns {number}
+ */
+KMEANS.prototype.argmin = function(point, set, f) {
+  var min = Number.MAX_VALUE;
+  var arg = 0;
+  var len = set.length;
+  var d;
+
+  for (var i = 0; i < len; i++) {
+    d = f(point, set[i]);
+    if (d < min) {
+      min = d;
+      arg = i;
+    }
+  }
+
+  return arg;
+};
+
+/**
+ * Euclidean distance
+ *
+ * @params {number} p
+ * @params {number} q
+ * @returns {number}
+ */
+KMEANS.prototype.distance = function(p, q) {
+  var sum = 0;
+  var i = Math.min(p.length, q.length);
+
+  while (i--) {
+    var diff = p[i] - q[i];
+    sum += diff * diff;
+  }
+
+  return Math.sqrt(sum);
+};
+
+if (module.exports) {
+  module.exports = KMEANS;
+}
+}(KMEANS));
+
+var OPTICS = {exports: {}};
+
+var PriorityQueue = {exports: {}};
+
+/**
+ * PriorityQueue
+ * Elements in this queue are sorted according to their value
+ *
+ * @author Lukasz Krawczyk <contact@lukaszkrawczyk.eu>
+ * @copyright MIT
+ */
+
+(function (module) {
+/**
+ * PriorityQueue class construcotr
+ * @constructor
+ *
+ * @example
+ * queue: [1,2,3,4]
+ * priorities: [4,1,2,3]
+ * > result = [1,4,2,3]
+ *
+ * @param {Array} elements
+ * @param {Array} priorities
+ * @param {string} sorting - asc / desc
+ * @returns {PriorityQueue}
+ */
+function PriorityQueue(elements, priorities, sorting) {
+  /** @type {Array} */
+  this._queue = [];
+  /** @type {Array} */
+  this._priorities = [];
+  /** @type {string} */
+  this._sorting = 'desc';
+
+  this._init(elements, priorities, sorting);
+}
+/**
+ * Insert element
+ *
+ * @param {Object} ele
+ * @param {Object} priority
+ * @returns {undefined}
+ * @access public
+ */
+PriorityQueue.prototype.insert = function(ele, priority) {
+  var indexToInsert = this._queue.length;
+  var index = indexToInsert;
+
+  while (index--) {
+    var priority2 = this._priorities[index];
+    if (this._sorting === 'desc') {
+      if (priority > priority2) {
+        indexToInsert = index;
+      }
+    } else {
+      if (priority < priority2) {
+        indexToInsert = index;
+      }
+    }
+  }
+
+  this._insertAt(ele, priority, indexToInsert);
+};
+
+/**
+ * Remove element
+ *
+ * @param {Object} ele
+ * @returns {undefined}
+ * @access public
+ */
+PriorityQueue.prototype.remove = function(ele) {
+  var index = this._queue.length;
+
+  while (index--) {
+    var ele2 = this._queue[index];
+    if (ele === ele2) {
+      this._queue.splice(index, 1);
+      this._priorities.splice(index, 1);
+      break;
+    }
+  }
+};
+
+/**
+ * For each loop wrapper
+ *
+ * @param {function} func
+ * @returs {undefined}
+ * @access public
+ */
+PriorityQueue.prototype.forEach = function(func) {
+  this._queue.forEach(func);
+};
+
+/**
+ * @returns {Array}
+ * @access public
+ */
+PriorityQueue.prototype.getElements = function() {
+  return this._queue;
+};
+
+/**
+ * @param {number} index
+ * @returns {Object}
+ * @access public
+ */
+PriorityQueue.prototype.getElementPriority = function(index) {
+  return this._priorities[index];
+};
+
+/**
+ * @returns {Array}
+ * @access public
+ */
+PriorityQueue.prototype.getPriorities = function() {
+  return this._priorities;
+};
+
+/**
+ * @returns {Array}
+ * @access public
+ */
+PriorityQueue.prototype.getElementsWithPriorities = function() {
+  var result = [];
+
+  for (var i = 0, l = this._queue.length; i < l; i++) {
+    result.push([this._queue[i], this._priorities[i]]);
+  }
+
+  return result;
+};
+
+/**
+ * Set object properties
+ *
+ * @param {Array} elements
+ * @param {Array} priorities
+ * @returns {undefined}
+ * @access protected
+ */
+PriorityQueue.prototype._init = function(elements, priorities, sorting) {
+
+  if (elements && priorities) {
+    this._queue = [];
+    this._priorities = [];
+
+    if (elements.length !== priorities.length) {
+      throw new Error('Arrays must have the same length');
+    }
+
+    for (var i = 0; i < elements.length; i++) {
+      this.insert(elements[i], priorities[i]);
+    }
+  }
+
+  if (sorting) {
+    this._sorting = sorting;
+  }
+};
+
+/**
+ * Insert element at given position
+ *
+ * @param {Object} ele
+ * @param {number} index
+ * @returns {undefined}
+ * @access protected
+ */
+PriorityQueue.prototype._insertAt = function(ele, priority, index) {
+  if (this._queue.length === index) {
+    this._queue.push(ele);
+    this._priorities.push(priority);
+  } else {
+    this._queue.splice(index, 0, ele);
+    this._priorities.splice(index, 0, priority);
+  }
+};
+
+if (module.exports) {
+  module.exports = PriorityQueue;
+}
+}(PriorityQueue));
+
+(function (module) {
+/**
+ * @requires ./PriorityQueue.js
+ */
+
+if (module.exports) {
+      var PriorityQueue$1 = PriorityQueue.exports;
+}
+
+/**
+ * OPTICS - Ordering points to identify the clustering structure
+ *
+ * @author Lukasz Krawczyk <contact@lukaszkrawczyk.eu>
+ * @copyright MIT
+ */
+
+/**
+ * OPTICS class constructor
+ * @constructor
+ *
+ * @param {Array} dataset
+ * @param {number} epsilon
+ * @param {number} minPts
+ * @param {function} distanceFunction
+ * @returns {OPTICS}
+ */
+function OPTICS(dataset, epsilon, minPts, distanceFunction) {
+  /** @type {number} */
+  this.epsilon = 1;
+  /** @type {number} */
+  this.minPts = 1;
+  /** @type {function} */
+  this.distance = this._euclideanDistance;
+
+  // temporary variables used during computation
+
+  /** @type {Array} */
+  this._reachability = [];
+  /** @type {Array} */
+  this._processed = [];
+  /** @type {number} */
+  this._coreDistance = 0;
+  /** @type {Array} */
+  this._orderedList = [];
+
+  this._init(dataset, epsilon, minPts, distanceFunction);
+}
+
+/******************************************************************************/
+// pulic functions
+
+/**
+ * Start clustering
+ *
+ * @param {Array} dataset
+ * @returns {undefined}
+ * @access public
+ */
+OPTICS.prototype.run = function(dataset, epsilon, minPts, distanceFunction) {
+  this._init(dataset, epsilon, minPts, distanceFunction);
+
+  for (var pointId = 0, l = this.dataset.length; pointId < l; pointId++) {
+    if (this._processed[pointId] !== 1) {
+      this._processed[pointId] = 1;
+      this.clusters.push([pointId]);
+      var clusterId = this.clusters.length - 1;
+
+      this._orderedList.push(pointId);
+      var priorityQueue = new PriorityQueue$1(null, null, 'asc');
+      var neighbors = this._regionQuery(pointId);
+
+      // using priority queue assign elements to new cluster
+      if (this._distanceToCore(pointId) !== undefined) {
+        this._updateQueue(pointId, neighbors, priorityQueue);
+        this._expandCluster(clusterId, priorityQueue);
+      }
+    }
+  }
+
+  return this.clusters;
+};
+
+/**
+ * Generate reachability plot for all points
+ *
+ * @returns {array}
+ * @access public
+ */
+OPTICS.prototype.getReachabilityPlot = function() {
+  var reachabilityPlot = [];
+
+  for (var i = 0, l = this._orderedList.length; i < l; i++) {
+    var pointId = this._orderedList[i];
+    var distance = this._reachability[pointId];
+
+    reachabilityPlot.push([pointId, distance]);
+  }
+
+  return reachabilityPlot;
+};
+
+/******************************************************************************/
+// protected functions
+
+/**
+ * Set object properties
+ *
+ * @param {Array} dataset
+ * @param {number} epsilon
+ * @param {number} minPts
+ * @param {function} distance
+ * @returns {undefined}
+ * @access protected
+ */
+OPTICS.prototype._init = function(dataset, epsilon, minPts, distance) {
+
+  if (dataset) {
+
+    if (!(dataset instanceof Array)) {
+      throw Error('Dataset must be of type array, ' +
+        typeof dataset + ' given');
+    }
+
+    this.dataset = dataset;
+    this.clusters = [];
+    this._reachability = new Array(this.dataset.length);
+    this._processed = new Array(this.dataset.length);
+    this._coreDistance = 0;
+    this._orderedList = [];
+  }
+
+  if (epsilon) {
+    this.epsilon = epsilon;
+  }
+
+  if (minPts) {
+    this.minPts = minPts;
+  }
+
+  if (distance) {
+    this.distance = distance;
+  }
+};
+
+/**
+ * Update information in queue
+ *
+ * @param {number} pointId
+ * @param {Array} neighbors
+ * @param {PriorityQueue} queue
+ * @returns {undefined}
+ * @access protected
+ */
+OPTICS.prototype._updateQueue = function(pointId, neighbors, queue) {
+  var self = this;
+
+  this._coreDistance = this._distanceToCore(pointId);
+  neighbors.forEach(function(pointId2) {
+    if (self._processed[pointId2] === undefined) {
+      var dist = self.distance(self.dataset[pointId], self.dataset[pointId2]);
+      var newReachableDistance = Math.max(self._coreDistance, dist);
+
+      if (self._reachability[pointId2] === undefined) {
+        self._reachability[pointId2] = newReachableDistance;
+        queue.insert(pointId2, newReachableDistance);
+      } else {
+        if (newReachableDistance < self._reachability[pointId2]) {
+          self._reachability[pointId2] = newReachableDistance;
+          queue.remove(pointId2);
+          queue.insert(pointId2, newReachableDistance);
+        }
+      }
+    }
+  });
+};
+
+/**
+ * Expand cluster
+ *
+ * @param {number} clusterId
+ * @param {PriorityQueue} queue
+ * @returns {undefined}
+ * @access protected
+ */
+OPTICS.prototype._expandCluster = function(clusterId, queue) {
+  var queueElements = queue.getElements();
+
+  for (var p = 0, l = queueElements.length; p < l; p++) {
+    var pointId = queueElements[p];
+    if (this._processed[pointId] === undefined) {
+      var neighbors = this._regionQuery(pointId);
+      this._processed[pointId] = 1;
+
+      this.clusters[clusterId].push(pointId);
+      this._orderedList.push(pointId);
+
+      if (this._distanceToCore(pointId) !== undefined) {
+        this._updateQueue(pointId, neighbors, queue);
+        this._expandCluster(clusterId, queue);
+      }
+    }
+  }
+};
+
+/**
+ * Calculating distance to cluster core
+ *
+ * @param {number} pointId
+ * @returns {number}
+ * @access protected
+ */
+OPTICS.prototype._distanceToCore = function(pointId) {
+  var l = this.epsilon;
+  for (var coreDistCand = 0; coreDistCand < l; coreDistCand++) {
+    var neighbors = this._regionQuery(pointId, coreDistCand);
+    if (neighbors.length >= this.minPts) {
+      return coreDistCand;
+    }
+  }
+
+  return;
+};
+
+/**
+ * Find all neighbors around given point
+ *
+ * @param {number} pointId
+ * @param {number} epsilon
+ * @returns {Array}
+ * @access protected
+ */
+OPTICS.prototype._regionQuery = function(pointId, epsilon) {
+  epsilon = epsilon || this.epsilon;
+  var neighbors = [];
+
+  for (var id = 0, l = this.dataset.length; id < l; id++) {
+    if (this.distance(this.dataset[pointId], this.dataset[id]) < epsilon) {
+      neighbors.push(id);
+    }
+  }
+
+  return neighbors;
+};
+
+/******************************************************************************/
+// helpers
+
+/**
+ * Calculate euclidean distance in multidimensional space
+ *
+ * @param {Array} p
+ * @param {Array} q
+ * @returns {number}
+ * @access protected
+ */
+OPTICS.prototype._euclideanDistance = function(p, q) {
+  var sum = 0;
+  var i = Math.min(p.length, q.length);
+
+  while (i--) {
+    sum += (p[i] - q[i]) * (p[i] - q[i]);
+  }
+
+  return Math.sqrt(sum);
+};
+
+if (module.exports) {
+  module.exports = OPTICS;
+}
+}(OPTICS));
+
+(function (module) {
+if (module.exports) {
+    module.exports = {
+      DBSCAN: DBSCAN.exports,
+      KMEANS: KMEANS.exports,
+      OPTICS: OPTICS.exports,
+      PriorityQueue: PriorityQueue.exports
+    };
+}
+}(lib));
+
+var clustering = lib.exports;
+
+/**
+ * Takes a set of {@link Point|points} and partition them into clusters according to {@link DBSCAN's|https://en.wikipedia.org/wiki/DBSCAN} data clustering algorithm.
+ *
+ * @name clustersDbscan
+ * @param {FeatureCollection<Point>} points to be clustered
+ * @param {number} maxDistance Maximum Distance between any point of the cluster to generate the clusters (kilometers only)
+ * @param {Object} [options={}] Optional parameters
+ * @param {string} [options.units="kilometers"] in which `maxDistance` is expressed, can be degrees, radians, miles, or kilometers
+ * @param {boolean} [options.mutate=false] Allows GeoJSON input to be mutated
+ * @param {number} [options.minPoints=3] Minimum number of points to generate a single cluster,
+ * points which do not meet this requirement will be classified as an 'edge' or 'noise'.
+ * @returns {FeatureCollection<Point>} Clustered Points with an additional two properties associated to each Feature:
+ * - {number} cluster - the associated clusterId
+ * - {string} dbscan - type of point it has been classified as ('core'|'edge'|'noise')
+ * @example
+ * // create random points with random z-values in their properties
+ * var points = turf.randomPoint(100, {bbox: [0, 30, 20, 50]});
+ * var maxDistance = 100;
+ * var clustered = turf.clustersDbscan(points, maxDistance);
+ *
+ * //addToMap
+ * var addToMap = [clustered];
+ */
+function clustersDbscan(points, maxDistance, options) {
+    // Input validation being handled by Typescript
+    // collectionOf(points, 'Point', 'points must consist of a FeatureCollection of only Points');
+    // if (maxDistance === null || maxDistance === undefined) throw new Error('maxDistance is required');
+    // if (!(Math.sign(maxDistance) > 0)) throw new Error('maxDistance is invalid');
+    // if (!(minPoints === undefined || minPoints === null || Math.sign(minPoints) > 0)) throw new Error('options.minPoints is invalid');
+    if (options === void 0) { options = {}; }
+    // Clone points to prevent any mutations
+    if (options.mutate !== true)
+        points = clone(points);
+    // Defaults
+    options.minPoints = options.minPoints || 3;
+    // create clustered ids
+    var dbscan = new clustering.DBSCAN();
+    var clusteredIds = dbscan.run(coordAll(points), convertLength(maxDistance, options.units), options.minPoints, distance);
+    // Tag points to Clusters ID
+    var clusterId = -1;
+    clusteredIds.forEach(function (clusterIds) {
+        clusterId++;
+        // assign cluster ids to input points
+        clusterIds.forEach(function (idx) {
+            var clusterPoint = points.features[idx];
+            if (!clusterPoint.properties)
+                clusterPoint.properties = {};
+            clusterPoint.properties.cluster = clusterId;
+            clusterPoint.properties.dbscan = "core";
+        });
+    });
+    // handle noise points, if any
+    // edges points are tagged by DBSCAN as both 'noise' and 'cluster' as they can "reach" less than 'minPoints' number of points
+    dbscan.noise.forEach(function (noiseId) {
+        var noisePoint = points.features[noiseId];
+        if (!noisePoint.properties)
+            noisePoint.properties = {};
+        if (noisePoint.properties.cluster)
+            noisePoint.properties.dbscan = "edge";
+        else
+            noisePoint.properties.dbscan = "noise";
+    });
+    return points;
+}
+
+var supercluster = {exports: {}};
+
+(function (module, exports) {
+(function (global, factory) {
+module.exports = factory() ;
+})(commonjsGlobal, (function () {
+function sortKD(ids, coords, nodeSize, left, right, depth) {
+    if (right - left <= nodeSize) { return; }
+
+    var m = (left + right) >> 1;
+
+    select(ids, coords, m, left, right, depth % 2);
+
+    sortKD(ids, coords, nodeSize, left, m - 1, depth + 1);
+    sortKD(ids, coords, nodeSize, m + 1, right, depth + 1);
+}
+
+function select(ids, coords, k, left, right, inc) {
+
+    while (right > left) {
+        if (right - left > 600) {
+            var n = right - left + 1;
+            var m = k - left + 1;
+            var z = Math.log(n);
+            var s = 0.5 * Math.exp(2 * z / 3);
+            var sd = 0.5 * Math.sqrt(z * s * (n - s) / n) * (m - n / 2 < 0 ? -1 : 1);
+            var newLeft = Math.max(left, Math.floor(k - m * s / n + sd));
+            var newRight = Math.min(right, Math.floor(k + (n - m) * s / n + sd));
+            select(ids, coords, k, newLeft, newRight, inc);
+        }
+
+        var t = coords[2 * k + inc];
+        var i = left;
+        var j = right;
+
+        swapItem(ids, coords, left, k);
+        if (coords[2 * right + inc] > t) { swapItem(ids, coords, left, right); }
+
+        while (i < j) {
+            swapItem(ids, coords, i, j);
+            i++;
+            j--;
+            while (coords[2 * i + inc] < t) { i++; }
+            while (coords[2 * j + inc] > t) { j--; }
+        }
+
+        if (coords[2 * left + inc] === t) { swapItem(ids, coords, left, j); }
+        else {
+            j++;
+            swapItem(ids, coords, j, right);
+        }
+
+        if (j <= k) { left = j + 1; }
+        if (k <= j) { right = j - 1; }
+    }
+}
+
+function swapItem(ids, coords, i, j) {
+    swap(ids, i, j);
+    swap(coords, 2 * i, 2 * j);
+    swap(coords, 2 * i + 1, 2 * j + 1);
+}
+
+function swap(arr, i, j) {
+    var tmp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = tmp;
+}
+
+function range(ids, coords, minX, minY, maxX, maxY, nodeSize) {
+    var stack = [0, ids.length - 1, 0];
+    var result = [];
+    var x, y;
+
+    while (stack.length) {
+        var axis = stack.pop();
+        var right = stack.pop();
+        var left = stack.pop();
+
+        if (right - left <= nodeSize) {
+            for (var i = left; i <= right; i++) {
+                x = coords[2 * i];
+                y = coords[2 * i + 1];
+                if (x >= minX && x <= maxX && y >= minY && y <= maxY) { result.push(ids[i]); }
+            }
+            continue;
+        }
+
+        var m = Math.floor((left + right) / 2);
+
+        x = coords[2 * m];
+        y = coords[2 * m + 1];
+
+        if (x >= minX && x <= maxX && y >= minY && y <= maxY) { result.push(ids[m]); }
+
+        var nextAxis = (axis + 1) % 2;
+
+        if (axis === 0 ? minX <= x : minY <= y) {
+            stack.push(left);
+            stack.push(m - 1);
+            stack.push(nextAxis);
+        }
+        if (axis === 0 ? maxX >= x : maxY >= y) {
+            stack.push(m + 1);
+            stack.push(right);
+            stack.push(nextAxis);
+        }
+    }
+
+    return result;
+}
+
+function within(ids, coords, qx, qy, r, nodeSize) {
+    var stack = [0, ids.length - 1, 0];
+    var result = [];
+    var r2 = r * r;
+
+    while (stack.length) {
+        var axis = stack.pop();
+        var right = stack.pop();
+        var left = stack.pop();
+
+        if (right - left <= nodeSize) {
+            for (var i = left; i <= right; i++) {
+                if (sqDist(coords[2 * i], coords[2 * i + 1], qx, qy) <= r2) { result.push(ids[i]); }
+            }
+            continue;
+        }
+
+        var m = Math.floor((left + right) / 2);
+
+        var x = coords[2 * m];
+        var y = coords[2 * m + 1];
+
+        if (sqDist(x, y, qx, qy) <= r2) { result.push(ids[m]); }
+
+        var nextAxis = (axis + 1) % 2;
+
+        if (axis === 0 ? qx - r <= x : qy - r <= y) {
+            stack.push(left);
+            stack.push(m - 1);
+            stack.push(nextAxis);
+        }
+        if (axis === 0 ? qx + r >= x : qy + r >= y) {
+            stack.push(m + 1);
+            stack.push(right);
+            stack.push(nextAxis);
+        }
+    }
+
+    return result;
+}
+
+function sqDist(ax, ay, bx, by) {
+    var dx = ax - bx;
+    var dy = ay - by;
+    return dx * dx + dy * dy;
+}
+
+var defaultGetX = function (p) { return p[0]; };
+var defaultGetY = function (p) { return p[1]; };
+
+var KDBush = function KDBush(points, getX, getY, nodeSize, ArrayType) {
+    if ( getX === void 0 ) getX = defaultGetX;
+    if ( getY === void 0 ) getY = defaultGetY;
+    if ( nodeSize === void 0 ) nodeSize = 64;
+    if ( ArrayType === void 0 ) ArrayType = Float64Array;
+
+    this.nodeSize = nodeSize;
+    this.points = points;
+
+    var IndexArrayType = points.length < 65536 ? Uint16Array : Uint32Array;
+
+    var ids = this.ids = new IndexArrayType(points.length);
+    var coords = this.coords = new ArrayType(points.length * 2);
+
+    for (var i = 0; i < points.length; i++) {
+        ids[i] = i;
+        coords[2 * i] = getX(points[i]);
+        coords[2 * i + 1] = getY(points[i]);
+    }
+
+    sortKD(ids, coords, nodeSize, 0, ids.length - 1, 0);
+};
+
+KDBush.prototype.range = function range$1 (minX, minY, maxX, maxY) {
+    return range(this.ids, this.coords, minX, minY, maxX, maxY, this.nodeSize);
+};
+
+KDBush.prototype.within = function within$1 (x, y, r) {
+    return within(this.ids, this.coords, x, y, r, this.nodeSize);
+};
+
+var defaultOptions = {
+    minZoom: 0,   // min zoom to generate clusters on
+    maxZoom: 16,  // max zoom level to cluster the points on
+    minPoints: 2, // minimum points to form a cluster
+    radius: 40,   // cluster radius in pixels
+    extent: 512,  // tile extent (radius is calculated relative to it)
+    nodeSize: 64, // size of the KD-tree leaf node, affects performance
+    log: false,   // whether to log timing info
+
+    // whether to generate numeric ids for input features (in vector tiles)
+    generateId: false,
+
+    // a reduce function for calculating custom cluster properties
+    reduce: null, // (accumulated, props) => { accumulated.sum += props.sum; }
+
+    // properties to use for individual points when running the reducer
+    map: function (props) { return props; } // props => ({sum: props.my_value})
+};
+
+var fround = Math.fround || (function (tmp) { return (function (x) { tmp[0] = +x; return tmp[0]; }); })(new Float32Array(1));
+
+var Supercluster = function Supercluster(options) {
+    this.options = extend(Object.create(defaultOptions), options);
+    this.trees = new Array(this.options.maxZoom + 1);
+};
+
+Supercluster.prototype.load = function load (points) {
+    var ref = this.options;
+        var log = ref.log;
+        var minZoom = ref.minZoom;
+        var maxZoom = ref.maxZoom;
+        var nodeSize = ref.nodeSize;
+
+    if (log) { console.time('total time'); }
+
+    var timerId = "prepare " + (points.length) + " points";
+    if (log) { console.time(timerId); }
+
+    this.points = points;
+
+    // generate a cluster object for each point and index input points into a KD-tree
+    var clusters = [];
+    for (var i = 0; i < points.length; i++) {
+        if (!points[i].geometry) { continue; }
+        clusters.push(createPointCluster(points[i], i));
+    }
+    this.trees[maxZoom + 1] = new KDBush(clusters, getX, getY, nodeSize, Float32Array);
+
+    if (log) { console.timeEnd(timerId); }
+
+    // cluster points on max zoom, then cluster the results on previous zoom, etc.;
+    // results in a cluster hierarchy across zoom levels
+    for (var z = maxZoom; z >= minZoom; z--) {
+        var now = +Date.now();
+
+        // create a new set of clusters for the zoom and index them with a KD-tree
+        clusters = this._cluster(clusters, z);
+        this.trees[z] = new KDBush(clusters, getX, getY, nodeSize, Float32Array);
+
+        if (log) { console.log('z%d: %d clusters in %dms', z, clusters.length, +Date.now() - now); }
+    }
+
+    if (log) { console.timeEnd('total time'); }
+
+    return this;
+};
+
+Supercluster.prototype.getClusters = function getClusters (bbox, zoom) {
+    var minLng = ((bbox[0] + 180) % 360 + 360) % 360 - 180;
+    var minLat = Math.max(-90, Math.min(90, bbox[1]));
+    var maxLng = bbox[2] === 180 ? 180 : ((bbox[2] + 180) % 360 + 360) % 360 - 180;
+    var maxLat = Math.max(-90, Math.min(90, bbox[3]));
+
+    if (bbox[2] - bbox[0] >= 360) {
+        minLng = -180;
+        maxLng = 180;
+    } else if (minLng > maxLng) {
+        var easternHem = this.getClusters([minLng, minLat, 180, maxLat], zoom);
+        var westernHem = this.getClusters([-180, minLat, maxLng, maxLat], zoom);
+        return easternHem.concat(westernHem);
+    }
+
+    var tree = this.trees[this._limitZoom(zoom)];
+    var ids = tree.range(lngX(minLng), latY(maxLat), lngX(maxLng), latY(minLat));
+    var clusters = [];
+    for (var i = 0, list = ids; i < list.length; i += 1) {
+        var id = list[i];
+
+            var c = tree.points[id];
+        clusters.push(c.numPoints ? getClusterJSON(c) : this.points[c.index]);
+    }
+    return clusters;
+};
+
+Supercluster.prototype.getChildren = function getChildren (clusterId) {
+    var originId = this._getOriginId(clusterId);
+    var originZoom = this._getOriginZoom(clusterId);
+    var errorMsg = 'No cluster with the specified id.';
+
+    var index = this.trees[originZoom];
+    if (!index) { throw new Error(errorMsg); }
+
+    var origin = index.points[originId];
+    if (!origin) { throw new Error(errorMsg); }
+
+    var r = this.options.radius / (this.options.extent * Math.pow(2, originZoom - 1));
+    var ids = index.within(origin.x, origin.y, r);
+    var children = [];
+    for (var i = 0, list = ids; i < list.length; i += 1) {
+        var id = list[i];
+
+            var c = index.points[id];
+        if (c.parentId === clusterId) {
+            children.push(c.numPoints ? getClusterJSON(c) : this.points[c.index]);
+        }
+    }
+
+    if (children.length === 0) { throw new Error(errorMsg); }
+
+    return children;
+};
+
+Supercluster.prototype.getLeaves = function getLeaves (clusterId, limit, offset) {
+    limit = limit || 10;
+    offset = offset || 0;
+
+    var leaves = [];
+    this._appendLeaves(leaves, clusterId, limit, offset, 0);
+
+    return leaves;
+};
+
+Supercluster.prototype.getTile = function getTile (z, x, y) {
+    var tree = this.trees[this._limitZoom(z)];
+    var z2 = Math.pow(2, z);
+    var ref = this.options;
+        var extent = ref.extent;
+        var radius = ref.radius;
+    var p = radius / extent;
+    var top = (y - p) / z2;
+    var bottom = (y + 1 + p) / z2;
+
+    var tile = {
+        features: []
+    };
+
+    this._addTileFeatures(
+        tree.range((x - p) / z2, top, (x + 1 + p) / z2, bottom),
+        tree.points, x, y, z2, tile);
+
+    if (x === 0) {
+        this._addTileFeatures(
+            tree.range(1 - p / z2, top, 1, bottom),
+            tree.points, z2, y, z2, tile);
+    }
+    if (x === z2 - 1) {
+        this._addTileFeatures(
+            tree.range(0, top, p / z2, bottom),
+            tree.points, -1, y, z2, tile);
+    }
+
+    return tile.features.length ? tile : null;
+};
+
+Supercluster.prototype.getClusterExpansionZoom = function getClusterExpansionZoom (clusterId) {
+    var expansionZoom = this._getOriginZoom(clusterId) - 1;
+    while (expansionZoom <= this.options.maxZoom) {
+        var children = this.getChildren(clusterId);
+        expansionZoom++;
+        if (children.length !== 1) { break; }
+        clusterId = children[0].properties.cluster_id;
+    }
+    return expansionZoom;
+};
+
+Supercluster.prototype._appendLeaves = function _appendLeaves (result, clusterId, limit, offset, skipped) {
+    var children = this.getChildren(clusterId);
+
+    for (var i = 0, list = children; i < list.length; i += 1) {
+        var child = list[i];
+
+            var props = child.properties;
+
+        if (props && props.cluster) {
+            if (skipped + props.point_count <= offset) {
+                // skip the whole cluster
+                skipped += props.point_count;
+            } else {
+                // enter the cluster
+                skipped = this._appendLeaves(result, props.cluster_id, limit, offset, skipped);
+                // exit the cluster
+            }
+        } else if (skipped < offset) {
+            // skip a single point
+            skipped++;
+        } else {
+            // add a single point
+            result.push(child);
+        }
+        if (result.length === limit) { break; }
+    }
+
+    return skipped;
+};
+
+Supercluster.prototype._addTileFeatures = function _addTileFeatures (ids, points, x, y, z2, tile) {
+    for (var i$1 = 0, list = ids; i$1 < list.length; i$1 += 1) {
+        var i = list[i$1];
+
+            var c = points[i];
+        var isCluster = c.numPoints;
+
+        var tags = (void 0), px = (void 0), py = (void 0);
+        if (isCluster) {
+            tags = getClusterProperties(c);
+            px = c.x;
+            py = c.y;
+        } else {
+            var p = this.points[c.index];
+            tags = p.properties;
+            px = lngX(p.geometry.coordinates[0]);
+            py = latY(p.geometry.coordinates[1]);
+        }
+
+        var f = {
+            type: 1,
+            geometry: [[
+                Math.round(this.options.extent * (px * z2 - x)),
+                Math.round(this.options.extent * (py * z2 - y))
+            ]],
+            tags: tags
+        };
+
+        // assign id
+        var id = (void 0);
+        if (isCluster) {
+            id = c.id;
+        } else if (this.options.generateId) {
+            // optionally generate id
+            id = c.index;
+        } else if (this.points[c.index].id) {
+            // keep id if already assigned
+            id = this.points[c.index].id;
+        }
+
+        if (id !== undefined) { f.id = id; }
+
+        tile.features.push(f);
+    }
+};
+
+Supercluster.prototype._limitZoom = function _limitZoom (z) {
+    return Math.max(this.options.minZoom, Math.min(+z, this.options.maxZoom + 1));
+};
+
+Supercluster.prototype._cluster = function _cluster (points, zoom) {
+    var clusters = [];
+    var ref = this.options;
+        var radius = ref.radius;
+        var extent = ref.extent;
+        var reduce = ref.reduce;
+        var minPoints = ref.minPoints;
+    var r = radius / (extent * Math.pow(2, zoom));
+
+    // loop through each point
+    for (var i = 0; i < points.length; i++) {
+        var p = points[i];
+        // if we've already visited the point at this zoom level, skip it
+        if (p.zoom <= zoom) { continue; }
+        p.zoom = zoom;
+
+        // find all nearby points
+        var tree = this.trees[zoom + 1];
+        var neighborIds = tree.within(p.x, p.y, r);
+
+        var numPointsOrigin = p.numPoints || 1;
+        var numPoints = numPointsOrigin;
+
+        // count the number of points in a potential cluster
+        for (var i$1 = 0, list = neighborIds; i$1 < list.length; i$1 += 1) {
+            var neighborId = list[i$1];
+
+                var b = tree.points[neighborId];
+            // filter out neighbors that are already processed
+            if (b.zoom > zoom) { numPoints += b.numPoints || 1; }
+        }
+
+        // if there were neighbors to merge, and there are enough points to form a cluster
+        if (numPoints > numPointsOrigin && numPoints >= minPoints) {
+            var wx = p.x * numPointsOrigin;
+            var wy = p.y * numPointsOrigin;
+
+            var clusterProperties = reduce && numPointsOrigin > 1 ? this._map(p, true) : null;
+
+            // encode both zoom and point index on which the cluster originated -- offset by total length of features
+            var id = (i << 5) + (zoom + 1) + this.points.length;
+
+            for (var i$2 = 0, list$1 = neighborIds; i$2 < list$1.length; i$2 += 1) {
+                var neighborId$1 = list$1[i$2];
+
+                    var b$1 = tree.points[neighborId$1];
+
+                if (b$1.zoom <= zoom) { continue; }
+                b$1.zoom = zoom; // save the zoom (so it doesn't get processed twice)
+
+                var numPoints2 = b$1.numPoints || 1;
+                wx += b$1.x * numPoints2; // accumulate coordinates for calculating weighted center
+                wy += b$1.y * numPoints2;
+
+                b$1.parentId = id;
+
+                if (reduce) {
+                    if (!clusterProperties) { clusterProperties = this._map(p, true); }
+                    reduce(clusterProperties, this._map(b$1));
+                }
+            }
+
+            p.parentId = id;
+            clusters.push(createCluster(wx / numPoints, wy / numPoints, id, numPoints, clusterProperties));
+
+        } else { // left points as unclustered
+            clusters.push(p);
+
+            if (numPoints > 1) {
+                for (var i$3 = 0, list$2 = neighborIds; i$3 < list$2.length; i$3 += 1) {
+                    var neighborId$2 = list$2[i$3];
+
+                        var b$2 = tree.points[neighborId$2];
+                    if (b$2.zoom <= zoom) { continue; }
+                    b$2.zoom = zoom;
+                    clusters.push(b$2);
+                }
+            }
+        }
+    }
+
+    return clusters;
+};
+
+// get index of the point from which the cluster originated
+Supercluster.prototype._getOriginId = function _getOriginId (clusterId) {
+    return (clusterId - this.points.length) >> 5;
+};
+
+// get zoom of the point from which the cluster originated
+Supercluster.prototype._getOriginZoom = function _getOriginZoom (clusterId) {
+    return (clusterId - this.points.length) % 32;
+};
+
+Supercluster.prototype._map = function _map (point, clone) {
+    if (point.numPoints) {
+        return clone ? extend({}, point.properties) : point.properties;
+    }
+    var original = this.points[point.index].properties;
+    var result = this.options.map(original);
+    return clone && result === original ? extend({}, result) : result;
+};
+
+function createCluster(x, y, id, numPoints, properties) {
+    return {
+        x: fround(x), // weighted cluster center; round for consistency with Float32Array index
+        y: fround(y),
+        zoom: Infinity, // the last zoom the cluster was processed at
+        id: id, // encodes index of the first child of the cluster and its zoom level
+        parentId: -1, // parent cluster id
+        numPoints: numPoints,
+        properties: properties
+    };
+}
+
+function createPointCluster(p, id) {
+    var ref = p.geometry.coordinates;
+    var x = ref[0];
+    var y = ref[1];
+    return {
+        x: fround(lngX(x)), // projected point coordinates
+        y: fround(latY(y)),
+        zoom: Infinity, // the last zoom the point was processed at
+        index: id, // index of the source feature in the original input array,
+        parentId: -1 // parent cluster id
+    };
+}
+
+function getClusterJSON(cluster) {
+    return {
+        type: 'Feature',
+        id: cluster.id,
+        properties: getClusterProperties(cluster),
+        geometry: {
+            type: 'Point',
+            coordinates: [xLng(cluster.x), yLat(cluster.y)]
+        }
+    };
+}
+
+function getClusterProperties(cluster) {
+    var count = cluster.numPoints;
+    var abbrev =
+        count >= 10000 ? ((Math.round(count / 1000)) + "k") :
+        count >= 1000 ? ((Math.round(count / 100) / 10) + "k") : count;
+    return extend(extend({}, cluster.properties), {
+        cluster: true,
+        cluster_id: cluster.id,
+        point_count: count,
+        point_count_abbreviated: abbrev
+    });
+}
+
+// longitude/latitude to spherical mercator in [0..1] range
+function lngX(lng) {
+    return lng / 360 + 0.5;
+}
+function latY(lat) {
+    var sin = Math.sin(lat * Math.PI / 180);
+    var y = (0.5 - 0.25 * Math.log((1 + sin) / (1 - sin)) / Math.PI);
+    return y < 0 ? 0 : y > 1 ? 1 : y;
+}
+
+// spherical mercator to longitude/latitude
+function xLng(x) {
+    return (x - 0.5) * 360;
+}
+function yLat(y) {
+    var y2 = (180 - y * 360) * Math.PI / 180;
+    return 360 * Math.atan(Math.exp(y2)) / Math.PI - 90;
+}
+
+function extend(dest, src) {
+    for (var id in src) { dest[id] = src[id]; }
+    return dest;
+}
+
+function getX(p) {
+    return p.x;
+}
+function getY(p) {
+    return p.y;
+}
+
+return Supercluster;
+
+}));
+}(supercluster));
+
+var SuperCluster = supercluster.exports;
+
+var es6 = function equal(a, b) {
+  if (a === b) return true;
+
+  if (a && b && typeof a == 'object' && typeof b == 'object') {
+    if (a.constructor !== b.constructor) return false;
+
+    var length, i, keys;
+    if (Array.isArray(a)) {
+      length = a.length;
+      if (length != b.length) return false;
+      for (i = length; i-- !== 0;)
+        if (!equal(a[i], b[i])) return false;
+      return true;
+    }
+
+
+    if ((a instanceof Map) && (b instanceof Map)) {
+      if (a.size !== b.size) return false;
+      for (i of a.entries())
+        if (!b.has(i[0])) return false;
+      for (i of a.entries())
+        if (!equal(i[1], b.get(i[0]))) return false;
+      return true;
+    }
+
+    if ((a instanceof Set) && (b instanceof Set)) {
+      if (a.size !== b.size) return false;
+      for (i of a.entries())
+        if (!b.has(i[0])) return false;
+      return true;
+    }
+
+    if (ArrayBuffer.isView(a) && ArrayBuffer.isView(b)) {
+      length = a.length;
+      if (length != b.length) return false;
+      for (i = length; i-- !== 0;)
+        if (a[i] !== b[i]) return false;
+      return true;
+    }
+
+
+    if (a.constructor === RegExp) return a.source === b.source && a.flags === b.flags;
+    if (a.valueOf !== Object.prototype.valueOf) return a.valueOf() === b.valueOf();
+    if (a.toString !== Object.prototype.toString) return a.toString() === b.toString();
+
+    keys = Object.keys(a);
+    length = keys.length;
+    if (length !== Object.keys(b).length) return false;
+
+    for (i = length; i-- !== 0;)
+      if (!Object.prototype.hasOwnProperty.call(b, keys[i])) return false;
+
+    for (i = length; i-- !== 0;) {
+      var key = keys[i];
+
+      if (!equal(a[key], b[key])) return false;
+    }
+
+    return true;
+  }
+
+  // true if both NaN, false otherwise
+  return a!==a && b!==b;
+};
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
+/**
+ * Copyright 2021 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+class Cluster {
+    constructor({ markers, position }) {
+        this.markers = markers;
+        if (position) {
+            if (position instanceof google.maps.LatLng) {
+                this._position = position;
+            }
+            else {
+                this._position = new google.maps.LatLng(position);
+            }
+        }
+    }
+    get bounds() {
+        if (this.markers.length === 0 && !this._position) {
+            return undefined;
+        }
+        return this.markers.reduce((bounds, marker) => {
+            return bounds.extend(marker.getPosition());
+        }, new google.maps.LatLngBounds(this._position, this._position));
+    }
+    get position() {
+        return this._position || this.bounds.getCenter();
+    }
+    /**
+     * Get the count of **visible** markers.
+     */
+    get count() {
+        return this.markers.filter((m) => m.getVisible())
+            .length;
+    }
+    /**
+     * Add a marker to the cluster.
+     */
+    push(marker) {
+        this.markers.push(marker);
+    }
+    /**
+     * Cleanup references and remove marker from map.
+     */
+    delete() {
+        if (this.marker) {
+            this.marker.setMap(null);
+            delete this.marker;
+        }
+        this.markers.length = 0;
+    }
+}
+
+/**
+ * Copyright 2021 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+const filterMarkersToPaddedViewport = (map, mapCanvasProjection, markers, viewportPadding) => {
+    const extendedMapBounds = extendBoundsToPaddedViewport(map.getBounds(), mapCanvasProjection, viewportPadding);
+    return markers.filter((marker) => extendedMapBounds.contains(marker.getPosition()));
+};
+/**
+ * Extends a bounds by a number of pixels in each direction.
+ */
+const extendBoundsToPaddedViewport = (bounds, projection, pixels) => {
+    const { northEast, southWest } = latLngBoundsToPixelBounds(bounds, projection);
+    const extendedPixelBounds = extendPixelBounds({ northEast, southWest }, pixels);
+    return pixelBoundsToLatLngBounds(extendedPixelBounds, projection);
+};
+/**
+ * @hidden
+ */
+const distanceBetweenPoints = (p1, p2) => {
+    const R = 6371; // Radius of the Earth in km
+    const dLat = ((p2.lat - p1.lat) * Math.PI) / 180;
+    const dLon = ((p2.lng - p1.lng) * Math.PI) / 180;
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos((p1.lat * Math.PI) / 180) *
+            Math.cos((p2.lat * Math.PI) / 180) *
+            Math.sin(dLon / 2) *
+            Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+};
+/**
+ * @hidden
+ */
+const latLngBoundsToPixelBounds = (bounds, projection) => {
+    return {
+        northEast: projection.fromLatLngToDivPixel(bounds.getNorthEast()),
+        southWest: projection.fromLatLngToDivPixel(bounds.getSouthWest()),
+    };
+};
+/**
+ * @hidden
+ */
+const extendPixelBounds = ({ northEast, southWest }, pixels) => {
+    northEast.x += pixels;
+    northEast.y -= pixels;
+    southWest.x -= pixels;
+    southWest.y += pixels;
+    return { northEast, southWest };
+};
+/**
+ * @hidden
+ */
+const pixelBoundsToLatLngBounds = ({ northEast, southWest }, projection) => {
+    const bounds = new google.maps.LatLngBounds();
+    bounds.extend(projection.fromDivPixelToLatLng(northEast));
+    bounds.extend(projection.fromDivPixelToLatLng(southWest));
+    return bounds;
+};
+
+/**
+ * Copyright 2021 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * @hidden
+ */
+class AbstractAlgorithm {
+    constructor({ maxZoom = 16 }) {
+        this.maxZoom = maxZoom;
+    }
+    /**
+     * Helper function to bypass clustering based upon some map state such as
+     * zoom, number of markers, etc.
+     *
+     * ```typescript
+     *  cluster({markers, map}: AlgorithmInput): Cluster[] {
+     *    if (shouldBypassClustering(map)) {
+     *      return this.noop({markers, map})
+     *    }
+     * }
+     * ```
+     */
+    noop({ markers }) {
+        return noop$1(markers);
+    }
+}
+/**
+ * Abstract viewport algorithm proves a class to filter markers by a padded
+ * viewport. This is a common optimization.
+ *
+ * @hidden
+ */
+class AbstractViewportAlgorithm extends AbstractAlgorithm {
+    constructor(_a) {
+        var { viewportPadding = 60 } = _a, options = __rest(_a, ["viewportPadding"]);
+        super(options);
+        this.viewportPadding = 60;
+        this.viewportPadding = viewportPadding;
+    }
+    calculate({ markers, map, mapCanvasProjection, }) {
+        if (map.getZoom() >= this.maxZoom) {
+            return {
+                clusters: this.noop({
+                    markers,
+                    map,
+                    mapCanvasProjection,
+                }),
+                changed: false,
+            };
+        }
+        return {
+            clusters: this.cluster({
+                markers: filterMarkersToPaddedViewport(map, mapCanvasProjection, markers, this.viewportPadding),
+                map,
+                mapCanvasProjection,
+            }),
+        };
+    }
+}
+/**
+ * @hidden
+ */
+const noop$1 = (markers) => {
+    const clusters = markers.map((marker) => new Cluster({
+        position: marker.getPosition(),
+        markers: [marker],
+    }));
+    return clusters;
+};
+
+/**
+ * Copyright 2021 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * The default Grid algorithm historically used in Google Maps marker
+ * clustering.
+ *
+ * The Grid algorithm does not implement caching and markers may flash as the
+ * viewport changes. Instead use {@link SuperClusterAlgorithm}.
+ */
+class GridAlgorithm extends AbstractViewportAlgorithm {
+    constructor(_a) {
+        var { maxDistance = 40000, gridSize = 40 } = _a, options = __rest(_a, ["maxDistance", "gridSize"]);
+        super(options);
+        this.clusters = [];
+        this.maxDistance = maxDistance;
+        this.gridSize = gridSize;
+    }
+    cluster({ markers, map, mapCanvasProjection, }) {
+        this.clusters = [];
+        markers.forEach((marker) => {
+            this.addToClosestCluster(marker, map, mapCanvasProjection);
+        });
+        return this.clusters;
+    }
+    addToClosestCluster(marker, map, projection) {
+        let maxDistance = this.maxDistance; // Some large number
+        let cluster = null;
+        for (let i = 0; i < this.clusters.length; i++) {
+            const candidate = this.clusters[i];
+            const distance = distanceBetweenPoints(candidate.bounds.getCenter().toJSON(), marker.getPosition().toJSON());
+            if (distance < maxDistance) {
+                maxDistance = distance;
+                cluster = candidate;
+            }
+        }
+        if (cluster &&
+            extendBoundsToPaddedViewport(cluster.bounds, projection, this.gridSize).contains(marker.getPosition())) {
+            cluster.push(marker);
+        }
+        else {
+            const cluster = new Cluster({ markers: [marker] });
+            this.clusters.push(cluster);
+        }
+    }
+}
+
+/**
+ * Copyright 2021 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Noop algorithm does not generate any clusters or filter markers by the an extended viewport.
+ */
+class NoopAlgorithm extends AbstractAlgorithm {
+    constructor(_a) {
+        var options = __rest(_a, []);
+        super(options);
+    }
+    calculate({ markers, map, mapCanvasProjection, }) {
+        return {
+            clusters: this.cluster({ markers, map, mapCanvasProjection }),
+            changed: false,
+        };
+    }
+    cluster(input) {
+        return this.noop(input);
+    }
+}
+
+/**
+ * Copyright 2021 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Experimental algorithm using Kmeans.
+ *
+ * The Grid algorithm does not implement caching and markers may flash as the
+ * viewport changes. Instead use {@link SuperClusterAlgorithm}.
+ *
+ * @see https://www.npmjs.com/package/@turf/clusters-kmeans
+ */
+class KmeansAlgorithm extends AbstractViewportAlgorithm {
+    constructor(_a) {
+        var { numberOfClusters } = _a, options = __rest(_a, ["numberOfClusters"]);
+        super(options);
+        this.numberOfClusters = numberOfClusters;
+    }
+    cluster({ markers, map }) {
+        const clusters = [];
+        if (markers.length === 0) {
+            return clusters;
+        }
+        const points = featureCollection(markers.map((marker) => {
+            return point([marker.getPosition().lng(), marker.getPosition().lat()]);
+        }));
+        let numberOfClusters;
+        if (this.numberOfClusters instanceof Function) {
+            numberOfClusters = this.numberOfClusters(markers.length, map.getZoom());
+        }
+        else {
+            numberOfClusters = this.numberOfClusters;
+        }
+        clustersKmeans(points, { numberOfClusters }).features.forEach((point, i) => {
+            if (!clusters[point.properties.cluster]) {
+                clusters[point.properties.cluster] = new Cluster({
+                    position: {
+                        lng: point.properties.centroid[0],
+                        lat: point.properties.centroid[1],
+                    },
+                    markers: [],
+                });
+            }
+            clusters[point.properties.cluster].push(markers[i]);
+        });
+        return clusters;
+    }
+}
+
+/**
+ * Copyright 2021 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+const DEFAULT_INTERNAL_DBSCAN_OPTION = {
+    units: "kilometers",
+    mutate: false,
+    minPoints: 1,
+};
+/**
+ *
+ * **This algorithm is not yet ready for use!**
+ *
+ * Experimental algorithm using DBScan.
+ *
+ * The Grid algorithm does not implement caching and markers may flash as the
+ * viewport changes. Instead use {@link SuperClusterAlgorithm}.
+ *
+ * @see https://www.npmjs.com/package/@turf/clusters-dbscan
+ */
+class DBScanAlgorithm extends AbstractViewportAlgorithm {
+    constructor(_a) {
+        var { maxDistance = 200, minPoints = DEFAULT_INTERNAL_DBSCAN_OPTION.minPoints } = _a, options = __rest(_a, ["maxDistance", "minPoints"]);
+        super(options);
+        this.maxDistance = maxDistance;
+        this.options = Object.assign(Object.assign({}, DEFAULT_INTERNAL_DBSCAN_OPTION), { minPoints });
+    }
+    cluster({ markers, mapCanvasProjection, }) {
+        const points = featureCollection(markers.map((marker) => {
+            const projectedPoint = mapCanvasProjection.fromLatLngToContainerPixel(marker.getPosition());
+            return point([projectedPoint.x, projectedPoint.y]);
+        }));
+        const grouped = [];
+        clustersDbscan(points, this.maxDistance, this.options).features.forEach((point, i) => {
+            if (!grouped[point.properties.cluster]) {
+                grouped[point.properties.cluster] = [];
+            }
+            grouped[point.properties.cluster].push(markers[i]);
+        });
+        return grouped.map((markers) => new Cluster({ markers }));
+    }
+}
+
+/**
+ * Copyright 2021 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * A very fast JavaScript algorithm for geospatial point clustering using KD trees.
+ *
+ * @see https://www.npmjs.com/package/supercluster for more information on options.
+ */
+class SuperClusterAlgorithm extends AbstractAlgorithm {
+    constructor(_a) {
+        var { maxZoom, radius = 60 } = _a, options = __rest(_a, ["maxZoom", "radius"]);
+        super({ maxZoom });
+        this.superCluster = new SuperCluster(Object.assign({ maxZoom: this.maxZoom, radius }, options));
+        this.state = { zoom: null };
+    }
+    calculate(input) {
+        let changed = false;
+        if (!es6(input.markers, this.markers)) {
+            changed = true;
+            // TODO use proxy to avoid copy?
+            this.markers = [...input.markers];
+            const points = this.markers.map((marker) => {
+                return {
+                    type: "Feature",
+                    geometry: {
+                        type: "Point",
+                        coordinates: [
+                            marker.getPosition().lng(),
+                            marker.getPosition().lat(),
+                        ],
+                    },
+                    properties: { marker },
+                };
+            });
+            this.superCluster.load(points);
+        }
+        const state = { zoom: input.map.getZoom() };
+        if (!changed) {
+            if (this.state.zoom > this.maxZoom && state.zoom > this.maxZoom) ;
+            else {
+                changed = changed || !es6(this.state, state);
+            }
+        }
+        this.state = state;
+        if (changed) {
+            this.clusters = this.cluster(input);
+        }
+        return { clusters: this.clusters, changed };
+    }
+    cluster({ map }) {
+        return this.superCluster
+            .getClusters([-180, -90, 180, 90], map.getZoom())
+            .map(this.transformCluster.bind(this));
+    }
+    transformCluster({ geometry: { coordinates: [lng, lat], }, properties, }) {
+        if (properties.cluster) {
+            return new Cluster({
+                markers: this.superCluster
+                    .getLeaves(properties.cluster_id, Infinity)
+                    .map((leaf) => leaf.properties.marker),
+                position: new google.maps.LatLng({ lat, lng }),
+            });
+        }
+        else {
+            const marker = properties.marker;
+            return new Cluster({
+                markers: [marker],
+                position: marker.getPosition(),
+            });
+        }
+    }
+}
+
+/**
+ * Copyright 2021 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Provides statistics on all clusters in the current render cycle for use in {@link Renderer.render}.
+ */
+class ClusterStats {
+    constructor(markers, clusters) {
+        this.markers = { sum: markers.length };
+        const clusterMarkerCounts = clusters.map((a) => a.count);
+        const clusterMarkerSum = clusterMarkerCounts.reduce((a, b) => a + b, 0);
+        this.clusters = {
+            count: clusters.length,
+            markers: {
+                mean: clusterMarkerSum / clusters.length,
+                sum: clusterMarkerSum,
+                min: Math.min(...clusterMarkerCounts),
+                max: Math.max(...clusterMarkerCounts),
+            },
+        };
+    }
+}
+class DefaultRenderer {
+    /**
+     * The default render function for the library used by {@link MarkerClusterer}.
+     *
+     * Currently set to use the following:
+     *
+     * ```typescript
+     * // change color if this cluster has more markers than the mean cluster
+     * const color =
+     *   count > Math.max(10, stats.clusters.markers.mean)
+     *     ? "#ff0000"
+     *     : "#0000ff";
+     *
+     * // create svg url with fill color
+     * const svg = window.btoa(`
+     * <svg fill="${color}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+     *   <circle cx="120" cy="120" opacity=".6" r="70" />
+     *   <circle cx="120" cy="120" opacity=".3" r="90" />
+     *   <circle cx="120" cy="120" opacity=".2" r="110" />
+     *   <circle cx="120" cy="120" opacity=".1" r="130" />
+     * </svg>`);
+     *
+     * // create marker using svg icon
+     * return new google.maps.Marker({
+     *   position,
+     *   icon: {
+     *     url: `data:image/svg+xml;base64,${svg}`,
+     *     scaledSize: new google.maps.Size(45, 45),
+     *   },
+     *   label: {
+     *     text: String(count),
+     *     color: "rgba(255,255,255,0.9)",
+     *     fontSize: "12px",
+     *   },
+     *   // adjust zIndex to be above other markers
+     *   zIndex: 1000 + count,
+     * });
+     * ```
+     */
+    render({ count, position }, stats) {
+        // change color if this cluster has more markers than the mean cluster
+        const color = count > Math.max(10, stats.clusters.markers.mean) ? "#ff0000" : "#0000ff";
+        // create svg url with fill color
+        const svg = window.btoa(`
+  <svg fill="${color}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+    <circle cx="120" cy="120" opacity=".6" r="70" />
+    <circle cx="120" cy="120" opacity=".3" r="90" />
+    <circle cx="120" cy="120" opacity=".2" r="110" />
+  </svg>`);
+        // create marker using svg icon
+        return new google.maps.Marker({
+            position,
+            icon: {
+                url: `data:image/svg+xml;base64,${svg}`,
+                scaledSize: new google.maps.Size(45, 45),
+            },
+            label: {
+                text: String(count),
+                color: "rgba(255,255,255,0.9)",
+                fontSize: "12px",
+            },
+            // adjust zIndex to be above other markers
+            zIndex: Number(google.maps.Marker.MAX_ZINDEX) + count,
+        });
+    }
+}
+
+/**
+ * Copyright 2019 Google LLC. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Extends an object's prototype by another's.
+ *
+ * @param type1 The Type to be extended.
+ * @param type2 The Type to extend with.
+ * @ignore
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function extend(type1, type2) {
+    /* istanbul ignore next */
+    // eslint-disable-next-line prefer-const
+    for (let property in type2.prototype) {
+        type1.prototype[property] = type2.prototype[property];
+    }
+}
+/**
+ * @ignore
+ */
+class OverlayViewSafe {
+    constructor() {
+        // MarkerClusterer implements google.maps.OverlayView interface. We use the
+        // extend function to extend MarkerClusterer with google.maps.OverlayView
+        // because it might not always be available when the code is defined so we
+        // look for it at the last possible moment. If it doesn't exist now then
+        // there is no point going ahead :)
+        extend(OverlayViewSafe, google.maps.OverlayView);
+    }
+}
+
+/**
+ * Copyright 2021 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+var MarkerClustererEvents;
+(function (MarkerClustererEvents) {
+    MarkerClustererEvents["CLUSTERING_BEGIN"] = "clusteringbegin";
+    MarkerClustererEvents["CLUSTERING_END"] = "clusteringend";
+    MarkerClustererEvents["CLUSTER_CLICK"] = "click";
+})(MarkerClustererEvents || (MarkerClustererEvents = {}));
+const defaultOnClusterClickHandler = (_, cluster, map) => {
+    map.fitBounds(cluster.bounds);
+};
+/**
+ * MarkerClusterer creates and manages per-zoom-level clusters for large amounts
+ * of markers. See {@link MarkerClustererOptions} for more details.
+ *
+ * <iframe src="https://googlemaps.github.io/js-three/public/anchor/index.html"></iframe>
+ */
+class MarkerClusterer extends OverlayViewSafe {
+    constructor({ map, markers = [], algorithm = new SuperClusterAlgorithm({}), renderer = new DefaultRenderer(), onClusterClick = defaultOnClusterClickHandler, }) {
+        super();
+        this.markers = [...markers];
+        this.clusters = [];
+        this.algorithm = algorithm;
+        this.renderer = renderer;
+        this.onClusterClick = onClusterClick;
+        if (map) {
+            this.setMap(map);
+        }
+    }
+    addMarker(marker, noDraw) {
+        if (this.markers.includes(marker)) {
+            return;
+        }
+        this.markers.push(marker);
+        if (!noDraw) {
+            this.render();
+        }
+    }
+    addMarkers(markers, noDraw) {
+        markers.forEach((marker) => {
+            this.addMarker(marker, true);
+        });
+        if (!noDraw) {
+            this.render();
+        }
+    }
+    removeMarker(marker, noDraw) {
+        const index = this.markers.indexOf(marker);
+        if (index === -1) {
+            // Marker is not in our list of markers, so do nothing:
+            return false;
+        }
+        marker.setMap(null);
+        this.markers.splice(index, 1); // Remove the marker from the list of managed markers
+        if (!noDraw) {
+            this.render();
+        }
+        return true;
+    }
+    removeMarkers(markers, noDraw) {
+        let removed = false;
+        markers.forEach((marker) => {
+            removed = this.removeMarker(marker, true) || removed;
+        });
+        if (removed && !noDraw) {
+            this.render();
+        }
+        return removed;
+    }
+    clearMarkers(noDraw) {
+        this.markers.length = 0;
+        if (!noDraw) {
+            this.render();
+        }
+    }
+    /**
+     * Recalculates and draws all the marker clusters.
+     */
+    render() {
+        const map = this.getMap();
+        if (map instanceof google.maps.Map && this.getProjection()) {
+            google.maps.event.trigger(this, MarkerClustererEvents.CLUSTERING_BEGIN, this);
+            const { clusters, changed } = this.algorithm.calculate({
+                markers: this.markers,
+                map,
+                mapCanvasProjection: this.getProjection(),
+            });
+            // allow algorithms to return flag on whether the clusters/markers have changed
+            if (changed || changed == undefined) {
+                // reset visibility of markers and clusters
+                this.reset();
+                // store new clusters
+                this.clusters = clusters;
+                this.renderClusters();
+            }
+            google.maps.event.trigger(this, MarkerClustererEvents.CLUSTERING_END, this);
+        }
+    }
+    onAdd() {
+        this.idleListener = this.getMap().addListener("idle", this.render.bind(this));
+        this.render();
+    }
+    onRemove() {
+        google.maps.event.removeListener(this.idleListener);
+        this.reset();
+    }
+    reset() {
+        this.markers.forEach((marker) => marker.setMap(null));
+        this.clusters.forEach((cluster) => cluster.delete());
+        this.clusters = [];
+    }
+    renderClusters() {
+        // generate stats to pass to renderers
+        const stats = new ClusterStats(this.markers, this.clusters);
+        const map = this.getMap();
+        this.clusters.forEach((cluster) => {
+            if (cluster.markers.length === 1) {
+                cluster.marker = cluster.markers[0];
+            }
+            else {
+                cluster.marker = this.renderer.render(cluster, stats);
+                if (this.onClusterClick) {
+                    cluster.marker.addListener("click", 
+                    /* istanbul ignore next */
+                    (event) => {
+                        google.maps.event.trigger(this, MarkerClustererEvents.CLUSTER_CLICK, cluster);
+                        this.onClusterClick(event, cluster, map);
+                    });
+                }
+            }
+            cluster.marker.setMap(map);
+        });
+    }
+}
+
+var index_esm = /*#__PURE__*/Object.freeze({
+	__proto__: null,
+	AbstractAlgorithm: AbstractAlgorithm,
+	AbstractViewportAlgorithm: AbstractViewportAlgorithm,
+	Cluster: Cluster,
+	ClusterStats: ClusterStats,
+	DBScanAlgorithm: DBScanAlgorithm,
+	DefaultRenderer: DefaultRenderer,
+	GridAlgorithm: GridAlgorithm,
+	KmeansAlgorithm: KmeansAlgorithm,
+	MarkerClusterer: MarkerClusterer,
+	get MarkerClustererEvents () { return MarkerClustererEvents; },
+	NoopAlgorithm: NoopAlgorithm,
+	SuperClusterAlgorithm: SuperClusterAlgorithm,
+	defaultOnClusterClickHandler: defaultOnClusterClickHandler,
+	distanceBetweenPoints: distanceBetweenPoints,
+	extendBoundsToPaddedViewport: extendBoundsToPaddedViewport,
+	extendPixelBounds: extendPixelBounds,
+	filterMarkersToPaddedViewport: filterMarkersToPaddedViewport,
+	noop: noop$1,
+	pixelBoundsToLatLngBounds: pixelBoundsToLatLngBounds
+});
+
+const useGoogleMarkerClusterer = (options) => {
+    const map = useGoogleMap();
+    const [markerClusterer, setMarkerClusterer] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+        if (map && markerClusterer === null) {
+            const markerCluster = new MarkerClusterer(Object.assign(Object.assign({}, options), { map }));
+            setMarkerClusterer(markerCluster);
+        }
+    }, [map]);
+    return markerClusterer;
+};
+/** Wrapper around [@googlemaps/markerclusterer](https://github.com/googlemaps/js-markerclusterer)
+ *
+ * Accepts {@link  MarkerClustererOptionsSubset} which is a subset of  {@link MarkerClustererOptions}
+ */
+const GoogleMarkerClusterer = ({ children, options }) => {
+    const markerClusterer = useGoogleMarkerClusterer(options);
+    return markerClusterer !== null ? children(markerClusterer) : null;
+};
+
+/* global google */
+const eventMap$c = {
+    onCloseClick: 'closeclick',
+    onContentChanged: 'content_changed',
+    onDomReady: 'domready',
+    onPositionChanged: 'position_changed',
+    onZindexChanged: 'zindex_changed',
+};
+const updaterMap$c = {
+    options(instance, options) {
+        instance.setOptions(options);
+    },
+    position(instance, position) {
+        instance.setPosition(position);
+    },
+    zIndex(instance, zIndex) {
+        instance.setZIndex(zIndex);
+    },
+};
+class InfoWindow extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.registeredEvents = [];
+        this.containerElement = null;
+        this.state = {
+            infoWindow: null,
+        };
+        this.open = (infoWindow, anchor) => {
+            if (anchor) {
+                infoWindow.open(this.context, anchor);
+            }
+            else if (infoWindow.getPosition()) {
+                infoWindow.open(this.context);
+            }
+            else {
+                invariant_1(false, `You must provide either an anchor (typically render it inside a <Marker>) or a position props for <InfoWindow>.`);
+            }
+        };
+        this.setInfoWindowCallback = () => {
+            if (this.state.infoWindow !== null && this.containerElement !== null) {
+                this.state.infoWindow.setContent(this.containerElement);
+                this.open(this.state.infoWindow, this.props.anchor);
+                if (this.props.onLoad) {
+                    this.props.onLoad(this.state.infoWindow);
+                }
+            }
+        };
+    }
+    componentDidMount() {
+        const infoWindow = new google.maps.InfoWindow(Object.assign({}, (this.props.options || {})));
+        this.containerElement = document.createElement('div');
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap: updaterMap$c,
+            eventMap: eventMap$c,
+            prevProps: {},
+            nextProps: this.props,
+            instance: infoWindow,
+        });
+        this.setState(function setInfoWindow() {
+            return {
+                infoWindow,
+            };
+        }, this.setInfoWindowCallback);
+    }
+    componentDidUpdate(prevProps) {
+        if (this.state.infoWindow !== null) {
+            unregisterEvents(this.registeredEvents);
+            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                updaterMap: updaterMap$c,
+                eventMap: eventMap$c,
+                prevProps,
+                nextProps: this.props,
+                instance: this.state.infoWindow,
+            });
+        }
+    }
+    componentWillUnmount() {
+        if (this.state.infoWindow !== null) {
+            unregisterEvents(this.registeredEvents);
+            this.state.infoWindow.close();
+        }
+    }
+    render() {
+        return this.containerElement ? (react_dom__WEBPACK_IMPORTED_MODULE_1__.createPortal(react__WEBPACK_IMPORTED_MODULE_0__.Children.only(this.props.children), this.containerElement)) : (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null));
+    }
+}
+InfoWindow.contextType = MapContext;
+
+const eventMap$b = {
+    onClick: 'click',
+    onDblClick: 'dblclick',
+    onDrag: 'drag',
+    onDragEnd: 'dragend',
+    onDragStart: 'dragstart',
+    onMouseDown: 'mousedown',
+    onMouseMove: 'mousemove',
+    onMouseOut: 'mouseout',
+    onMouseOver: 'mouseover',
+    onMouseUp: 'mouseup',
+    onRightClick: 'rightclick',
+};
+const updaterMap$b = {
+    draggable(instance, draggable) {
+        instance.setDraggable(draggable);
+    },
+    editable(instance, editable) {
+        instance.setEditable(editable);
+    },
+    map(instance, map) {
+        instance.setMap(map);
+    },
+    options(instance, options) {
+        instance.setOptions(options);
+    },
+    path(instance, path) {
+        instance.setPath(path);
+    },
+    visible(instance, visible) {
+        instance.setVisible(visible);
+    },
+};
+class Polyline extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.registeredEvents = [];
+        this.state = {
+            polyline: null,
+        };
+        this.setPolylineCallback = () => {
+            if (this.state.polyline !== null && this.props.onLoad) {
+                this.props.onLoad(this.state.polyline);
+            }
+        };
+    }
+    componentDidMount() {
+        const polyline = new google.maps.Polyline(Object.assign(Object.assign({}, (this.props.options || {})), { map: this.context }));
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap: updaterMap$b,
+            eventMap: eventMap$b,
+            prevProps: {},
+            nextProps: this.props,
+            instance: polyline,
+        });
+        this.setState(function setPolyline() {
+            return {
+                polyline,
+            };
+        }, this.setPolylineCallback);
+    }
+    componentDidUpdate(prevProps) {
+        if (this.state.polyline !== null) {
+            unregisterEvents(this.registeredEvents);
+            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                updaterMap: updaterMap$b,
+                eventMap: eventMap$b,
+                prevProps,
+                nextProps: this.props,
+                instance: this.state.polyline,
+            });
+        }
+    }
+    componentWillUnmount() {
+        if (this.state.polyline !== null) {
+            if (this.props.onUnmount) {
+                this.props.onUnmount(this.state.polyline);
+            }
+            unregisterEvents(this.registeredEvents);
+            this.state.polyline.setMap(null);
+        }
+    }
+    render() {
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
+    }
+}
+Polyline.contextType = MapContext;
+
+/* global google */
+const eventMap$a = {
+    onClick: 'click',
+    onDblClick: 'dblclick',
+    onDrag: 'drag',
+    onDragEnd: 'dragend',
+    onDragStart: 'dragstart',
+    onMouseDown: 'mousedown',
+    onMouseMove: 'mousemove',
+    onMouseOut: 'mouseout',
+    onMouseOver: 'mouseover',
+    onMouseUp: 'mouseup',
+    onRightClick: 'rightclick',
+};
+const updaterMap$a = {
+    draggable(instance, draggable) {
+        instance.setDraggable(draggable);
+    },
+    editable(instance, editable) {
+        instance.setEditable(editable);
+    },
+    map(instance, map) {
+        instance.setMap(map);
+    },
+    options(instance, options) {
+        instance.setOptions(options);
+    },
+    path(instance, path) {
+        instance.setPath(path);
+    },
+    paths(instance, paths) {
+        instance.setPaths(paths);
+    },
+    visible(instance, visible) {
+        instance.setVisible(visible);
+    },
+};
+class Polygon extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.registeredEvents = [];
+        this.state = {
+            polygon: null,
+        };
+        this.setPolygonCallback = () => {
+            if (this.state.polygon !== null && this.props.onLoad) {
+                this.props.onLoad(this.state.polygon);
+            }
+        };
+    }
+    componentDidMount() {
+        const polygon = new google.maps.Polygon(Object.assign(Object.assign({}, (this.props.options || {})), { map: this.context }));
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap: updaterMap$a,
+            eventMap: eventMap$a,
+            prevProps: {},
+            nextProps: this.props,
+            instance: polygon,
+        });
+        this.setState(function setPolygon() {
+            return {
+                polygon,
+            };
+        }, this.setPolygonCallback);
+    }
+    componentDidUpdate(prevProps) {
+        if (this.state.polygon !== null) {
+            unregisterEvents(this.registeredEvents);
+            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                updaterMap: updaterMap$a,
+                eventMap: eventMap$a,
+                prevProps,
+                nextProps: this.props,
+                instance: this.state.polygon,
+            });
+        }
+    }
+    componentWillUnmount() {
+        if (this.state.polygon !== null) {
+            if (this.props.onUnmount) {
+                this.props.onUnmount(this.state.polygon);
+            }
+            unregisterEvents(this.registeredEvents);
+            this.state.polygon && this.state.polygon.setMap(null);
+        }
+    }
+    render() {
+        return null;
+    }
+}
+Polygon.contextType = MapContext;
+
+const eventMap$9 = {
+    onBoundsChanged: 'bounds_changed',
+    onClick: 'click',
+    onDblClick: 'dblclick',
+    onDrag: 'drag',
+    onDragEnd: 'dragend',
+    onDragStart: 'dragstart',
+    onMouseDown: 'mousedown',
+    onMouseMove: 'mousemove',
+    onMouseOut: 'mouseout',
+    onMouseOver: 'mouseover',
+    onMouseUp: 'mouseup',
+    onRightClick: 'rightclick',
+};
+const updaterMap$9 = {
+    bounds(instance, bounds) {
+        instance.setBounds(bounds);
+    },
+    draggable(instance, draggable) {
+        instance.setDraggable(draggable);
+    },
+    editable(instance, editable) {
+        instance.setEditable(editable);
+    },
+    map(instance, map) {
+        instance.setMap(map);
+    },
+    options(instance, options) {
+        instance.setOptions(options);
+    },
+    visible(instance, visible) {
+        instance.setVisible(visible);
+    },
+};
+class Rectangle extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.registeredEvents = [];
+        this.state = {
+            rectangle: null,
+        };
+        this.setRectangleCallback = () => {
+            if (this.state.rectangle !== null && this.props.onLoad) {
+                this.props.onLoad(this.state.rectangle);
+            }
+        };
+    }
+    componentDidMount() {
+        const rectangle = new google.maps.Rectangle(Object.assign(Object.assign({}, (this.props.options || {})), { map: this.context }));
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap: updaterMap$9,
+            eventMap: eventMap$9,
+            prevProps: {},
+            nextProps: this.props,
+            instance: rectangle,
+        });
+        this.setState(function setRectangle() {
+            return {
+                rectangle,
+            };
+        }, this.setRectangleCallback);
+    }
+    componentDidUpdate(prevProps) {
+        if (this.state.rectangle !== null) {
+            unregisterEvents(this.registeredEvents);
+            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                updaterMap: updaterMap$9,
+                eventMap: eventMap$9,
+                prevProps,
+                nextProps: this.props,
+                instance: this.state.rectangle,
+            });
+        }
+    }
+    componentWillUnmount() {
+        if (this.state.rectangle !== null) {
+            if (this.props.onUnmount) {
+                this.props.onUnmount(this.state.rectangle);
+            }
+            unregisterEvents(this.registeredEvents);
+            this.state.rectangle.setMap(null);
+        }
+    }
+    render() {
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
+    }
+}
+Rectangle.contextType = MapContext;
+
+const eventMap$8 = {
+    onCenterChanged: 'center_changed',
+    onClick: 'click',
+    onDblClick: 'dblclick',
+    onDrag: 'drag',
+    onDragEnd: 'dragend',
+    onDragStart: 'dragstart',
+    onMouseDown: 'mousedown',
+    onMouseMove: 'mousemove',
+    onMouseOut: 'mouseout',
+    onMouseOver: 'mouseover',
+    onMouseUp: 'mouseup',
+    onRadiusChanged: 'radius_changed',
+    onRightClick: 'rightclick',
+};
+const updaterMap$8 = {
+    center(instance, center) {
+        instance.setCenter(center);
+    },
+    draggable(instance, draggable) {
+        instance.setDraggable(draggable);
+    },
+    editable(instance, editable) {
+        instance.setEditable(editable);
+    },
+    map(instance, map) {
+        instance.setMap(map);
+    },
+    options(instance, options) {
+        instance.setOptions(options);
+    },
+    radius(instance, radius) {
+        instance.setRadius(radius);
+    },
+    visible(instance, visible) {
+        instance.setVisible(visible);
+    },
+};
+class Circle extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.registeredEvents = [];
+        this.state = {
+            circle: null,
+        };
+        this.setCircleCallback = () => {
+            if (this.state.circle !== null && this.props.onLoad) {
+                this.props.onLoad(this.state.circle);
+            }
+        };
+    }
+    componentDidMount() {
+        const circle = new google.maps.Circle(Object.assign(Object.assign({}, (this.props.options || {})), { map: this.context }));
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap: updaterMap$8,
+            eventMap: eventMap$8,
+            prevProps: {},
+            nextProps: this.props,
+            instance: circle,
+        });
+        this.setState(function setCircle() {
+            return {
+                circle,
+            };
+        }, this.setCircleCallback);
+    }
+    componentDidUpdate(prevProps) {
+        if (this.state.circle !== null) {
+            unregisterEvents(this.registeredEvents);
+            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                updaterMap: updaterMap$8,
+                eventMap: eventMap$8,
+                prevProps,
+                nextProps: this.props,
+                instance: this.state.circle,
+            });
+        }
+    }
+    componentWillUnmount() {
+        if (this.state.circle !== null) {
+            if (this.props.onUnmount) {
+                this.props.onUnmount(this.state.circle);
+            }
+            unregisterEvents(this.registeredEvents);
+            this.state.circle && this.state.circle.setMap(null);
+        }
+    }
+    render() {
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
+    }
+}
+Circle.contextType = MapContext;
+
+const eventMap$7 = {
+    onAddFeature: 'addfeature',
+    onClick: 'click',
+    onDblClick: 'dblclick',
+    onMouseDown: 'mousedown',
+    onMouseOut: 'mouseout',
+    onMouseOver: 'mouseover',
+    onMouseUp: 'mouseup',
+    onRemoveFeature: 'removefeature',
+    onRemoveProperty: 'removeproperty',
+    onRightClick: 'rightclick',
+    onSetGeometry: 'setgeometry',
+    onSetProperty: 'setproperty',
+};
+const updaterMap$7 = {
+    add(instance, features) {
+        instance.add(features);
+    },
+    addgeojson(instance, geojson, options) {
+        instance.addGeoJson(geojson, options);
+    },
+    contains(instance, feature) {
+        instance.contains(feature);
+    },
+    foreach(instance, callback) {
+        instance.forEach(callback);
+    },
+    loadgeojson(instance, url, options, callback) {
+        instance.loadGeoJson(url, options, callback);
+    },
+    overridestyle(instance, feature, style) {
+        instance.overrideStyle(feature, style);
+    },
+    remove(instance, feature) {
+        instance.remove(feature);
+    },
+    revertstyle(instance, feature) {
+        instance.revertStyle(feature);
+    },
+    controlposition(instance, controlPosition) {
+        instance.setControlPosition(controlPosition);
+    },
+    controls(instance, controls) {
+        instance.setControls(controls);
+    },
+    drawingmode(instance, mode) {
+        instance.setDrawingMode(mode);
+    },
+    map(instance, map) {
+        instance.setMap(map);
+    },
+    style(instance, style) {
+        instance.setStyle(style);
+    },
+    togeojson(instance, callback) {
+        instance.toGeoJson(callback);
+    },
+};
+class Data extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.registeredEvents = [];
+        this.state = {
+            data: null,
+        };
+        this.setDataCallback = () => {
+            if (this.state.data !== null && this.props.onLoad) {
+                this.props.onLoad(this.state.data);
+            }
+        };
+    }
+    componentDidMount() {
+        const data = new google.maps.Data(Object.assign(Object.assign({}, (this.props.options || {})), { map: this.context }));
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap: updaterMap$7,
+            eventMap: eventMap$7,
+            prevProps: {},
+            nextProps: this.props,
+            instance: data,
+        });
+        this.setState(function setData() {
+            return {
+                data,
+            };
+        }, this.setDataCallback);
+    }
+    componentDidUpdate(prevProps) {
+        if (this.state.data !== null) {
+            unregisterEvents(this.registeredEvents);
+            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                updaterMap: updaterMap$7,
+                eventMap: eventMap$7,
+                prevProps,
+                nextProps: this.props,
+                instance: this.state.data,
+            });
+        }
+    }
+    componentWillUnmount() {
+        if (this.state.data !== null) {
+            if (this.props.onUnmount) {
+                this.props.onUnmount(this.state.data);
+            }
+            unregisterEvents(this.registeredEvents);
+            if (this.state.data) {
+                this.state.data.setMap(null);
+            }
+        }
+    }
+    render() {
+        return null;
+    }
+}
+Data.contextType = MapContext;
+
+const eventMap$6 = {
+    onClick: 'click',
+    onDefaultViewportChanged: 'defaultviewport_changed',
+    onStatusChanged: 'status_changed',
+};
+const updaterMap$6 = {
+    options(instance, options) {
+        instance.setOptions(options);
+    },
+    url(instance, url) {
+        instance.setUrl(url);
+    },
+    zIndex(instance, zIndex) {
+        instance.setZIndex(zIndex);
+    },
+};
+class KmlLayer extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.registeredEvents = [];
+        this.state = {
+            kmlLayer: null,
+        };
+        this.setKmlLayerCallback = () => {
+            if (this.state.kmlLayer !== null && this.props.onLoad) {
+                this.props.onLoad(this.state.kmlLayer);
+            }
+        };
+    }
+    componentDidMount() {
+        const kmlLayer = new google.maps.KmlLayer(Object.assign(Object.assign({}, this.props.options), { map: this.context }));
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap: updaterMap$6,
+            eventMap: eventMap$6,
+            prevProps: {},
+            nextProps: this.props,
+            instance: kmlLayer,
+        });
+        this.setState(function setLmlLayer() {
+            return {
+                kmlLayer,
+            };
+        }, this.setKmlLayerCallback);
+    }
+    componentDidUpdate(prevProps) {
+        if (this.state.kmlLayer !== null) {
+            unregisterEvents(this.registeredEvents);
+            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                updaterMap: updaterMap$6,
+                eventMap: eventMap$6,
+                prevProps,
+                nextProps: this.props,
+                instance: this.state.kmlLayer,
+            });
+        }
+    }
+    componentWillUnmount() {
+        if (this.state.kmlLayer !== null) {
+            if (this.props.onUnmount) {
+                this.props.onUnmount(this.state.kmlLayer);
+            }
+            unregisterEvents(this.registeredEvents);
+            this.state.kmlLayer.setMap(null);
+        }
+    }
+    render() {
+        return null;
+    }
+}
+KmlLayer.contextType = MapContext;
+
+/* eslint-disable filenames/match-regex */
+function getOffsetOverride(containerElement, getPixelPositionOffset) {
+    return typeof getPixelPositionOffset === 'function'
+        ? getPixelPositionOffset(containerElement.offsetWidth, containerElement.offsetHeight)
+        : {};
+}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const createLatLng = (inst, Type) => new Type(inst.lat, inst.lng);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const createLatLngBounds = (inst, Type) => new Type(new google.maps.LatLng(inst.ne.lat, inst.ne.lng), new google.maps.LatLng(inst.sw.lat, inst.sw.lng));
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ensureOfType = (inst, type, factory) => {
+    return inst instanceof type ? inst : factory(inst, type);
+};
+const getLayoutStylesByBounds = (mapCanvasProjection, offset, bounds) => {
+    const ne = mapCanvasProjection && mapCanvasProjection.fromLatLngToDivPixel(bounds.getNorthEast());
+    const sw = mapCanvasProjection && mapCanvasProjection.fromLatLngToDivPixel(bounds.getSouthWest());
+    if (ne && sw) {
+        return {
+            left: `${sw.x + offset.x}px`,
+            top: `${ne.y + offset.y}px`,
+            width: `${ne.x - sw.x - offset.x}px`,
+            height: `${sw.y - ne.y - offset.y}px`,
+        };
+    }
+    return {
+        left: '-9999px',
+        top: '-9999px',
+    };
+};
+const getLayoutStylesByPosition = (mapCanvasProjection, offset, position) => {
+    const point = mapCanvasProjection && mapCanvasProjection.fromLatLngToDivPixel(position);
+    if (point) {
+        const { x, y } = point;
+        return {
+            left: `${x + offset.x}px`,
+            top: `${y + offset.y}px`,
+        };
+    }
+    return {
+        left: '-9999px',
+        top: '-9999px',
+    };
+};
+const getLayoutStyles = (mapCanvasProjection, offset, bounds, position) => {
+    return bounds !== undefined
+        ? getLayoutStylesByBounds(mapCanvasProjection, offset, ensureOfType(bounds, google.maps.LatLngBounds, createLatLngBounds))
+        : getLayoutStylesByPosition(mapCanvasProjection, offset, ensureOfType(position, google.maps.LatLng, createLatLng));
+};
+const arePositionsEqual = (currentPosition, previousPosition) => {
+    return currentPosition.left === previousPosition.left
+        && currentPosition.top === previousPosition.top
+        && currentPosition.width === previousPosition.height
+        && currentPosition.height === previousPosition.height;
+};
+
+function convertToLatLngString(latLngLike) {
+    if (!latLngLike) {
+        return '';
+    }
+    const latLng = latLngLike instanceof google.maps.LatLng
+        ? latLngLike
+        : new google.maps.LatLng(latLngLike.lat, latLngLike.lng);
+    return latLng + '';
+}
+function convertToLatLngBoundsString(latLngBoundsLike) {
+    if (!latLngBoundsLike) {
+        return '';
+    }
+    const latLngBounds = latLngBoundsLike instanceof google.maps.LatLngBounds
+        ? latLngBoundsLike
+        : new google.maps.LatLngBounds(new google.maps.LatLng(latLngBoundsLike.south, latLngBoundsLike.east), new google.maps.LatLng(latLngBoundsLike.north, latLngBoundsLike.west));
+    return latLngBounds + '';
+}
+class OverlayView extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor(props) {
+        super(props);
+        this.state = {
+            paneEl: null,
+            containerStyle: {
+                // set initial position
+                position: 'absolute'
+            },
+        };
+        this.updatePane = () => {
+            const mapPaneName = this.props.mapPaneName;
+            // https://developers.google.com/maps/documentation/javascript/3.exp/reference#MapPanes
+            const mapPanes = this.overlayView.getPanes();
+            invariant_1(!!mapPaneName, `OverlayView requires props.mapPaneName but got %s`, mapPaneName);
+            if (mapPanes) {
+                this.setState({
+                    paneEl: mapPanes[mapPaneName]
+                });
+            }
+            else {
+                this.setState({
+                    paneEl: null
+                });
+            }
+        };
+        this.onAdd = () => {
+            var _a, _b;
+            this.updatePane();
+            (_b = (_a = this.props).onLoad) === null || _b === void 0 ? void 0 : _b.call(_a, this.overlayView);
+        };
+        this.onPositionElement = () => {
+            const mapCanvasProjection = this.overlayView.getProjection();
+            const offset = Object.assign({ x: 0, y: 0 }, (this.containerRef.current
+                ? getOffsetOverride(this.containerRef.current, this.props.getPixelPositionOffset)
+                : {}));
+            const layoutStyles = getLayoutStyles(mapCanvasProjection, offset, this.props.bounds, this.props.position);
+            const { left, top, width, height } = this.state.containerStyle;
+            if (!arePositionsEqual(layoutStyles, { left, top, width, height })) {
+                this.setState({
+                    containerStyle: Object.assign(Object.assign({}, layoutStyles), { position: 'absolute' }),
+                });
+            }
+        };
+        this.draw = () => {
+            this.onPositionElement();
+        };
+        this.onRemove = () => {
+            var _a, _b;
+            this.setState(() => ({
+                paneEl: null
+            }));
+            // this.mapPaneEl = null
+            (_b = (_a = this.props).onUnmount) === null || _b === void 0 ? void 0 : _b.call(_a, this.overlayView);
+        };
+        this.containerRef = react__WEBPACK_IMPORTED_MODULE_0__.createRef();
+        // You must implement three methods: onAdd(), draw(), and onRemove().
+        const overlayView = new google.maps.OverlayView();
+        overlayView.onAdd = this.onAdd;
+        overlayView.draw = this.draw;
+        overlayView.onRemove = this.onRemove;
+        this.overlayView = overlayView;
+    }
+    componentDidMount() {
+        // You must call setMap() with a valid Map object to trigger the call to
+        // the onAdd() method and setMap(null) in order to trigger the onRemove() method.
+        this.overlayView.setMap(this.context);
+    }
+    componentDidUpdate(prevProps) {
+        const prevPositionString = convertToLatLngString(prevProps.position);
+        const positionString = convertToLatLngString(this.props.position);
+        const prevBoundsString = convertToLatLngBoundsString(prevProps.bounds);
+        const boundsString = convertToLatLngBoundsString(this.props.bounds);
+        if (prevPositionString !== positionString || prevBoundsString !== boundsString) {
+            this.overlayView.draw();
+        }
+        if (prevProps.mapPaneName !== this.props.mapPaneName) {
+            this.updatePane();
+        }
+    }
+    componentWillUnmount() {
+        this.overlayView.setMap(null);
+    }
+    render() {
+        const paneEl = this.state.paneEl;
+        if (paneEl) {
+            return react_dom__WEBPACK_IMPORTED_MODULE_1__.createPortal(react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { ref: this.containerRef, style: this.state.containerStyle }, react__WEBPACK_IMPORTED_MODULE_0__.Children.only(this.props.children)), paneEl);
+        }
+        else {
+            return null;
+        }
+    }
+}
+OverlayView.FLOAT_PANE = `floatPane`;
+OverlayView.MAP_PANE = `mapPane`;
+OverlayView.MARKER_LAYER = `markerLayer`;
+OverlayView.OVERLAY_LAYER = `overlayLayer`;
+OverlayView.OVERLAY_MOUSE_TARGET = `overlayMouseTarget`;
+OverlayView.contextType = MapContext;
+
+function noop() { }
+
+const eventMap$5 = {
+    onDblClick: 'dblclick',
+    onClick: 'click',
+};
+const updaterMap$5 = {
+    opacity(instance, opacity) {
+        instance.setOpacity(opacity);
+    },
+};
+class GroundOverlay extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.registeredEvents = [];
+        this.state = {
+            groundOverlay: null,
+        };
+        this.setGroundOverlayCallback = () => {
+            if (this.state.groundOverlay !== null && this.props.onLoad) {
+                this.props.onLoad(this.state.groundOverlay);
+            }
+        };
+    }
+    componentDidMount() {
+        invariant_1(!!this.props.url || !!this.props.bounds, `For GroundOverlay, url and bounds are passed in to constructor and are immutable after instantiated. This is the behavior of Google Maps JavaScript API v3 ( See https://developers.google.com/maps/documentation/javascript/reference#GroundOverlay) Hence, use the corresponding two props provided by \`react-google-maps-api\`, url and bounds. In some cases, you'll need the GroundOverlay component to reflect the changes of url and bounds. You can leverage the React's key property to remount the component. Typically, just \`key={url}\` would serve your need. See https://github.com/tomchentw/react-google-maps/issues/655`);
+        const groundOverlay = new google.maps.GroundOverlay(this.props.url, this.props.bounds, Object.assign(Object.assign({}, this.props.options), { map: this.context }));
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap: updaterMap$5,
+            eventMap: eventMap$5,
+            prevProps: {},
+            nextProps: this.props,
+            instance: groundOverlay,
+        });
+        this.setState(function setGroundOverlay() {
+            return {
+                groundOverlay,
+            };
+        }, this.setGroundOverlayCallback);
+    }
+    componentDidUpdate(prevProps) {
+        if (this.state.groundOverlay !== null) {
+            unregisterEvents(this.registeredEvents);
+            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                updaterMap: updaterMap$5,
+                eventMap: eventMap$5,
+                prevProps,
+                nextProps: this.props,
+                instance: this.state.groundOverlay,
+            });
+        }
+    }
+    componentWillUnmount() {
+        if (this.state.groundOverlay) {
+            if (this.props.onUnmount) {
+                this.props.onUnmount(this.state.groundOverlay);
+            }
+            this.state.groundOverlay.setMap(null);
+        }
+    }
+    render() {
+        return null;
+    }
+}
+GroundOverlay.defaultProps = {
+    onLoad: noop,
+};
+GroundOverlay.contextType = MapContext;
+
+const eventMap$4 = {};
+const updaterMap$4 = {
+    data(instance, data) {
+        instance.setData(data);
+    },
+    map(instance, map) {
+        instance.setMap(map);
+    },
+    options(instance, options) {
+        instance.setOptions(options);
+    },
+};
+class HeatmapLayer extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.registeredEvents = [];
+        this.state = {
+            heatmapLayer: null,
+        };
+        this.setHeatmapLayerCallback = () => {
+            if (this.state.heatmapLayer !== null && this.props.onLoad) {
+                this.props.onLoad(this.state.heatmapLayer);
+            }
+        };
+    }
+    componentDidMount() {
+        invariant_1(!!google.maps.visualization, 'Did you include prop libraries={["visualization"]} to <LoadScript />? %s', google.maps.visualization);
+        invariant_1(!!this.props.data, 'data property is required in HeatmapLayer %s', this.props.data);
+        const heatmapLayer = new google.maps.visualization.HeatmapLayer(Object.assign(Object.assign({}, (this.props.options || {})), { data: this.props.data, map: this.context }));
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap: updaterMap$4,
+            eventMap: eventMap$4,
+            prevProps: {},
+            nextProps: this.props,
+            instance: heatmapLayer,
+        });
+        this.setState(function setHeatmapLayer() {
+            return {
+                heatmapLayer,
+            };
+        }, this.setHeatmapLayerCallback);
+    }
+    componentDidUpdate(prevProps) {
+        unregisterEvents(this.registeredEvents);
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap: updaterMap$4,
+            eventMap: eventMap$4,
+            prevProps,
+            nextProps: this.props,
+            instance: this.state.heatmapLayer,
+        });
+    }
+    componentWillUnmount() {
+        if (this.state.heatmapLayer !== null) {
+            if (this.props.onUnmount) {
+                this.props.onUnmount(this.state.heatmapLayer);
+            }
+            unregisterEvents(this.registeredEvents);
+            this.state.heatmapLayer.setMap(null);
+        }
+    }
+    render() {
+        return null;
+    }
+}
+HeatmapLayer.contextType = MapContext;
+
+const eventMap$3 = {
+    onCloseClick: 'closeclick',
+    onPanoChanged: 'pano_changed',
+    onPositionChanged: 'position_changed',
+    onPovChanged: 'pov_changed',
+    onResize: 'resize',
+    onStatusChanged: 'status_changed',
+    onVisibleChanged: 'visible_changed',
+    onZoomChanged: 'zoom_changed',
+};
+const updaterMap$3 = {
+    register(instance, provider, options) {
+        instance.registerPanoProvider(provider, options);
+    },
+    links(instance, links) {
+        instance.setLinks(links);
+    },
+    motionTracking(instance, motionTracking) {
+        instance.setMotionTracking(motionTracking);
+    },
+    options(instance, options) {
+        instance.setOptions(options);
+    },
+    pano(instance, pano) {
+        instance.setPano(pano);
+    },
+    position(instance, position) {
+        instance.setPosition(position);
+    },
+    pov(instance, pov) {
+        instance.setPov(pov);
+    },
+    visible(instance, visible) {
+        instance.setVisible(visible);
+    },
+    zoom(instance, zoom) {
+        instance.setZoom(zoom);
+    },
+};
+class StreetViewPanorama extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.registeredEvents = [];
+        this.state = {
+            streetViewPanorama: null,
+        };
+        this.setStreetViewPanoramaCallback = () => {
+            if (this.state.streetViewPanorama !== null && this.props.onLoad) {
+                this.props.onLoad(this.state.streetViewPanorama);
+            }
+        };
+    }
+    componentDidMount() {
+        const streetViewPanorama = this.context.getStreetView();
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap: updaterMap$3,
+            eventMap: eventMap$3,
+            prevProps: {},
+            nextProps: this.props,
+            instance: streetViewPanorama,
+        });
+        this.setState(function setStreetViewPanorama() {
+            return {
+                streetViewPanorama,
+            };
+        }, this.setStreetViewPanoramaCallback);
+    }
+    componentDidUpdate(prevProps) {
+        if (this.state.streetViewPanorama !== null) {
+            unregisterEvents(this.registeredEvents);
+            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                updaterMap: updaterMap$3,
+                eventMap: eventMap$3,
+                prevProps,
+                nextProps: this.props,
+                instance: this.state.streetViewPanorama,
+            });
+        }
+    }
+    componentWillUnmount() {
+        if (this.state.streetViewPanorama !== null) {
+            if (this.props.onUnmount) {
+                this.props.onUnmount(this.state.streetViewPanorama);
+            }
+            unregisterEvents(this.registeredEvents);
+            this.state.streetViewPanorama.setVisible(false);
+        }
+    }
+    render() {
+        return null;
+    }
+}
+StreetViewPanorama.contextType = MapContext;
+
+class StreetViewService extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.state = {
+            streetViewService: null,
+        };
+        this.setStreetViewServiceCallback = () => {
+            if (this.state.streetViewService !== null && this.props.onLoad) {
+                this.props.onLoad(this.state.streetViewService);
+            }
+        };
+    }
+    componentDidMount() {
+        const streetViewService = new google.maps.StreetViewService();
+        this.setState(function setStreetViewService() {
+            return {
+                streetViewService,
+            };
+        }, this.setStreetViewServiceCallback);
+    }
+    componentWillUnmount() {
+        if (this.state.streetViewService !== null) {
+            if (this.props.onUnmount) {
+                this.props.onUnmount(this.state.streetViewService);
+            }
+        }
+    }
+    render() {
+        return null;
+    }
+}
+StreetViewService.contextType = MapContext;
+
+class DirectionsService extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.state = {
+            directionsService: null,
+        };
+        this.setDirectionsServiceCallback = () => {
+            if (this.state.directionsService !== null && this.props.onLoad) {
+                this.props.onLoad(this.state.directionsService);
+            }
+        };
+    }
+    componentDidMount() {
+        invariant_1(!!this.props.options, 'DirectionsService expected options object as parameter, but got %s', this.props.options);
+        const directionsService = new google.maps.DirectionsService();
+        this.setState(function setDirectionsService() {
+            return {
+                directionsService,
+            };
+        }, this.setDirectionsServiceCallback);
+    }
+    componentDidUpdate() {
+        if (this.state.directionsService !== null) {
+            this.state.directionsService.route(this.props.options, this.props.callback);
+        }
+    }
+    componentWillUnmount() {
+        if (this.state.directionsService !== null) {
+            if (this.props.onUnmount) {
+                this.props.onUnmount(this.state.directionsService);
+            }
+        }
+    }
+    render() {
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
+    }
+}
+
+const eventMap$2 = {
+    onDirectionsChanged: 'directions_changed',
+};
+const updaterMap$2 = {
+    directions(instance, directions) {
+        instance.setDirections(directions);
+    },
+    map(instance, map) {
+        instance.setMap(map);
+    },
+    options(instance, options) {
+        instance.setOptions(options);
+    },
+    panel(instance, panel) {
+        instance.setPanel(panel);
+    },
+    routeIndex(instance, routeIndex) {
+        instance.setRouteIndex(routeIndex);
+    },
+};
+class DirectionsRenderer extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.registeredEvents = [];
+        this.state = {
+            directionsRenderer: null,
+        };
+        this.setDirectionsRendererCallback = () => {
+            if (this.state.directionsRenderer !== null) {
+                this.state.directionsRenderer.setMap(this.context);
+                if (this.props.onLoad) {
+                    this.props.onLoad(this.state.directionsRenderer);
+                }
+            }
+        };
+    }
+    componentDidMount() {
+        const directionsRenderer = new google.maps.DirectionsRenderer(this.props.options);
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap: updaterMap$2,
+            eventMap: eventMap$2,
+            prevProps: {},
+            nextProps: this.props,
+            instance: directionsRenderer,
+        });
+        this.setState(function setDirectionsRenderer() {
+            return {
+                directionsRenderer,
+            };
+        }, this.setDirectionsRendererCallback);
+    }
+    componentDidUpdate(prevProps) {
+        if (this.state.directionsRenderer !== null) {
+            unregisterEvents(this.registeredEvents);
+            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                updaterMap: updaterMap$2,
+                eventMap: eventMap$2,
+                prevProps,
+                nextProps: this.props,
+                instance: this.state.directionsRenderer,
+            });
+        }
+    }
+    componentWillUnmount() {
+        if (this.state.directionsRenderer !== null) {
+            if (this.props.onUnmount) {
+                this.props.onUnmount(this.state.directionsRenderer);
+            }
+            unregisterEvents(this.registeredEvents);
+            if (this.state.directionsRenderer) {
+                this.state.directionsRenderer.setMap(null);
+            }
+        }
+    }
+    render() {
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
+    }
+}
+DirectionsRenderer.contextType = MapContext;
+
+class DistanceMatrixService extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.state = {
+            distanceMatrixService: null,
+        };
+        this.setDistanceMatrixServiceCallback = () => {
+            if (this.state.distanceMatrixService !== null && this.props.onLoad) {
+                this.props.onLoad(this.state.distanceMatrixService);
+            }
+        };
+    }
+    componentDidMount() {
+        invariant_1(!!this.props.options, 'DistanceMatrixService expected options object as parameter, but go %s', this.props.options);
+        const distanceMatrixService = new google.maps.DistanceMatrixService();
+        this.setState(function setDistanceMatrixService() {
+            return {
+                distanceMatrixService,
+            };
+        }, this.setDistanceMatrixServiceCallback);
+    }
+    componentDidUpdate() {
+        if (this.state.distanceMatrixService !== null) {
+            this.state.distanceMatrixService.getDistanceMatrix(this.props.options, this.props.callback);
+        }
+    }
+    componentWillUnmount() {
+        if (this.state.distanceMatrixService !== null) {
+            if (this.props.onUnmount) {
+                this.props.onUnmount(this.state.distanceMatrixService);
+            }
+        }
+    }
+    render() {
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
+    }
+}
+
+const eventMap$1 = {
+    onPlacesChanged: 'places_changed',
+};
+const updaterMap$1 = {
+    bounds(instance, bounds) {
+        instance.setBounds(bounds);
+    },
+};
+class StandaloneSearchBox extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.registeredEvents = [];
+        this.containerElement = react__WEBPACK_IMPORTED_MODULE_0__.createRef();
+        this.state = {
+            searchBox: null,
+        };
+        this.setSearchBoxCallback = () => {
+            if (this.state.searchBox !== null && this.props.onLoad) {
+                this.props.onLoad(this.state.searchBox);
+            }
+        };
+    }
+    componentDidMount() {
+        invariant_1(!!google.maps.places, 'You need to provide libraries={["places"]} prop to <LoadScript /> component %s', google.maps.places);
+        if (this.containerElement !== null && this.containerElement.current !== null) {
+            const input = this.containerElement.current.querySelector('input');
+            if (input !== null) {
+                const searchBox = new google.maps.places.SearchBox(input, this.props.options);
+                this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                    updaterMap: updaterMap$1,
+                    eventMap: eventMap$1,
+                    prevProps: {},
+                    nextProps: this.props,
+                    instance: searchBox,
+                });
+                this.setState(function setSearchBox() {
+                    return {
+                        searchBox,
+                    };
+                }, this.setSearchBoxCallback);
+            }
+        }
+    }
+    componentDidUpdate(prevProps) {
+        if (this.state.searchBox !== null) {
+            unregisterEvents(this.registeredEvents);
+            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                updaterMap: updaterMap$1,
+                eventMap: eventMap$1,
+                prevProps,
+                nextProps: this.props,
+                instance: this.state.searchBox,
+            });
+        }
+    }
+    componentWillUnmount() {
+        if (this.state.searchBox !== null) {
+            if (this.props.onUnmount) {
+                this.props.onUnmount(this.state.searchBox);
+            }
+            unregisterEvents(this.registeredEvents);
+        }
+    }
+    render() {
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { ref: this.containerElement }, react__WEBPACK_IMPORTED_MODULE_0__.Children.only(this.props.children));
+    }
+}
+StandaloneSearchBox.contextType = MapContext;
+
+const eventMap = {
+    onPlaceChanged: 'place_changed',
+};
+const updaterMap = {
+    bounds(instance, bounds) {
+        instance.setBounds(bounds);
+    },
+    restrictions(instance, restrictions) {
+        instance.setComponentRestrictions(restrictions);
+    },
+    fields(instance, fields) {
+        instance.setFields(fields);
+    },
+    options(instance, options) {
+        instance.setOptions(options);
+    },
+    types(instance, types) {
+        instance.setTypes(types);
+    },
+};
+class Autocomplete extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    constructor() {
+        super(...arguments);
+        this.registeredEvents = [];
+        this.containerElement = react__WEBPACK_IMPORTED_MODULE_0__.createRef();
+        this.state = {
+            autocomplete: null,
+        };
+        this.setAutocompleteCallback = () => {
+            if (this.state.autocomplete !== null && this.props.onLoad) {
+                this.props.onLoad(this.state.autocomplete);
+            }
+        };
+    }
+    componentDidMount() {
+        invariant_1(!!google.maps.places, 'You need to provide libraries={["places"]} prop to <LoadScript /> component %s', google.maps.places);
+        // TODO: why current could be equal null?
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        const input = this.containerElement.current.querySelector('input');
+        if (input) {
+            const autocomplete = new google.maps.places.Autocomplete(input, this.props.options);
+            this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+                updaterMap,
+                eventMap,
+                prevProps: {},
+                nextProps: this.props,
+                instance: autocomplete,
+            });
+            this.setState(function setAutocomplete() {
+                return {
+                    autocomplete,
+                };
+            }, this.setAutocompleteCallback);
+        }
+    }
+    componentDidUpdate(prevProps) {
+        unregisterEvents(this.registeredEvents);
+        this.registeredEvents = applyUpdatersToPropsAndRegisterEvents({
+            updaterMap,
+            eventMap,
+            prevProps,
+            nextProps: this.props,
+            instance: this.state.autocomplete,
+        });
+    }
+    componentWillUnmount() {
+        if (this.state.autocomplete !== null) {
+            unregisterEvents(this.registeredEvents);
+        }
+    }
+    render() {
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { ref: this.containerElement, className: this.props.className || '' }, react__WEBPACK_IMPORTED_MODULE_0__.Children.only(this.props.children));
+    }
+}
+Autocomplete.contextType = MapContext;
+
+
+//# sourceMappingURL=esm.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -5491,9 +13730,825 @@ var Rout = function Rout() {
 /*!*******************************************************!*\
   !*** ./resources/js/customer/componets/Inspection.js ***!
   \*******************************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\xampp\\htdocs\\Tw\\resources\\js\\customer\\componets\\Inspection.js: Unexpected token (1071:4)\n\n\u001b[0m \u001b[90m 1069 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 1070 |\u001b[39m         \u001b[36mif\u001b[39m(tempTracks\u001b[33m.\u001b[39msome(val \u001b[33m=>\u001b[39m { }))\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 1071 |\u001b[39m     }\u001b[0m\n\u001b[0m \u001b[90m      |\u001b[39m     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 1072 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 1073 |\u001b[39m     render() {\u001b[0m\n\u001b[0m \u001b[90m 1074 |\u001b[39m\u001b[0m\n    at instantiate (C:\\xampp\\htdocs\\Tw\\node_modules\\@babel\\parser\\lib\\index.js:72:32)\n    at constructor (C:\\xampp\\htdocs\\Tw\\node_modules\\@babel\\parser\\lib\\index.js:358:12)\n    at Object.raise (C:\\xampp\\htdocs\\Tw\\node_modules\\@babel\\parser\\lib\\index.js:3334:19)\n    at Object.unexpected (C:\\xampp\\htdocs\\Tw\\node_modules\\@babel\\parser\\lib\\index.js:3372:16)\n    at Object.parseExprAtom (C:\\xampp\\htdocs\\Tw\\node_modules\\@babel\\parser\\lib\\index.js:13042:22)\n    at Object.parseExprAtom (C:\\xampp\\htdocs\\Tw\\node_modules\\@babel\\parser\\lib\\index.js:8033:20)\n    at Object.parseExprSubscripts (C:\\xampp\\htdocs\\Tw\\node_modules\\@babel\\parser\\lib\\index.js:12567:23)\n    at Object.parseUpdate (C:\\xampp\\htdocs\\Tw\\node_modules\\@babel\\parser\\lib\\index.js:12546:21)\n    at Object.parseMaybeUnary (C:\\xampp\\htdocs\\Tw\\node_modules\\@babel\\parser\\lib\\index.js:12517:23)\n    at Object.parseMaybeUnaryOrPrivate (C:\\xampp\\htdocs\\Tw\\node_modules\\@babel\\parser\\lib\\index.js:12311:61)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _react_google_maps_api__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @react-google-maps/api */ "./node_modules/@react-google-maps/api/dist/esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _css_inspection_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../css/inspection.css */ "./resources/js/customer/css/inspection.css");
+/* harmony import */ var _node_modules_font_awesome_scss_font_awesome_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/font-awesome/scss/font-awesome.scss */ "./node_modules/font-awesome/scss/font-awesome.scss");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+ // import Spinner from "./Spinner";
+
+
+
+
+var data = [];
+var persistentTracks = [];
+var persistentselectedTracks = [];
+var colors = ['#FF0000', '#00FF00', '#FFFF00', '#FFA500', '#0000FF', '#808080', '#FF5733', '#33C9FF', '#7EFF33', '#FF0000', '#00FF00', '#FFFF00', '#FFA500', '#0000FF', '#808080', '#FF5733', '#33C9FF', '#7EFF33'];
+var cableName = [];
+var color2 = ['ff0000ff', 'ff00ff00', 'ff00ffff', 'ff0080ff', 'fff0000', '506E6E6E', '#FF0000', '#00FF00', '#FFFF00', '#FFA500', '#0000FF', '#808080', '#FF5733', '#33C9FF', '#7EFF33'];
+
+var GisView = /*#__PURE__*/function (_React$Component) {
+  _inherits(GisView, _React$Component);
+
+  var _super = _createSuper(GisView);
+
+  function GisView() {
+    var _this;
+
+    _classCallCheck(this, GisView);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      // track: [],
+      // tracksShow: [],
+      // mappedmarkers: [],
+      // allcables: [],
+      // selectedmarkers: [],
+      // selectedcables: [],
+      // selectedtracks: [],
+      // cablestrack: [],
+      // recenter: { 'lat': 33, 'lng': 74 },
+      // recenterPersistent: { 'lat': 33, 'lng': 74 },
+      // zoom: 0,
+      // cities: [],
+      // regions: ['north', 'south', 'central'],
+      // selectedcities: [],
+      // selectedregions: [],
+      // ana: [],
+      // cables: [],
+      // cablesLength: 0,
+      // reportShown: false,
+      // imageShown: false,
+      // sideBarHide: false,
+      // detailsToShow: {},
+      // detailsToShowPosition: { lat: 0, lng: 0 },
+      // filteredDataResult: [],
+      // auditForms: [],
+      // auditMarkers: [],
+      // auditQuestions: [],
+      // auditDetailsToShow: [],
+      // auditDetailsToShowPosition: { lat: 0, lng: 0 },
+      // auditImageShown: false,
+      // cableDetailsToShow: [],
+      // cableDetailsToShowPosition: { lat: 0, lng: 0 },
+      // isLoading: false,
+      // regionsShown: false,
+      // citiesShown: false,
+      // tracksShown: false,
+      // OFCShown: false,
+      // cablesShown: false,
+      // markersShow: false,
+      // markersShowArray: [],
+      // moreOptionsShown: false,
+      // filterWindowOpen: false,
+      // summaryMarkers: [],
+      // summaryCables: [],
+      // selectAllTracks: [],
+      // regionsOpen: [],
+      // citiesOpen: []
+      cities: [],
+      regions: [],
+      tracks: [],
+      markers: [],
+      tracksShow: [],
+      markersShow: [],
+      sideBarHide: false,
+      center: {
+        lat: 0,
+        lng: 0
+      },
+      detailsToShow: [],
+      detailsToShowPosition: {
+        lat: 0,
+        lng: 0
+      },
+      detailsToShowType: ''
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "hideSideBar", function () {
+      _this.setState({
+        sideBarHide: true
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "showSideBar", function () {
+      _this.setState({
+        sideBarHide: false
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "addToTrack", function (val) {
+      console.log(val);
+      var tempTracks = _this.state.tracksShow;
+      var tempMarkers = [];
+      var center = _this.state.center;
+
+      if (tempTracks.some(function (value) {
+        return value.id === val.id;
+      })) {
+        console.log('if running');
+        tempTracks = tempTracks.filter(function (track) {
+          return track.id !== val.id;
+        });
+        console.log(tempTracks.length);
+        tempTracks.forEach(function (val) {
+          JSON.parse(val.alldata).forEach(function (value) {
+            tempMarkers.push(value);
+          });
+        });
+        tempMarkers = tempMarkers.map(function (val) {
+          var position = {
+            lat: val.postion[0],
+            lng: val.postion[1]
+          };
+          val.position = position;
+          return val;
+        });
+      } else {
+        console.log('else running');
+        tempTracks.push(val);
+        tempTracks.forEach(function (val) {
+          JSON.parse(val.alldata).forEach(function (value) {
+            tempMarkers.push(value);
+          });
+        });
+        tempMarkers = tempMarkers.map(function (val) {
+          var position = {
+            lat: val.postion[0],
+            lng: val.postion[1]
+          };
+          val.position = position;
+          return val;
+        });
+      }
+
+      if (tempMarkers.length > 0) {
+        center = tempMarkers[tempMarkers.length - 1].position;
+      }
+
+      _this.setState({
+        tracksShow: tempTracks,
+        markersShow: tempMarkers,
+        center: center
+      }, function () {
+        console.log('tracks after selection', tempTracks);
+        console.log('markers after selection', tempMarkers);
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "dropdownClicked", function (regidx, type, name) {
+      var tempRegions = _this.state.regions;
+      console.log('TYPE', type);
+
+      if (type === 'city') {
+        console.log('inside city');
+        var tempCities = [];
+        tempRegions[regidx].cities.forEach(function (val) {
+          var tempCity = val;
+
+          if (val.name === name) {
+            tempCity.dropdown = !tempCity.dropdown;
+          }
+
+          tempCities.push(tempCity);
+        });
+        tempRegions[regidx].cities = tempCities;
+
+        _this.setState({
+          regions: tempRegions
+        }, function () {
+          console.log(_this.state.regions);
+        });
+      }
+
+      if (type === 'region') {
+        console.log('inside region');
+        tempRegions = tempRegions.map(function (val) {
+          if (val.name === name) {
+            val.dropdown = !val.dropdown;
+          }
+
+          return val;
+        });
+
+        _this.setState({
+          regions: tempRegions
+        }, function () {
+          console.log(_this.state.regions);
+        });
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "markerClicked", function (value) {
+      console.log(value);
+      var tempDetailsToShow = [];
+      var tempDetailsToShowPosition = value.position;
+      var tempDetailsToShowType = '';
+
+      if (Array.isArray(value.data[0])) {
+        console.log('data elements array');
+        tempDetailsToShowType = 'floor';
+        value.data.forEach(function (val, index) {
+          var temp = {
+            floor: 'floor ' + index,
+            data: []
+          };
+          val.forEach(function (v) {
+            temp.data.push({
+              name: v.name,
+              value: v.Value
+            });
+          });
+          tempDetailsToShow.push(temp);
+        });
+      } else {
+        console.log('not an array');
+        tempDetailsToShowType = 'Not a Floor';
+        value.data.forEach(function (val) {
+          tempDetailsToShow.push({
+            name: val.name,
+            value: val.Value
+          });
+        });
+      }
+
+      console.log(tempDetailsToShow);
+      console.log(tempDetailsToShowPosition);
+      console.log(tempDetailsToShowType);
+
+      _this.setState({
+        detailsToShow: tempDetailsToShow,
+        detailsToShowPosition: tempDetailsToShowPosition,
+        detailsToShowType: tempDetailsToShowType
+      }, function () {
+        console.log('checkState', _this.state.detailsToShowType);
+      });
+    });
+
+    return _this;
+  }
+
+  _createClass(GisView, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var track = this.state.track;
+      var zoom = this.state.zoom;
+      var containerStyle = {
+        width: '100%',
+        height: '100%'
+      };
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        style: {
+          height: 'calc(100vh - 30px)',
+          width: '100vw',
+          display: "flex",
+          flexWrap: 'wrap',
+          justifyContent: "center",
+          overflow: 'hidden',
+          position: 'relative'
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          className: "mapSideBar ".concat(this.state.sideBarHide ? "mapSideBarShorten" : ""),
+          children: [this.state.sideBarHide && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            onClick: function onClick() {
+              return _this2.showSideBar();
+            },
+            style: {
+              width: '100%',
+              color: 'black',
+              textAlign: 'center',
+              cursor: 'pointer'
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+              className: "fa fa-arrow-right"
+            })
+          }), this.state.sideBarHide == false && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              style: {
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center'
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                style: {
+                  cursor: 'pointer',
+                  heigth: '20px',
+                  width: '10%',
+                  textAlign: 'center'
+                },
+                title: "Home",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+                  href: "/logout",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                    className: "fa fa-home",
+                    style: {
+                      color: 'black'
+                    }
+                  })
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                style: {
+                  cursor: 'pointer',
+                  heigth: '20px',
+                  width: '10%',
+                  textAlign: 'center',
+                  color: 'lightgray'
+                },
+                onClick: function onClick() {
+                  return _this2.showImages();
+                },
+                title: "Images"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                style: {
+                  cursor: 'pointer',
+                  heigth: '20px',
+                  width: '10%',
+                  textAlign: 'center',
+                  color: 'lightgray'
+                },
+                onClick: function onClick() {
+                  return _this2.addToMarkers('N/W Elements');
+                },
+                title: "N/W Elements",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                  "class": "fa fa-map-marker",
+                  "aria-hidden": "true"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                style: {
+                  cursor: 'pointer',
+                  heigth: '20px',
+                  width: '10%',
+                  textAlign: 'center',
+                  color: 'lightgray'
+                },
+                onClick: function onClick() {
+                  return _this2.addToMarkers('Audits');
+                },
+                title: "Audits",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                  "class": "fa fa-book"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                style: {
+                  color: 'lightgray'
+                },
+                onClick: function onClick() {
+                  return _this2.resetFilter();
+                },
+                title: "Reset All",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                  className: "fa fa-refresh"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                style: {
+                  cursor: 'pointer',
+                  heigth: '20px',
+                  width: '10%',
+                  textAlign: 'center',
+                  color: 'lightgray'
+                },
+                onClick: function onClick() {
+                  return _this2.openFilterWindow();
+                },
+                title: "Filters",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                  className: "fa fa-filter"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                style: {
+                  cursor: 'pointer',
+                  heigth: '20px',
+                  width: '40%',
+                  textAlign: 'right'
+                },
+                onClick: function onClick() {
+                  return _this2.hideSideBar();
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                  className: "fa fa-arrow-left"
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              className: "tracks",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h5", {
+                style: {
+                  marginTop: 0,
+                  textAlign: 'center'
+                },
+                children: "Area & Tracks"
+              }), this.state.regions.map(function (val, index) {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+                    style: {
+                      cursor: 'pointer'
+                    },
+                    onClick: function onClick() {
+                      return _this2.dropdownClicked(index, 'region', val.name);
+                    },
+                    children: [val.name, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                      className: "fa fa-angle-down",
+                      style: {
+                        color: 'black'
+                      }
+                    })]
+                  }), val.cities.map(function (val1, index1) {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+                      children: val.dropdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                        style: {
+                          marginLeft: '20px'
+                        },
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+                          style: {
+                            cursor: 'pointer'
+                          },
+                          onClick: function onClick() {
+                            return _this2.dropdownClicked(index, 'city', val1.name);
+                          },
+                          children: [val1.name, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                            className: "fa fa-angle-down",
+                            style: {
+                              color: 'black'
+                            }
+                          })]
+                        }), val1.tracks.map(function (val2, index2) {
+                          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+                            children: val1.dropdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                              style: {
+                                width: 'calc(100% - 20px)',
+                                margin: '0 auto',
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                justifyContent: 'center',
+                                borderBottom: '1px solid gray'
+                              },
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                                style: {
+                                  width: '12%',
+                                  textAlign: 'left'
+                                },
+                                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+                                  onChange: function onChange() {
+                                    return _this2.addToTrack(val2);
+                                  },
+                                  checked: _this2.state.tracksShow.some(function (track) {
+                                    return track.id === val2.id;
+                                  }),
+                                  type: "checkbox"
+                                }), " "]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                                style: {
+                                  width: '88%',
+                                  textAlign: 'left',
+                                  overflow: 'hidden',
+                                  whiteSpace: 'nowrap',
+                                  textOverflow: 'ellipsis'
+                                },
+                                title: val2.name,
+                                children: [" ", val2.name, " "]
+                              })]
+                            }, index2)
+                          });
+                        })]
+                      }, index1)
+                    });
+                  })]
+                }, index);
+              })]
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "map ".concat(this.state.sideBarHide ? "mapBigger" : ""),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_6__.LoadScript, {
+            googleMapsApiKey: "AIzaSyDuvOMVbQ1iJ2EyZOEEUGReTjUk0pXW56w",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_6__.GoogleMap, {
+              mapContainerStyle: containerStyle,
+              center: this.state.center,
+              zoom: 14,
+              labels: true,
+              options: {
+                mapTypeId: 'hybrid'
+              },
+              children: [this.state.markersShow.map(function (value, index) {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_6__.Marker, {
+                    onClick: function onClick() {
+                      return _this2.markerClicked(value);
+                    },
+                    icon: {
+                      url: "https://joyndigital.com/Latitude/public/Audit/auditMarker.png",
+                      scaledSize: {
+                        width: 30,
+                        height: 30
+                      },
+                      anchor: {
+                        x: 5,
+                        y: 20
+                      }
+                    },
+                    position: value.position
+                  }, index)
+                });
+              }), this.state.detailsToShowPosition.lat !== 0 && this.state.detailsToShowPosition.lng !== 0 && this.state.detailsToShowType === 'floor' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_6__.InfoWindow, {
+                position: this.state.detailsToShowPosition,
+                onCloseClick: function onCloseClick() {
+                  return _this2.setState({
+                    detailsToShowPosition: {
+                      lat: 0,
+                      lng: 0
+                    }
+                  });
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                  children: this.state.detailsToShow.map(function (value, index) {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h5", {
+                        children: value.floor
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("table", {
+                        border: "1",
+                        style: {
+                          width: '100%'
+                        },
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
+                          children: value.data.map(function (value1, ind) {
+                            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                                style: {
+                                  border: '1px solid black'
+                                },
+                                children: value1.name
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                                style: {
+                                  border: '1px solid black'
+                                },
+                                children: value1.value
+                              })]
+                            }, ind);
+                          })
+                        })
+                      })]
+                    }, index);
+                  })
+                })
+              }), this.state.detailsToShowPosition.lat !== 0 && this.state.detailsToShowPosition.lng !== 0 && this.state.detailsToShowType === 'Not a Floor' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_6__.InfoWindow, {
+                position: this.state.detailsToShowPosition,
+                onCloseClick: function onCloseClick() {
+                  return _this2.setState({
+                    detailsToShowPosition: {
+                      lat: 0,
+                      lng: 0
+                    }
+                  });
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("table", {
+                    border: "1",
+                    style: {
+                      width: '100%'
+                    },
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
+                      children: this.state.detailsToShow.map(function (value, index) {
+                        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                            style: {
+                              border: '1px solid black'
+                            },
+                            children: value.name
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                            style: {
+                              border: '1px solid black'
+                            },
+                            children: value.value
+                          })]
+                        }, index);
+                      })
+                    })
+                  })
+                })
+              })]
+            })
+          })
+        })]
+      });
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this3 = this;
+
+      // this.props.updatePathname(window.location.href)
+      //this.setState({ isLoading: true }, async () => {
+      //var auth = await this.props.authChecker(this.props.access_token_expiry, this.props.refresh_token_expiry);
+      // if (auth === 'login') {
+      //     alert('Session has expired you need to login again')
+      //     localStorage.removeItem("access_token_expiry");
+      //     localStorage.removeItem("refresh_token_expiry");
+      //     localStorage.removeItem("access_token");
+      //     localStorage.removeItem("refresh_token");
+      //     localStorage.removeItem("id");
+      //     this.props.updateTokens('', '', '', '', '')
+      //     this.props.navigate("/");
+      //     return
+      // }
+      var config = {
+        headers: {
+          'X-Access-Token': this.props.access_token,
+          'X-Refresh-Token': this.props.refresh_token,
+          'X-User-ID': this.props.id
+        }
+      };
+      axios__WEBPACK_IMPORTED_MODULE_1___default().post('./findmydata', {}, config).then(function (res) {
+        console.log('checking', res.data); //let markers = JSON.parse(res.data.data[0].alldata);
+
+        var markers = [];
+        var cities = [];
+        var regions = [];
+        var tracks = res.data.data;
+        tracks.forEach(function (val, i) {
+          JSON.parse(val.alldata).forEach(function (value) {
+            markers.push(value);
+          });
+
+          if (cities.includes(val.city) === false) {
+            cities.push(val.city);
+          }
+
+          if (regions.includes(val.region) === false) {
+            regions.push(val.region);
+          }
+        });
+        cities = cities.map(function (val) {
+          var tempTracks = [];
+          var tempRegion = '';
+          tracks.forEach(function (track) {
+            if (val === track.city) {
+              tempTracks.push(track);
+              tempRegion = track.region;
+            }
+          });
+          var city = val;
+          val = {
+            name: city,
+            dropdown: false,
+            region: tempRegion,
+            tracks: tempTracks
+          };
+          return val;
+        });
+        regions = regions.map(function (val) {
+          var tempCities = [];
+          cities.forEach(function (city) {
+            if (city.region === val) {
+              tempCities.push(city);
+            }
+          });
+          var region = val;
+          val = {
+            name: region,
+            dropdown: false,
+            cities: tempCities
+          };
+          return val;
+        });
+        markers = markers.map(function (val) {
+          var position = {
+            lat: val.postion[0],
+            lng: val.postion[1]
+          };
+          val.position = position;
+          return val;
+        });
+        console.log('markers', markers);
+        console.log('regions', regions);
+        console.log('cities', cities);
+
+        _this3.setState({
+          tracks: tracks,
+          markers: markers,
+          center: markers[markers.length - 1].position,
+          regions: regions
+        }, function () {
+          console.log(_this3.state.tracksShow);
+        }); // return
+        // // if (res.data === 'login') {
+        // //     //alert('No Unauthorized Access');
+        // //     localStorage.removeItem("access_token_expiry");
+        // //     localStorage.removeItem("refresh_token_expiry");
+        // //     localStorage.removeItem("access_token");
+        // //     localStorage.removeItem("refresh_token");
+        // //     localStorage.removeItem("id");
+        // //     this.props.updateTokens('', '', '', '', '')
+        // //     this.props.navigate("/");
+        // //     return
+        // // }
+        // data = res.data;
+        // //console.log('alldata', data);
+        // this.state.ana = res.data.ana[0].data;
+        // this.state.cables = res.data.cable[0].data;
+        // var tempAuditMarkers = res.data.auditMarkers;
+        // console.log('auditInit', tempAuditMarkers);
+        // tempAuditMarkers = tempAuditMarkers.map(val => {
+        //     return JSON.parse(val)
+        // })
+        // console.log('audit after', tempAuditMarkers);
+        // this.setState({ auditMarkers: tempAuditMarkers });
+        // var alltracksdata = [];
+        // console.log('audit', this.state.auditMarkers);
+        // //var allmarkersdata = [];
+        // for (var i = 0; i < data.data.length; i++) {
+        //     var track = JSON.parse(data.data[i]['data']);
+        //     /*var markers = track.markerposition;
+        //     for (var j = 0; j < markers.length; j++) {
+        //         allmarkersdata.push(markers[j]);
+        //     }*/
+        //     track.id = data.data[i]['id'];
+        //     var trackdata = track.track;
+        //     alltracksdata.push(track);
+        //     this.setState({ recenter: trackdata[0]['data'][0], recenterPersistent: trackdata[0]['data'][0] })
+        // }
+        // console.log(alltracksdata);
+        // this.setState({ track: alltracksdata });
+        // this.setState({ tracksShow: alltracksdata });
+        // this.setState({ isLoading: false })
+        // persistentTracks = alltracksdata;
+        // //this.setState({ mappedmarkers: allmarkersdata });
+        // console.log('track', this.state.track);
+        // console.log('markers', this.state.mappedmarkers);
+        // var tempCities = [];
+        // this.state.track.forEach((val) => {
+        //     if (!tempCities.some(value => { return value.city === val.city })) {
+        //         tempCities.push({ city: val.city, region: val.region });
+        //     }
+        // })
+        // this.setState({ cities: tempCities, zoom: 20 }, () => {
+        //     console.log('resgions', this.state.regions)
+        //     console.log('cities', this.state.cities)
+        // })
+
+      })["catch"](function (err) {
+        console.log(err);
+
+        _this3.setState({
+          isLoading: false
+        });
+
+        alert('Ambigious response from the server, Please check your internet Connection');
+      }); // })
+    }
+  }]);
+
+  return GisView;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (GisView);
 
 /***/ }),
 
@@ -10521,6 +19576,285 @@ defineJQueryPlugin(Toast);
 
 //# sourceMappingURL=bootstrap.esm.js.map
 
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/js/customer/css/inspection.css":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/js/customer/css/inspection.css ***!
+  \************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "/* width */\r\n::-webkit-scrollbar {\r\n    width: 10px;\r\n  }\r\n  \r\n  /* Track */\r\n  ::-webkit-scrollbar-track {\r\n    background: #f1f1f1;\r\n  }\r\n  \r\n  /* Handle */\r\n  ::-webkit-scrollbar-thumb {\r\n    background: #888;\r\n  }\r\n  \r\n  /* Handle on hover */\r\n  ::-webkit-scrollbar-thumb:hover {\r\n    background: #555;\r\n  }\r\n\r\n.mapSideBar{\r\n    height: 100%;\r\n    width: 20%;\r\n    background: lightgray;\r\n    transition: all 1s ease;\r\n    position: relative;\r\n    z-index: 2;\r\n}\r\n\r\n.mapSideBarShorten{\r\n    width: 2%;\r\n}\r\n\r\n.tracks{\r\n    height: calc(100% - 40px);\r\n    border-bottom: 2px solid black;\r\n    overflow: auto;\r\n}\r\n\r\n.filterApplied{\r\n  color: rgb(235, 176, 16);\r\n}\r\n\r\n.filters{\r\n    height: 50%;\r\n}\r\n\r\n.map{\r\n    height: 100%;\r\n    width: 80%;\r\n    transition: all 1s ease;\r\n}\r\n\r\n.mapBigger{\r\n  width: 98%;\r\n}\r\n\r\n.GisView_report{\r\n    position: absolute;\r\n    height: 100%;\r\n    background: lightslategrey;\r\n    width: 30%;\r\n    right: 0;\r\n    top: 0;\r\n    right: 0;\r\n    z-index: 10000000;\r\n    color: white;\r\n    -webkit-animation: mymove 1s;\r\n            animation: mymove 1s;\r\n    -webkit-animation-fill-mode: forwards;\r\n            animation-fill-mode: forwards;\r\n    overflow: hidden;\r\n    \r\n}\r\n\r\n.GisView_image{\r\n  position: absolute;\r\n    height: 100%;\r\n    background: lightslategrey;\r\n    width: 30%;\r\n    right: 0;\r\n    top: 0;\r\n    right: 0;\r\n    z-index: 10000000;\r\n    color: white;\r\n    -webkit-animation: mymove 1s;\r\n            animation: mymove 1s;\r\n    -webkit-animation-fill-mode: forwards;\r\n            animation-fill-mode: forwards;\r\n    overflow: auto;\r\n}\r\n\r\n.GisView_filterWindow{\r\n  z-index: -1;\r\n  background: lightgray;\r\n  color: black;\r\n  font-size: 12px;\r\n  -webkit-animation: mymoveside 1s;\r\n          animation: mymoveside 1s;\r\n    -webkit-animation-fill-mode: forwards;\r\n            animation-fill-mode: forwards;\r\n}\r\n\r\n@-webkit-keyframes mymoveside {\r\n  from {top: -100%;}\r\n  to {top: 0;}\r\n}\r\n\r\n@keyframes mymoveside {\r\n  from {top: -100%;}\r\n  to {top: 0;}\r\n}\r\n\r\n@-webkit-keyframes mymove {\r\n    from {right: -100%;}\r\n    to {right: 0px;}\r\n  }\r\n\r\n@keyframes mymove {\r\n    from {right: -100%;}\r\n    to {right: 0px;}\r\n  }", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./node_modules/font-awesome/scss/font-awesome.scss":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./node_modules/font-awesome/scss/font-awesome.scss ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../css-loader/dist/runtime/getUrl.js */ "./node_modules/css-loader/dist/runtime/getUrl.js");
+/* harmony import */ var _css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _fonts_fontawesome_webfont_eot_v_4_7_0__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../fonts/fontawesome-webfont.eot?v=4.7.0 */ "./node_modules/font-awesome/fonts/fontawesome-webfont.eot?v=4.7.0");
+/* harmony import */ var _fonts_fontawesome_webfont_eot__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../fonts/fontawesome-webfont.eot */ "./node_modules/font-awesome/fonts/fontawesome-webfont.eot");
+/* harmony import */ var _fonts_fontawesome_webfont_woff2_v_4_7_0__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../fonts/fontawesome-webfont.woff2?v=4.7.0 */ "./node_modules/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0");
+/* harmony import */ var _fonts_fontawesome_webfont_woff_v_4_7_0__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../fonts/fontawesome-webfont.woff?v=4.7.0 */ "./node_modules/font-awesome/fonts/fontawesome-webfont.woff?v=4.7.0");
+/* harmony import */ var _fonts_fontawesome_webfont_ttf_v_4_7_0__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../fonts/fontawesome-webfont.ttf?v=4.7.0 */ "./node_modules/font-awesome/fonts/fontawesome-webfont.ttf?v=4.7.0");
+/* harmony import */ var _fonts_fontawesome_webfont_svg_v_4_7_0__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../fonts/fontawesome-webfont.svg?v=4.7.0 */ "./node_modules/font-awesome/fonts/fontawesome-webfont.svg?v=4.7.0");
+// Imports
+
+
+
+
+
+
+
+
+var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+var ___CSS_LOADER_URL_REPLACEMENT_0___ = _css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_fonts_fontawesome_webfont_eot_v_4_7_0__WEBPACK_IMPORTED_MODULE_2__["default"]);
+var ___CSS_LOADER_URL_REPLACEMENT_1___ = _css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_fonts_fontawesome_webfont_eot__WEBPACK_IMPORTED_MODULE_3__["default"], { hash: "?#iefix&v=4.7.0" });
+var ___CSS_LOADER_URL_REPLACEMENT_2___ = _css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_fonts_fontawesome_webfont_woff2_v_4_7_0__WEBPACK_IMPORTED_MODULE_4__["default"]);
+var ___CSS_LOADER_URL_REPLACEMENT_3___ = _css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_fonts_fontawesome_webfont_woff_v_4_7_0__WEBPACK_IMPORTED_MODULE_5__["default"]);
+var ___CSS_LOADER_URL_REPLACEMENT_4___ = _css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_fonts_fontawesome_webfont_ttf_v_4_7_0__WEBPACK_IMPORTED_MODULE_6__["default"]);
+var ___CSS_LOADER_URL_REPLACEMENT_5___ = _css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_fonts_fontawesome_webfont_svg_v_4_7_0__WEBPACK_IMPORTED_MODULE_7__["default"], { hash: "#fontawesomeregular" });
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "/*!\n *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome\n *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)\n */\n/* FONT PATH\n * -------------------------- */\n@font-face {\n  font-family: \"FontAwesome\";\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ") format(\"embedded-opentype\"), url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ") format(\"woff2\"), url(" + ___CSS_LOADER_URL_REPLACEMENT_3___ + ") format(\"woff\"), url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ") format(\"truetype\"), url(" + ___CSS_LOADER_URL_REPLACEMENT_5___ + ") format(\"svg\");\n  font-weight: normal;\n  font-style: normal;\n}\n.fa {\n  display: inline-block;\n  font: normal normal normal 14px/1 FontAwesome;\n  font-size: inherit;\n  text-rendering: auto;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\n/* makes the font 33% larger relative to the icon container */\n.fa-lg {\n  font-size: 1.3333333333em;\n  line-height: 0.75em;\n  vertical-align: -15%;\n}\n\n.fa-2x {\n  font-size: 2em;\n}\n\n.fa-3x {\n  font-size: 3em;\n}\n\n.fa-4x {\n  font-size: 4em;\n}\n\n.fa-5x {\n  font-size: 5em;\n}\n\n.fa-fw {\n  width: 1.2857142857em;\n  text-align: center;\n}\n\n.fa-ul {\n  padding-left: 0;\n  margin-left: 2.1428571429em;\n  list-style-type: none;\n}\n.fa-ul > li {\n  position: relative;\n}\n\n.fa-li {\n  position: absolute;\n  left: -2.1428571429em;\n  width: 2.1428571429em;\n  top: 0.1428571429em;\n  text-align: center;\n}\n.fa-li.fa-lg {\n  left: -1.8571428571em;\n}\n\n.fa-border {\n  padding: 0.2em 0.25em 0.15em;\n  border: solid 0.08em #eee;\n  border-radius: 0.1em;\n}\n\n.fa-pull-left {\n  float: left;\n}\n\n.fa-pull-right {\n  float: right;\n}\n\n.fa.fa-pull-left {\n  margin-right: 0.3em;\n}\n.fa.fa-pull-right {\n  margin-left: 0.3em;\n}\n\n/* Deprecated as of 4.4.0 */\n.pull-right {\n  float: right;\n}\n\n.pull-left {\n  float: left;\n}\n\n.fa.pull-left {\n  margin-right: 0.3em;\n}\n.fa.pull-right {\n  margin-left: 0.3em;\n}\n\n.fa-spin {\n  -webkit-animation: fa-spin 2s infinite linear;\n  animation: fa-spin 2s infinite linear;\n}\n\n.fa-pulse {\n  -webkit-animation: fa-spin 1s infinite steps(8);\n  animation: fa-spin 1s infinite steps(8);\n}\n\n@-webkit-keyframes fa-spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(359deg);\n  }\n}\n@keyframes fa-spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(359deg);\n  }\n}\n.fa-rotate-90 {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=1)\";\n  transform: rotate(90deg);\n}\n\n.fa-rotate-180 {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=2)\";\n  transform: rotate(180deg);\n}\n\n.fa-rotate-270 {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=3)\";\n  transform: rotate(270deg);\n}\n\n.fa-flip-horizontal {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)\";\n  transform: scale(-1, 1);\n}\n\n.fa-flip-vertical {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)\";\n  transform: scale(1, -1);\n}\n\n:root .fa-rotate-90,\n:root .fa-rotate-180,\n:root .fa-rotate-270,\n:root .fa-flip-horizontal,\n:root .fa-flip-vertical {\n  filter: none;\n}\n\n.fa-stack {\n  position: relative;\n  display: inline-block;\n  width: 2em;\n  height: 2em;\n  line-height: 2em;\n  vertical-align: middle;\n}\n\n.fa-stack-1x, .fa-stack-2x {\n  position: absolute;\n  left: 0;\n  width: 100%;\n  text-align: center;\n}\n\n.fa-stack-1x {\n  line-height: inherit;\n}\n\n.fa-stack-2x {\n  font-size: 2em;\n}\n\n.fa-inverse {\n  color: #fff;\n}\n\n/* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen\n   readers do not read off random characters that represent icons */\n.fa-glass:before {\n  content: \"\\f000\";\n}\n\n.fa-music:before {\n  content: \"\\f001\";\n}\n\n.fa-search:before {\n  content: \"\\f002\";\n}\n\n.fa-envelope-o:before {\n  content: \"\\f003\";\n}\n\n.fa-heart:before {\n  content: \"\\f004\";\n}\n\n.fa-star:before {\n  content: \"\\f005\";\n}\n\n.fa-star-o:before {\n  content: \"\\f006\";\n}\n\n.fa-user:before {\n  content: \"\\f007\";\n}\n\n.fa-film:before {\n  content: \"\\f008\";\n}\n\n.fa-th-large:before {\n  content: \"\\f009\";\n}\n\n.fa-th:before {\n  content: \"\\f00a\";\n}\n\n.fa-th-list:before {\n  content: \"\\f00b\";\n}\n\n.fa-check:before {\n  content: \"\\f00c\";\n}\n\n.fa-remove:before,\n.fa-close:before,\n.fa-times:before {\n  content: \"\\f00d\";\n}\n\n.fa-search-plus:before {\n  content: \"\\f00e\";\n}\n\n.fa-search-minus:before {\n  content: \"\\f010\";\n}\n\n.fa-power-off:before {\n  content: \"\\f011\";\n}\n\n.fa-signal:before {\n  content: \"\\f012\";\n}\n\n.fa-gear:before,\n.fa-cog:before {\n  content: \"\\f013\";\n}\n\n.fa-trash-o:before {\n  content: \"\\f014\";\n}\n\n.fa-home:before {\n  content: \"\\f015\";\n}\n\n.fa-file-o:before {\n  content: \"\\f016\";\n}\n\n.fa-clock-o:before {\n  content: \"\\f017\";\n}\n\n.fa-road:before {\n  content: \"\\f018\";\n}\n\n.fa-download:before {\n  content: \"\\f019\";\n}\n\n.fa-arrow-circle-o-down:before {\n  content: \"\\f01a\";\n}\n\n.fa-arrow-circle-o-up:before {\n  content: \"\\f01b\";\n}\n\n.fa-inbox:before {\n  content: \"\\f01c\";\n}\n\n.fa-play-circle-o:before {\n  content: \"\\f01d\";\n}\n\n.fa-rotate-right:before,\n.fa-repeat:before {\n  content: \"\\f01e\";\n}\n\n.fa-refresh:before {\n  content: \"\\f021\";\n}\n\n.fa-list-alt:before {\n  content: \"\\f022\";\n}\n\n.fa-lock:before {\n  content: \"\\f023\";\n}\n\n.fa-flag:before {\n  content: \"\\f024\";\n}\n\n.fa-headphones:before {\n  content: \"\\f025\";\n}\n\n.fa-volume-off:before {\n  content: \"\\f026\";\n}\n\n.fa-volume-down:before {\n  content: \"\\f027\";\n}\n\n.fa-volume-up:before {\n  content: \"\\f028\";\n}\n\n.fa-qrcode:before {\n  content: \"\\f029\";\n}\n\n.fa-barcode:before {\n  content: \"\\f02a\";\n}\n\n.fa-tag:before {\n  content: \"\\f02b\";\n}\n\n.fa-tags:before {\n  content: \"\\f02c\";\n}\n\n.fa-book:before {\n  content: \"\\f02d\";\n}\n\n.fa-bookmark:before {\n  content: \"\\f02e\";\n}\n\n.fa-print:before {\n  content: \"\\f02f\";\n}\n\n.fa-camera:before {\n  content: \"\\f030\";\n}\n\n.fa-font:before {\n  content: \"\\f031\";\n}\n\n.fa-bold:before {\n  content: \"\\f032\";\n}\n\n.fa-italic:before {\n  content: \"\\f033\";\n}\n\n.fa-text-height:before {\n  content: \"\\f034\";\n}\n\n.fa-text-width:before {\n  content: \"\\f035\";\n}\n\n.fa-align-left:before {\n  content: \"\\f036\";\n}\n\n.fa-align-center:before {\n  content: \"\\f037\";\n}\n\n.fa-align-right:before {\n  content: \"\\f038\";\n}\n\n.fa-align-justify:before {\n  content: \"\\f039\";\n}\n\n.fa-list:before {\n  content: \"\\f03a\";\n}\n\n.fa-dedent:before,\n.fa-outdent:before {\n  content: \"\\f03b\";\n}\n\n.fa-indent:before {\n  content: \"\\f03c\";\n}\n\n.fa-video-camera:before {\n  content: \"\\f03d\";\n}\n\n.fa-photo:before,\n.fa-image:before,\n.fa-picture-o:before {\n  content: \"\\f03e\";\n}\n\n.fa-pencil:before {\n  content: \"\\f040\";\n}\n\n.fa-map-marker:before {\n  content: \"\\f041\";\n}\n\n.fa-adjust:before {\n  content: \"\\f042\";\n}\n\n.fa-tint:before {\n  content: \"\\f043\";\n}\n\n.fa-edit:before,\n.fa-pencil-square-o:before {\n  content: \"\\f044\";\n}\n\n.fa-share-square-o:before {\n  content: \"\\f045\";\n}\n\n.fa-check-square-o:before {\n  content: \"\\f046\";\n}\n\n.fa-arrows:before {\n  content: \"\\f047\";\n}\n\n.fa-step-backward:before {\n  content: \"\\f048\";\n}\n\n.fa-fast-backward:before {\n  content: \"\\f049\";\n}\n\n.fa-backward:before {\n  content: \"\\f04a\";\n}\n\n.fa-play:before {\n  content: \"\\f04b\";\n}\n\n.fa-pause:before {\n  content: \"\\f04c\";\n}\n\n.fa-stop:before {\n  content: \"\\f04d\";\n}\n\n.fa-forward:before {\n  content: \"\\f04e\";\n}\n\n.fa-fast-forward:before {\n  content: \"\\f050\";\n}\n\n.fa-step-forward:before {\n  content: \"\\f051\";\n}\n\n.fa-eject:before {\n  content: \"\\f052\";\n}\n\n.fa-chevron-left:before {\n  content: \"\\f053\";\n}\n\n.fa-chevron-right:before {\n  content: \"\\f054\";\n}\n\n.fa-plus-circle:before {\n  content: \"\\f055\";\n}\n\n.fa-minus-circle:before {\n  content: \"\\f056\";\n}\n\n.fa-times-circle:before {\n  content: \"\\f057\";\n}\n\n.fa-check-circle:before {\n  content: \"\\f058\";\n}\n\n.fa-question-circle:before {\n  content: \"\\f059\";\n}\n\n.fa-info-circle:before {\n  content: \"\\f05a\";\n}\n\n.fa-crosshairs:before {\n  content: \"\\f05b\";\n}\n\n.fa-times-circle-o:before {\n  content: \"\\f05c\";\n}\n\n.fa-check-circle-o:before {\n  content: \"\\f05d\";\n}\n\n.fa-ban:before {\n  content: \"\\f05e\";\n}\n\n.fa-arrow-left:before {\n  content: \"\\f060\";\n}\n\n.fa-arrow-right:before {\n  content: \"\\f061\";\n}\n\n.fa-arrow-up:before {\n  content: \"\\f062\";\n}\n\n.fa-arrow-down:before {\n  content: \"\\f063\";\n}\n\n.fa-mail-forward:before,\n.fa-share:before {\n  content: \"\\f064\";\n}\n\n.fa-expand:before {\n  content: \"\\f065\";\n}\n\n.fa-compress:before {\n  content: \"\\f066\";\n}\n\n.fa-plus:before {\n  content: \"\\f067\";\n}\n\n.fa-minus:before {\n  content: \"\\f068\";\n}\n\n.fa-asterisk:before {\n  content: \"\\f069\";\n}\n\n.fa-exclamation-circle:before {\n  content: \"\\f06a\";\n}\n\n.fa-gift:before {\n  content: \"\\f06b\";\n}\n\n.fa-leaf:before {\n  content: \"\\f06c\";\n}\n\n.fa-fire:before {\n  content: \"\\f06d\";\n}\n\n.fa-eye:before {\n  content: \"\\f06e\";\n}\n\n.fa-eye-slash:before {\n  content: \"\\f070\";\n}\n\n.fa-warning:before,\n.fa-exclamation-triangle:before {\n  content: \"\\f071\";\n}\n\n.fa-plane:before {\n  content: \"\\f072\";\n}\n\n.fa-calendar:before {\n  content: \"\\f073\";\n}\n\n.fa-random:before {\n  content: \"\\f074\";\n}\n\n.fa-comment:before {\n  content: \"\\f075\";\n}\n\n.fa-magnet:before {\n  content: \"\\f076\";\n}\n\n.fa-chevron-up:before {\n  content: \"\\f077\";\n}\n\n.fa-chevron-down:before {\n  content: \"\\f078\";\n}\n\n.fa-retweet:before {\n  content: \"\\f079\";\n}\n\n.fa-shopping-cart:before {\n  content: \"\\f07a\";\n}\n\n.fa-folder:before {\n  content: \"\\f07b\";\n}\n\n.fa-folder-open:before {\n  content: \"\\f07c\";\n}\n\n.fa-arrows-v:before {\n  content: \"\\f07d\";\n}\n\n.fa-arrows-h:before {\n  content: \"\\f07e\";\n}\n\n.fa-bar-chart-o:before,\n.fa-bar-chart:before {\n  content: \"\\f080\";\n}\n\n.fa-twitter-square:before {\n  content: \"\\f081\";\n}\n\n.fa-facebook-square:before {\n  content: \"\\f082\";\n}\n\n.fa-camera-retro:before {\n  content: \"\\f083\";\n}\n\n.fa-key:before {\n  content: \"\\f084\";\n}\n\n.fa-gears:before,\n.fa-cogs:before {\n  content: \"\\f085\";\n}\n\n.fa-comments:before {\n  content: \"\\f086\";\n}\n\n.fa-thumbs-o-up:before {\n  content: \"\\f087\";\n}\n\n.fa-thumbs-o-down:before {\n  content: \"\\f088\";\n}\n\n.fa-star-half:before {\n  content: \"\\f089\";\n}\n\n.fa-heart-o:before {\n  content: \"\\f08a\";\n}\n\n.fa-sign-out:before {\n  content: \"\\f08b\";\n}\n\n.fa-linkedin-square:before {\n  content: \"\\f08c\";\n}\n\n.fa-thumb-tack:before {\n  content: \"\\f08d\";\n}\n\n.fa-external-link:before {\n  content: \"\\f08e\";\n}\n\n.fa-sign-in:before {\n  content: \"\\f090\";\n}\n\n.fa-trophy:before {\n  content: \"\\f091\";\n}\n\n.fa-github-square:before {\n  content: \"\\f092\";\n}\n\n.fa-upload:before {\n  content: \"\\f093\";\n}\n\n.fa-lemon-o:before {\n  content: \"\\f094\";\n}\n\n.fa-phone:before {\n  content: \"\\f095\";\n}\n\n.fa-square-o:before {\n  content: \"\\f096\";\n}\n\n.fa-bookmark-o:before {\n  content: \"\\f097\";\n}\n\n.fa-phone-square:before {\n  content: \"\\f098\";\n}\n\n.fa-twitter:before {\n  content: \"\\f099\";\n}\n\n.fa-facebook-f:before,\n.fa-facebook:before {\n  content: \"\\f09a\";\n}\n\n.fa-github:before {\n  content: \"\\f09b\";\n}\n\n.fa-unlock:before {\n  content: \"\\f09c\";\n}\n\n.fa-credit-card:before {\n  content: \"\\f09d\";\n}\n\n.fa-feed:before,\n.fa-rss:before {\n  content: \"\\f09e\";\n}\n\n.fa-hdd-o:before {\n  content: \"\\f0a0\";\n}\n\n.fa-bullhorn:before {\n  content: \"\\f0a1\";\n}\n\n.fa-bell:before {\n  content: \"\\f0f3\";\n}\n\n.fa-certificate:before {\n  content: \"\\f0a3\";\n}\n\n.fa-hand-o-right:before {\n  content: \"\\f0a4\";\n}\n\n.fa-hand-o-left:before {\n  content: \"\\f0a5\";\n}\n\n.fa-hand-o-up:before {\n  content: \"\\f0a6\";\n}\n\n.fa-hand-o-down:before {\n  content: \"\\f0a7\";\n}\n\n.fa-arrow-circle-left:before {\n  content: \"\\f0a8\";\n}\n\n.fa-arrow-circle-right:before {\n  content: \"\\f0a9\";\n}\n\n.fa-arrow-circle-up:before {\n  content: \"\\f0aa\";\n}\n\n.fa-arrow-circle-down:before {\n  content: \"\\f0ab\";\n}\n\n.fa-globe:before {\n  content: \"\\f0ac\";\n}\n\n.fa-wrench:before {\n  content: \"\\f0ad\";\n}\n\n.fa-tasks:before {\n  content: \"\\f0ae\";\n}\n\n.fa-filter:before {\n  content: \"\\f0b0\";\n}\n\n.fa-briefcase:before {\n  content: \"\\f0b1\";\n}\n\n.fa-arrows-alt:before {\n  content: \"\\f0b2\";\n}\n\n.fa-group:before,\n.fa-users:before {\n  content: \"\\f0c0\";\n}\n\n.fa-chain:before,\n.fa-link:before {\n  content: \"\\f0c1\";\n}\n\n.fa-cloud:before {\n  content: \"\\f0c2\";\n}\n\n.fa-flask:before {\n  content: \"\\f0c3\";\n}\n\n.fa-cut:before,\n.fa-scissors:before {\n  content: \"\\f0c4\";\n}\n\n.fa-copy:before,\n.fa-files-o:before {\n  content: \"\\f0c5\";\n}\n\n.fa-paperclip:before {\n  content: \"\\f0c6\";\n}\n\n.fa-save:before,\n.fa-floppy-o:before {\n  content: \"\\f0c7\";\n}\n\n.fa-square:before {\n  content: \"\\f0c8\";\n}\n\n.fa-navicon:before,\n.fa-reorder:before,\n.fa-bars:before {\n  content: \"\\f0c9\";\n}\n\n.fa-list-ul:before {\n  content: \"\\f0ca\";\n}\n\n.fa-list-ol:before {\n  content: \"\\f0cb\";\n}\n\n.fa-strikethrough:before {\n  content: \"\\f0cc\";\n}\n\n.fa-underline:before {\n  content: \"\\f0cd\";\n}\n\n.fa-table:before {\n  content: \"\\f0ce\";\n}\n\n.fa-magic:before {\n  content: \"\\f0d0\";\n}\n\n.fa-truck:before {\n  content: \"\\f0d1\";\n}\n\n.fa-pinterest:before {\n  content: \"\\f0d2\";\n}\n\n.fa-pinterest-square:before {\n  content: \"\\f0d3\";\n}\n\n.fa-google-plus-square:before {\n  content: \"\\f0d4\";\n}\n\n.fa-google-plus:before {\n  content: \"\\f0d5\";\n}\n\n.fa-money:before {\n  content: \"\\f0d6\";\n}\n\n.fa-caret-down:before {\n  content: \"\\f0d7\";\n}\n\n.fa-caret-up:before {\n  content: \"\\f0d8\";\n}\n\n.fa-caret-left:before {\n  content: \"\\f0d9\";\n}\n\n.fa-caret-right:before {\n  content: \"\\f0da\";\n}\n\n.fa-columns:before {\n  content: \"\\f0db\";\n}\n\n.fa-unsorted:before,\n.fa-sort:before {\n  content: \"\\f0dc\";\n}\n\n.fa-sort-down:before,\n.fa-sort-desc:before {\n  content: \"\\f0dd\";\n}\n\n.fa-sort-up:before,\n.fa-sort-asc:before {\n  content: \"\\f0de\";\n}\n\n.fa-envelope:before {\n  content: \"\\f0e0\";\n}\n\n.fa-linkedin:before {\n  content: \"\\f0e1\";\n}\n\n.fa-rotate-left:before,\n.fa-undo:before {\n  content: \"\\f0e2\";\n}\n\n.fa-legal:before,\n.fa-gavel:before {\n  content: \"\\f0e3\";\n}\n\n.fa-dashboard:before,\n.fa-tachometer:before {\n  content: \"\\f0e4\";\n}\n\n.fa-comment-o:before {\n  content: \"\\f0e5\";\n}\n\n.fa-comments-o:before {\n  content: \"\\f0e6\";\n}\n\n.fa-flash:before,\n.fa-bolt:before {\n  content: \"\\f0e7\";\n}\n\n.fa-sitemap:before {\n  content: \"\\f0e8\";\n}\n\n.fa-umbrella:before {\n  content: \"\\f0e9\";\n}\n\n.fa-paste:before,\n.fa-clipboard:before {\n  content: \"\\f0ea\";\n}\n\n.fa-lightbulb-o:before {\n  content: \"\\f0eb\";\n}\n\n.fa-exchange:before {\n  content: \"\\f0ec\";\n}\n\n.fa-cloud-download:before {\n  content: \"\\f0ed\";\n}\n\n.fa-cloud-upload:before {\n  content: \"\\f0ee\";\n}\n\n.fa-user-md:before {\n  content: \"\\f0f0\";\n}\n\n.fa-stethoscope:before {\n  content: \"\\f0f1\";\n}\n\n.fa-suitcase:before {\n  content: \"\\f0f2\";\n}\n\n.fa-bell-o:before {\n  content: \"\\f0a2\";\n}\n\n.fa-coffee:before {\n  content: \"\\f0f4\";\n}\n\n.fa-cutlery:before {\n  content: \"\\f0f5\";\n}\n\n.fa-file-text-o:before {\n  content: \"\\f0f6\";\n}\n\n.fa-building-o:before {\n  content: \"\\f0f7\";\n}\n\n.fa-hospital-o:before {\n  content: \"\\f0f8\";\n}\n\n.fa-ambulance:before {\n  content: \"\\f0f9\";\n}\n\n.fa-medkit:before {\n  content: \"\\f0fa\";\n}\n\n.fa-fighter-jet:before {\n  content: \"\\f0fb\";\n}\n\n.fa-beer:before {\n  content: \"\\f0fc\";\n}\n\n.fa-h-square:before {\n  content: \"\\f0fd\";\n}\n\n.fa-plus-square:before {\n  content: \"\\f0fe\";\n}\n\n.fa-angle-double-left:before {\n  content: \"\\f100\";\n}\n\n.fa-angle-double-right:before {\n  content: \"\\f101\";\n}\n\n.fa-angle-double-up:before {\n  content: \"\\f102\";\n}\n\n.fa-angle-double-down:before {\n  content: \"\\f103\";\n}\n\n.fa-angle-left:before {\n  content: \"\\f104\";\n}\n\n.fa-angle-right:before {\n  content: \"\\f105\";\n}\n\n.fa-angle-up:before {\n  content: \"\\f106\";\n}\n\n.fa-angle-down:before {\n  content: \"\\f107\";\n}\n\n.fa-desktop:before {\n  content: \"\\f108\";\n}\n\n.fa-laptop:before {\n  content: \"\\f109\";\n}\n\n.fa-tablet:before {\n  content: \"\\f10a\";\n}\n\n.fa-mobile-phone:before,\n.fa-mobile:before {\n  content: \"\\f10b\";\n}\n\n.fa-circle-o:before {\n  content: \"\\f10c\";\n}\n\n.fa-quote-left:before {\n  content: \"\\f10d\";\n}\n\n.fa-quote-right:before {\n  content: \"\\f10e\";\n}\n\n.fa-spinner:before {\n  content: \"\\f110\";\n}\n\n.fa-circle:before {\n  content: \"\\f111\";\n}\n\n.fa-mail-reply:before,\n.fa-reply:before {\n  content: \"\\f112\";\n}\n\n.fa-github-alt:before {\n  content: \"\\f113\";\n}\n\n.fa-folder-o:before {\n  content: \"\\f114\";\n}\n\n.fa-folder-open-o:before {\n  content: \"\\f115\";\n}\n\n.fa-smile-o:before {\n  content: \"\\f118\";\n}\n\n.fa-frown-o:before {\n  content: \"\\f119\";\n}\n\n.fa-meh-o:before {\n  content: \"\\f11a\";\n}\n\n.fa-gamepad:before {\n  content: \"\\f11b\";\n}\n\n.fa-keyboard-o:before {\n  content: \"\\f11c\";\n}\n\n.fa-flag-o:before {\n  content: \"\\f11d\";\n}\n\n.fa-flag-checkered:before {\n  content: \"\\f11e\";\n}\n\n.fa-terminal:before {\n  content: \"\\f120\";\n}\n\n.fa-code:before {\n  content: \"\\f121\";\n}\n\n.fa-mail-reply-all:before,\n.fa-reply-all:before {\n  content: \"\\f122\";\n}\n\n.fa-star-half-empty:before,\n.fa-star-half-full:before,\n.fa-star-half-o:before {\n  content: \"\\f123\";\n}\n\n.fa-location-arrow:before {\n  content: \"\\f124\";\n}\n\n.fa-crop:before {\n  content: \"\\f125\";\n}\n\n.fa-code-fork:before {\n  content: \"\\f126\";\n}\n\n.fa-unlink:before,\n.fa-chain-broken:before {\n  content: \"\\f127\";\n}\n\n.fa-question:before {\n  content: \"\\f128\";\n}\n\n.fa-info:before {\n  content: \"\\f129\";\n}\n\n.fa-exclamation:before {\n  content: \"\\f12a\";\n}\n\n.fa-superscript:before {\n  content: \"\\f12b\";\n}\n\n.fa-subscript:before {\n  content: \"\\f12c\";\n}\n\n.fa-eraser:before {\n  content: \"\\f12d\";\n}\n\n.fa-puzzle-piece:before {\n  content: \"\\f12e\";\n}\n\n.fa-microphone:before {\n  content: \"\\f130\";\n}\n\n.fa-microphone-slash:before {\n  content: \"\\f131\";\n}\n\n.fa-shield:before {\n  content: \"\\f132\";\n}\n\n.fa-calendar-o:before {\n  content: \"\\f133\";\n}\n\n.fa-fire-extinguisher:before {\n  content: \"\\f134\";\n}\n\n.fa-rocket:before {\n  content: \"\\f135\";\n}\n\n.fa-maxcdn:before {\n  content: \"\\f136\";\n}\n\n.fa-chevron-circle-left:before {\n  content: \"\\f137\";\n}\n\n.fa-chevron-circle-right:before {\n  content: \"\\f138\";\n}\n\n.fa-chevron-circle-up:before {\n  content: \"\\f139\";\n}\n\n.fa-chevron-circle-down:before {\n  content: \"\\f13a\";\n}\n\n.fa-html5:before {\n  content: \"\\f13b\";\n}\n\n.fa-css3:before {\n  content: \"\\f13c\";\n}\n\n.fa-anchor:before {\n  content: \"\\f13d\";\n}\n\n.fa-unlock-alt:before {\n  content: \"\\f13e\";\n}\n\n.fa-bullseye:before {\n  content: \"\\f140\";\n}\n\n.fa-ellipsis-h:before {\n  content: \"\\f141\";\n}\n\n.fa-ellipsis-v:before {\n  content: \"\\f142\";\n}\n\n.fa-rss-square:before {\n  content: \"\\f143\";\n}\n\n.fa-play-circle:before {\n  content: \"\\f144\";\n}\n\n.fa-ticket:before {\n  content: \"\\f145\";\n}\n\n.fa-minus-square:before {\n  content: \"\\f146\";\n}\n\n.fa-minus-square-o:before {\n  content: \"\\f147\";\n}\n\n.fa-level-up:before {\n  content: \"\\f148\";\n}\n\n.fa-level-down:before {\n  content: \"\\f149\";\n}\n\n.fa-check-square:before {\n  content: \"\\f14a\";\n}\n\n.fa-pencil-square:before {\n  content: \"\\f14b\";\n}\n\n.fa-external-link-square:before {\n  content: \"\\f14c\";\n}\n\n.fa-share-square:before {\n  content: \"\\f14d\";\n}\n\n.fa-compass:before {\n  content: \"\\f14e\";\n}\n\n.fa-toggle-down:before,\n.fa-caret-square-o-down:before {\n  content: \"\\f150\";\n}\n\n.fa-toggle-up:before,\n.fa-caret-square-o-up:before {\n  content: \"\\f151\";\n}\n\n.fa-toggle-right:before,\n.fa-caret-square-o-right:before {\n  content: \"\\f152\";\n}\n\n.fa-euro:before,\n.fa-eur:before {\n  content: \"\\f153\";\n}\n\n.fa-gbp:before {\n  content: \"\\f154\";\n}\n\n.fa-dollar:before,\n.fa-usd:before {\n  content: \"\\f155\";\n}\n\n.fa-rupee:before,\n.fa-inr:before {\n  content: \"\\f156\";\n}\n\n.fa-cny:before,\n.fa-rmb:before,\n.fa-yen:before,\n.fa-jpy:before {\n  content: \"\\f157\";\n}\n\n.fa-ruble:before,\n.fa-rouble:before,\n.fa-rub:before {\n  content: \"\\f158\";\n}\n\n.fa-won:before,\n.fa-krw:before {\n  content: \"\\f159\";\n}\n\n.fa-bitcoin:before,\n.fa-btc:before {\n  content: \"\\f15a\";\n}\n\n.fa-file:before {\n  content: \"\\f15b\";\n}\n\n.fa-file-text:before {\n  content: \"\\f15c\";\n}\n\n.fa-sort-alpha-asc:before {\n  content: \"\\f15d\";\n}\n\n.fa-sort-alpha-desc:before {\n  content: \"\\f15e\";\n}\n\n.fa-sort-amount-asc:before {\n  content: \"\\f160\";\n}\n\n.fa-sort-amount-desc:before {\n  content: \"\\f161\";\n}\n\n.fa-sort-numeric-asc:before {\n  content: \"\\f162\";\n}\n\n.fa-sort-numeric-desc:before {\n  content: \"\\f163\";\n}\n\n.fa-thumbs-up:before {\n  content: \"\\f164\";\n}\n\n.fa-thumbs-down:before {\n  content: \"\\f165\";\n}\n\n.fa-youtube-square:before {\n  content: \"\\f166\";\n}\n\n.fa-youtube:before {\n  content: \"\\f167\";\n}\n\n.fa-xing:before {\n  content: \"\\f168\";\n}\n\n.fa-xing-square:before {\n  content: \"\\f169\";\n}\n\n.fa-youtube-play:before {\n  content: \"\\f16a\";\n}\n\n.fa-dropbox:before {\n  content: \"\\f16b\";\n}\n\n.fa-stack-overflow:before {\n  content: \"\\f16c\";\n}\n\n.fa-instagram:before {\n  content: \"\\f16d\";\n}\n\n.fa-flickr:before {\n  content: \"\\f16e\";\n}\n\n.fa-adn:before {\n  content: \"\\f170\";\n}\n\n.fa-bitbucket:before {\n  content: \"\\f171\";\n}\n\n.fa-bitbucket-square:before {\n  content: \"\\f172\";\n}\n\n.fa-tumblr:before {\n  content: \"\\f173\";\n}\n\n.fa-tumblr-square:before {\n  content: \"\\f174\";\n}\n\n.fa-long-arrow-down:before {\n  content: \"\\f175\";\n}\n\n.fa-long-arrow-up:before {\n  content: \"\\f176\";\n}\n\n.fa-long-arrow-left:before {\n  content: \"\\f177\";\n}\n\n.fa-long-arrow-right:before {\n  content: \"\\f178\";\n}\n\n.fa-apple:before {\n  content: \"\\f179\";\n}\n\n.fa-windows:before {\n  content: \"\\f17a\";\n}\n\n.fa-android:before {\n  content: \"\\f17b\";\n}\n\n.fa-linux:before {\n  content: \"\\f17c\";\n}\n\n.fa-dribbble:before {\n  content: \"\\f17d\";\n}\n\n.fa-skype:before {\n  content: \"\\f17e\";\n}\n\n.fa-foursquare:before {\n  content: \"\\f180\";\n}\n\n.fa-trello:before {\n  content: \"\\f181\";\n}\n\n.fa-female:before {\n  content: \"\\f182\";\n}\n\n.fa-male:before {\n  content: \"\\f183\";\n}\n\n.fa-gittip:before,\n.fa-gratipay:before {\n  content: \"\\f184\";\n}\n\n.fa-sun-o:before {\n  content: \"\\f185\";\n}\n\n.fa-moon-o:before {\n  content: \"\\f186\";\n}\n\n.fa-archive:before {\n  content: \"\\f187\";\n}\n\n.fa-bug:before {\n  content: \"\\f188\";\n}\n\n.fa-vk:before {\n  content: \"\\f189\";\n}\n\n.fa-weibo:before {\n  content: \"\\f18a\";\n}\n\n.fa-renren:before {\n  content: \"\\f18b\";\n}\n\n.fa-pagelines:before {\n  content: \"\\f18c\";\n}\n\n.fa-stack-exchange:before {\n  content: \"\\f18d\";\n}\n\n.fa-arrow-circle-o-right:before {\n  content: \"\\f18e\";\n}\n\n.fa-arrow-circle-o-left:before {\n  content: \"\\f190\";\n}\n\n.fa-toggle-left:before,\n.fa-caret-square-o-left:before {\n  content: \"\\f191\";\n}\n\n.fa-dot-circle-o:before {\n  content: \"\\f192\";\n}\n\n.fa-wheelchair:before {\n  content: \"\\f193\";\n}\n\n.fa-vimeo-square:before {\n  content: \"\\f194\";\n}\n\n.fa-turkish-lira:before,\n.fa-try:before {\n  content: \"\\f195\";\n}\n\n.fa-plus-square-o:before {\n  content: \"\\f196\";\n}\n\n.fa-space-shuttle:before {\n  content: \"\\f197\";\n}\n\n.fa-slack:before {\n  content: \"\\f198\";\n}\n\n.fa-envelope-square:before {\n  content: \"\\f199\";\n}\n\n.fa-wordpress:before {\n  content: \"\\f19a\";\n}\n\n.fa-openid:before {\n  content: \"\\f19b\";\n}\n\n.fa-institution:before,\n.fa-bank:before,\n.fa-university:before {\n  content: \"\\f19c\";\n}\n\n.fa-mortar-board:before,\n.fa-graduation-cap:before {\n  content: \"\\f19d\";\n}\n\n.fa-yahoo:before {\n  content: \"\\f19e\";\n}\n\n.fa-google:before {\n  content: \"\\f1a0\";\n}\n\n.fa-reddit:before {\n  content: \"\\f1a1\";\n}\n\n.fa-reddit-square:before {\n  content: \"\\f1a2\";\n}\n\n.fa-stumbleupon-circle:before {\n  content: \"\\f1a3\";\n}\n\n.fa-stumbleupon:before {\n  content: \"\\f1a4\";\n}\n\n.fa-delicious:before {\n  content: \"\\f1a5\";\n}\n\n.fa-digg:before {\n  content: \"\\f1a6\";\n}\n\n.fa-pied-piper-pp:before {\n  content: \"\\f1a7\";\n}\n\n.fa-pied-piper-alt:before {\n  content: \"\\f1a8\";\n}\n\n.fa-drupal:before {\n  content: \"\\f1a9\";\n}\n\n.fa-joomla:before {\n  content: \"\\f1aa\";\n}\n\n.fa-language:before {\n  content: \"\\f1ab\";\n}\n\n.fa-fax:before {\n  content: \"\\f1ac\";\n}\n\n.fa-building:before {\n  content: \"\\f1ad\";\n}\n\n.fa-child:before {\n  content: \"\\f1ae\";\n}\n\n.fa-paw:before {\n  content: \"\\f1b0\";\n}\n\n.fa-spoon:before {\n  content: \"\\f1b1\";\n}\n\n.fa-cube:before {\n  content: \"\\f1b2\";\n}\n\n.fa-cubes:before {\n  content: \"\\f1b3\";\n}\n\n.fa-behance:before {\n  content: \"\\f1b4\";\n}\n\n.fa-behance-square:before {\n  content: \"\\f1b5\";\n}\n\n.fa-steam:before {\n  content: \"\\f1b6\";\n}\n\n.fa-steam-square:before {\n  content: \"\\f1b7\";\n}\n\n.fa-recycle:before {\n  content: \"\\f1b8\";\n}\n\n.fa-automobile:before,\n.fa-car:before {\n  content: \"\\f1b9\";\n}\n\n.fa-cab:before,\n.fa-taxi:before {\n  content: \"\\f1ba\";\n}\n\n.fa-tree:before {\n  content: \"\\f1bb\";\n}\n\n.fa-spotify:before {\n  content: \"\\f1bc\";\n}\n\n.fa-deviantart:before {\n  content: \"\\f1bd\";\n}\n\n.fa-soundcloud:before {\n  content: \"\\f1be\";\n}\n\n.fa-database:before {\n  content: \"\\f1c0\";\n}\n\n.fa-file-pdf-o:before {\n  content: \"\\f1c1\";\n}\n\n.fa-file-word-o:before {\n  content: \"\\f1c2\";\n}\n\n.fa-file-excel-o:before {\n  content: \"\\f1c3\";\n}\n\n.fa-file-powerpoint-o:before {\n  content: \"\\f1c4\";\n}\n\n.fa-file-photo-o:before,\n.fa-file-picture-o:before,\n.fa-file-image-o:before {\n  content: \"\\f1c5\";\n}\n\n.fa-file-zip-o:before,\n.fa-file-archive-o:before {\n  content: \"\\f1c6\";\n}\n\n.fa-file-sound-o:before,\n.fa-file-audio-o:before {\n  content: \"\\f1c7\";\n}\n\n.fa-file-movie-o:before,\n.fa-file-video-o:before {\n  content: \"\\f1c8\";\n}\n\n.fa-file-code-o:before {\n  content: \"\\f1c9\";\n}\n\n.fa-vine:before {\n  content: \"\\f1ca\";\n}\n\n.fa-codepen:before {\n  content: \"\\f1cb\";\n}\n\n.fa-jsfiddle:before {\n  content: \"\\f1cc\";\n}\n\n.fa-life-bouy:before,\n.fa-life-buoy:before,\n.fa-life-saver:before,\n.fa-support:before,\n.fa-life-ring:before {\n  content: \"\\f1cd\";\n}\n\n.fa-circle-o-notch:before {\n  content: \"\\f1ce\";\n}\n\n.fa-ra:before,\n.fa-resistance:before,\n.fa-rebel:before {\n  content: \"\\f1d0\";\n}\n\n.fa-ge:before,\n.fa-empire:before {\n  content: \"\\f1d1\";\n}\n\n.fa-git-square:before {\n  content: \"\\f1d2\";\n}\n\n.fa-git:before {\n  content: \"\\f1d3\";\n}\n\n.fa-y-combinator-square:before,\n.fa-yc-square:before,\n.fa-hacker-news:before {\n  content: \"\\f1d4\";\n}\n\n.fa-tencent-weibo:before {\n  content: \"\\f1d5\";\n}\n\n.fa-qq:before {\n  content: \"\\f1d6\";\n}\n\n.fa-wechat:before,\n.fa-weixin:before {\n  content: \"\\f1d7\";\n}\n\n.fa-send:before,\n.fa-paper-plane:before {\n  content: \"\\f1d8\";\n}\n\n.fa-send-o:before,\n.fa-paper-plane-o:before {\n  content: \"\\f1d9\";\n}\n\n.fa-history:before {\n  content: \"\\f1da\";\n}\n\n.fa-circle-thin:before {\n  content: \"\\f1db\";\n}\n\n.fa-header:before {\n  content: \"\\f1dc\";\n}\n\n.fa-paragraph:before {\n  content: \"\\f1dd\";\n}\n\n.fa-sliders:before {\n  content: \"\\f1de\";\n}\n\n.fa-share-alt:before {\n  content: \"\\f1e0\";\n}\n\n.fa-share-alt-square:before {\n  content: \"\\f1e1\";\n}\n\n.fa-bomb:before {\n  content: \"\\f1e2\";\n}\n\n.fa-soccer-ball-o:before,\n.fa-futbol-o:before {\n  content: \"\\f1e3\";\n}\n\n.fa-tty:before {\n  content: \"\\f1e4\";\n}\n\n.fa-binoculars:before {\n  content: \"\\f1e5\";\n}\n\n.fa-plug:before {\n  content: \"\\f1e6\";\n}\n\n.fa-slideshare:before {\n  content: \"\\f1e7\";\n}\n\n.fa-twitch:before {\n  content: \"\\f1e8\";\n}\n\n.fa-yelp:before {\n  content: \"\\f1e9\";\n}\n\n.fa-newspaper-o:before {\n  content: \"\\f1ea\";\n}\n\n.fa-wifi:before {\n  content: \"\\f1eb\";\n}\n\n.fa-calculator:before {\n  content: \"\\f1ec\";\n}\n\n.fa-paypal:before {\n  content: \"\\f1ed\";\n}\n\n.fa-google-wallet:before {\n  content: \"\\f1ee\";\n}\n\n.fa-cc-visa:before {\n  content: \"\\f1f0\";\n}\n\n.fa-cc-mastercard:before {\n  content: \"\\f1f1\";\n}\n\n.fa-cc-discover:before {\n  content: \"\\f1f2\";\n}\n\n.fa-cc-amex:before {\n  content: \"\\f1f3\";\n}\n\n.fa-cc-paypal:before {\n  content: \"\\f1f4\";\n}\n\n.fa-cc-stripe:before {\n  content: \"\\f1f5\";\n}\n\n.fa-bell-slash:before {\n  content: \"\\f1f6\";\n}\n\n.fa-bell-slash-o:before {\n  content: \"\\f1f7\";\n}\n\n.fa-trash:before {\n  content: \"\\f1f8\";\n}\n\n.fa-copyright:before {\n  content: \"\\f1f9\";\n}\n\n.fa-at:before {\n  content: \"\\f1fa\";\n}\n\n.fa-eyedropper:before {\n  content: \"\\f1fb\";\n}\n\n.fa-paint-brush:before {\n  content: \"\\f1fc\";\n}\n\n.fa-birthday-cake:before {\n  content: \"\\f1fd\";\n}\n\n.fa-area-chart:before {\n  content: \"\\f1fe\";\n}\n\n.fa-pie-chart:before {\n  content: \"\\f200\";\n}\n\n.fa-line-chart:before {\n  content: \"\\f201\";\n}\n\n.fa-lastfm:before {\n  content: \"\\f202\";\n}\n\n.fa-lastfm-square:before {\n  content: \"\\f203\";\n}\n\n.fa-toggle-off:before {\n  content: \"\\f204\";\n}\n\n.fa-toggle-on:before {\n  content: \"\\f205\";\n}\n\n.fa-bicycle:before {\n  content: \"\\f206\";\n}\n\n.fa-bus:before {\n  content: \"\\f207\";\n}\n\n.fa-ioxhost:before {\n  content: \"\\f208\";\n}\n\n.fa-angellist:before {\n  content: \"\\f209\";\n}\n\n.fa-cc:before {\n  content: \"\\f20a\";\n}\n\n.fa-shekel:before,\n.fa-sheqel:before,\n.fa-ils:before {\n  content: \"\\f20b\";\n}\n\n.fa-meanpath:before {\n  content: \"\\f20c\";\n}\n\n.fa-buysellads:before {\n  content: \"\\f20d\";\n}\n\n.fa-connectdevelop:before {\n  content: \"\\f20e\";\n}\n\n.fa-dashcube:before {\n  content: \"\\f210\";\n}\n\n.fa-forumbee:before {\n  content: \"\\f211\";\n}\n\n.fa-leanpub:before {\n  content: \"\\f212\";\n}\n\n.fa-sellsy:before {\n  content: \"\\f213\";\n}\n\n.fa-shirtsinbulk:before {\n  content: \"\\f214\";\n}\n\n.fa-simplybuilt:before {\n  content: \"\\f215\";\n}\n\n.fa-skyatlas:before {\n  content: \"\\f216\";\n}\n\n.fa-cart-plus:before {\n  content: \"\\f217\";\n}\n\n.fa-cart-arrow-down:before {\n  content: \"\\f218\";\n}\n\n.fa-diamond:before {\n  content: \"\\f219\";\n}\n\n.fa-ship:before {\n  content: \"\\f21a\";\n}\n\n.fa-user-secret:before {\n  content: \"\\f21b\";\n}\n\n.fa-motorcycle:before {\n  content: \"\\f21c\";\n}\n\n.fa-street-view:before {\n  content: \"\\f21d\";\n}\n\n.fa-heartbeat:before {\n  content: \"\\f21e\";\n}\n\n.fa-venus:before {\n  content: \"\\f221\";\n}\n\n.fa-mars:before {\n  content: \"\\f222\";\n}\n\n.fa-mercury:before {\n  content: \"\\f223\";\n}\n\n.fa-intersex:before,\n.fa-transgender:before {\n  content: \"\\f224\";\n}\n\n.fa-transgender-alt:before {\n  content: \"\\f225\";\n}\n\n.fa-venus-double:before {\n  content: \"\\f226\";\n}\n\n.fa-mars-double:before {\n  content: \"\\f227\";\n}\n\n.fa-venus-mars:before {\n  content: \"\\f228\";\n}\n\n.fa-mars-stroke:before {\n  content: \"\\f229\";\n}\n\n.fa-mars-stroke-v:before {\n  content: \"\\f22a\";\n}\n\n.fa-mars-stroke-h:before {\n  content: \"\\f22b\";\n}\n\n.fa-neuter:before {\n  content: \"\\f22c\";\n}\n\n.fa-genderless:before {\n  content: \"\\f22d\";\n}\n\n.fa-facebook-official:before {\n  content: \"\\f230\";\n}\n\n.fa-pinterest-p:before {\n  content: \"\\f231\";\n}\n\n.fa-whatsapp:before {\n  content: \"\\f232\";\n}\n\n.fa-server:before {\n  content: \"\\f233\";\n}\n\n.fa-user-plus:before {\n  content: \"\\f234\";\n}\n\n.fa-user-times:before {\n  content: \"\\f235\";\n}\n\n.fa-hotel:before,\n.fa-bed:before {\n  content: \"\\f236\";\n}\n\n.fa-viacoin:before {\n  content: \"\\f237\";\n}\n\n.fa-train:before {\n  content: \"\\f238\";\n}\n\n.fa-subway:before {\n  content: \"\\f239\";\n}\n\n.fa-medium:before {\n  content: \"\\f23a\";\n}\n\n.fa-yc:before,\n.fa-y-combinator:before {\n  content: \"\\f23b\";\n}\n\n.fa-optin-monster:before {\n  content: \"\\f23c\";\n}\n\n.fa-opencart:before {\n  content: \"\\f23d\";\n}\n\n.fa-expeditedssl:before {\n  content: \"\\f23e\";\n}\n\n.fa-battery-4:before,\n.fa-battery:before,\n.fa-battery-full:before {\n  content: \"\\f240\";\n}\n\n.fa-battery-3:before,\n.fa-battery-three-quarters:before {\n  content: \"\\f241\";\n}\n\n.fa-battery-2:before,\n.fa-battery-half:before {\n  content: \"\\f242\";\n}\n\n.fa-battery-1:before,\n.fa-battery-quarter:before {\n  content: \"\\f243\";\n}\n\n.fa-battery-0:before,\n.fa-battery-empty:before {\n  content: \"\\f244\";\n}\n\n.fa-mouse-pointer:before {\n  content: \"\\f245\";\n}\n\n.fa-i-cursor:before {\n  content: \"\\f246\";\n}\n\n.fa-object-group:before {\n  content: \"\\f247\";\n}\n\n.fa-object-ungroup:before {\n  content: \"\\f248\";\n}\n\n.fa-sticky-note:before {\n  content: \"\\f249\";\n}\n\n.fa-sticky-note-o:before {\n  content: \"\\f24a\";\n}\n\n.fa-cc-jcb:before {\n  content: \"\\f24b\";\n}\n\n.fa-cc-diners-club:before {\n  content: \"\\f24c\";\n}\n\n.fa-clone:before {\n  content: \"\\f24d\";\n}\n\n.fa-balance-scale:before {\n  content: \"\\f24e\";\n}\n\n.fa-hourglass-o:before {\n  content: \"\\f250\";\n}\n\n.fa-hourglass-1:before,\n.fa-hourglass-start:before {\n  content: \"\\f251\";\n}\n\n.fa-hourglass-2:before,\n.fa-hourglass-half:before {\n  content: \"\\f252\";\n}\n\n.fa-hourglass-3:before,\n.fa-hourglass-end:before {\n  content: \"\\f253\";\n}\n\n.fa-hourglass:before {\n  content: \"\\f254\";\n}\n\n.fa-hand-grab-o:before,\n.fa-hand-rock-o:before {\n  content: \"\\f255\";\n}\n\n.fa-hand-stop-o:before,\n.fa-hand-paper-o:before {\n  content: \"\\f256\";\n}\n\n.fa-hand-scissors-o:before {\n  content: \"\\f257\";\n}\n\n.fa-hand-lizard-o:before {\n  content: \"\\f258\";\n}\n\n.fa-hand-spock-o:before {\n  content: \"\\f259\";\n}\n\n.fa-hand-pointer-o:before {\n  content: \"\\f25a\";\n}\n\n.fa-hand-peace-o:before {\n  content: \"\\f25b\";\n}\n\n.fa-trademark:before {\n  content: \"\\f25c\";\n}\n\n.fa-registered:before {\n  content: \"\\f25d\";\n}\n\n.fa-creative-commons:before {\n  content: \"\\f25e\";\n}\n\n.fa-gg:before {\n  content: \"\\f260\";\n}\n\n.fa-gg-circle:before {\n  content: \"\\f261\";\n}\n\n.fa-tripadvisor:before {\n  content: \"\\f262\";\n}\n\n.fa-odnoklassniki:before {\n  content: \"\\f263\";\n}\n\n.fa-odnoklassniki-square:before {\n  content: \"\\f264\";\n}\n\n.fa-get-pocket:before {\n  content: \"\\f265\";\n}\n\n.fa-wikipedia-w:before {\n  content: \"\\f266\";\n}\n\n.fa-safari:before {\n  content: \"\\f267\";\n}\n\n.fa-chrome:before {\n  content: \"\\f268\";\n}\n\n.fa-firefox:before {\n  content: \"\\f269\";\n}\n\n.fa-opera:before {\n  content: \"\\f26a\";\n}\n\n.fa-internet-explorer:before {\n  content: \"\\f26b\";\n}\n\n.fa-tv:before,\n.fa-television:before {\n  content: \"\\f26c\";\n}\n\n.fa-contao:before {\n  content: \"\\f26d\";\n}\n\n.fa-500px:before {\n  content: \"\\f26e\";\n}\n\n.fa-amazon:before {\n  content: \"\\f270\";\n}\n\n.fa-calendar-plus-o:before {\n  content: \"\\f271\";\n}\n\n.fa-calendar-minus-o:before {\n  content: \"\\f272\";\n}\n\n.fa-calendar-times-o:before {\n  content: \"\\f273\";\n}\n\n.fa-calendar-check-o:before {\n  content: \"\\f274\";\n}\n\n.fa-industry:before {\n  content: \"\\f275\";\n}\n\n.fa-map-pin:before {\n  content: \"\\f276\";\n}\n\n.fa-map-signs:before {\n  content: \"\\f277\";\n}\n\n.fa-map-o:before {\n  content: \"\\f278\";\n}\n\n.fa-map:before {\n  content: \"\\f279\";\n}\n\n.fa-commenting:before {\n  content: \"\\f27a\";\n}\n\n.fa-commenting-o:before {\n  content: \"\\f27b\";\n}\n\n.fa-houzz:before {\n  content: \"\\f27c\";\n}\n\n.fa-vimeo:before {\n  content: \"\\f27d\";\n}\n\n.fa-black-tie:before {\n  content: \"\\f27e\";\n}\n\n.fa-fonticons:before {\n  content: \"\\f280\";\n}\n\n.fa-reddit-alien:before {\n  content: \"\\f281\";\n}\n\n.fa-edge:before {\n  content: \"\\f282\";\n}\n\n.fa-credit-card-alt:before {\n  content: \"\\f283\";\n}\n\n.fa-codiepie:before {\n  content: \"\\f284\";\n}\n\n.fa-modx:before {\n  content: \"\\f285\";\n}\n\n.fa-fort-awesome:before {\n  content: \"\\f286\";\n}\n\n.fa-usb:before {\n  content: \"\\f287\";\n}\n\n.fa-product-hunt:before {\n  content: \"\\f288\";\n}\n\n.fa-mixcloud:before {\n  content: \"\\f289\";\n}\n\n.fa-scribd:before {\n  content: \"\\f28a\";\n}\n\n.fa-pause-circle:before {\n  content: \"\\f28b\";\n}\n\n.fa-pause-circle-o:before {\n  content: \"\\f28c\";\n}\n\n.fa-stop-circle:before {\n  content: \"\\f28d\";\n}\n\n.fa-stop-circle-o:before {\n  content: \"\\f28e\";\n}\n\n.fa-shopping-bag:before {\n  content: \"\\f290\";\n}\n\n.fa-shopping-basket:before {\n  content: \"\\f291\";\n}\n\n.fa-hashtag:before {\n  content: \"\\f292\";\n}\n\n.fa-bluetooth:before {\n  content: \"\\f293\";\n}\n\n.fa-bluetooth-b:before {\n  content: \"\\f294\";\n}\n\n.fa-percent:before {\n  content: \"\\f295\";\n}\n\n.fa-gitlab:before {\n  content: \"\\f296\";\n}\n\n.fa-wpbeginner:before {\n  content: \"\\f297\";\n}\n\n.fa-wpforms:before {\n  content: \"\\f298\";\n}\n\n.fa-envira:before {\n  content: \"\\f299\";\n}\n\n.fa-universal-access:before {\n  content: \"\\f29a\";\n}\n\n.fa-wheelchair-alt:before {\n  content: \"\\f29b\";\n}\n\n.fa-question-circle-o:before {\n  content: \"\\f29c\";\n}\n\n.fa-blind:before {\n  content: \"\\f29d\";\n}\n\n.fa-audio-description:before {\n  content: \"\\f29e\";\n}\n\n.fa-volume-control-phone:before {\n  content: \"\\f2a0\";\n}\n\n.fa-braille:before {\n  content: \"\\f2a1\";\n}\n\n.fa-assistive-listening-systems:before {\n  content: \"\\f2a2\";\n}\n\n.fa-asl-interpreting:before,\n.fa-american-sign-language-interpreting:before {\n  content: \"\\f2a3\";\n}\n\n.fa-deafness:before,\n.fa-hard-of-hearing:before,\n.fa-deaf:before {\n  content: \"\\f2a4\";\n}\n\n.fa-glide:before {\n  content: \"\\f2a5\";\n}\n\n.fa-glide-g:before {\n  content: \"\\f2a6\";\n}\n\n.fa-signing:before,\n.fa-sign-language:before {\n  content: \"\\f2a7\";\n}\n\n.fa-low-vision:before {\n  content: \"\\f2a8\";\n}\n\n.fa-viadeo:before {\n  content: \"\\f2a9\";\n}\n\n.fa-viadeo-square:before {\n  content: \"\\f2aa\";\n}\n\n.fa-snapchat:before {\n  content: \"\\f2ab\";\n}\n\n.fa-snapchat-ghost:before {\n  content: \"\\f2ac\";\n}\n\n.fa-snapchat-square:before {\n  content: \"\\f2ad\";\n}\n\n.fa-pied-piper:before {\n  content: \"\\f2ae\";\n}\n\n.fa-first-order:before {\n  content: \"\\f2b0\";\n}\n\n.fa-yoast:before {\n  content: \"\\f2b1\";\n}\n\n.fa-themeisle:before {\n  content: \"\\f2b2\";\n}\n\n.fa-google-plus-circle:before,\n.fa-google-plus-official:before {\n  content: \"\\f2b3\";\n}\n\n.fa-fa:before,\n.fa-font-awesome:before {\n  content: \"\\f2b4\";\n}\n\n.fa-handshake-o:before {\n  content: \"\\f2b5\";\n}\n\n.fa-envelope-open:before {\n  content: \"\\f2b6\";\n}\n\n.fa-envelope-open-o:before {\n  content: \"\\f2b7\";\n}\n\n.fa-linode:before {\n  content: \"\\f2b8\";\n}\n\n.fa-address-book:before {\n  content: \"\\f2b9\";\n}\n\n.fa-address-book-o:before {\n  content: \"\\f2ba\";\n}\n\n.fa-vcard:before,\n.fa-address-card:before {\n  content: \"\\f2bb\";\n}\n\n.fa-vcard-o:before,\n.fa-address-card-o:before {\n  content: \"\\f2bc\";\n}\n\n.fa-user-circle:before {\n  content: \"\\f2bd\";\n}\n\n.fa-user-circle-o:before {\n  content: \"\\f2be\";\n}\n\n.fa-user-o:before {\n  content: \"\\f2c0\";\n}\n\n.fa-id-badge:before {\n  content: \"\\f2c1\";\n}\n\n.fa-drivers-license:before,\n.fa-id-card:before {\n  content: \"\\f2c2\";\n}\n\n.fa-drivers-license-o:before,\n.fa-id-card-o:before {\n  content: \"\\f2c3\";\n}\n\n.fa-quora:before {\n  content: \"\\f2c4\";\n}\n\n.fa-free-code-camp:before {\n  content: \"\\f2c5\";\n}\n\n.fa-telegram:before {\n  content: \"\\f2c6\";\n}\n\n.fa-thermometer-4:before,\n.fa-thermometer:before,\n.fa-thermometer-full:before {\n  content: \"\\f2c7\";\n}\n\n.fa-thermometer-3:before,\n.fa-thermometer-three-quarters:before {\n  content: \"\\f2c8\";\n}\n\n.fa-thermometer-2:before,\n.fa-thermometer-half:before {\n  content: \"\\f2c9\";\n}\n\n.fa-thermometer-1:before,\n.fa-thermometer-quarter:before {\n  content: \"\\f2ca\";\n}\n\n.fa-thermometer-0:before,\n.fa-thermometer-empty:before {\n  content: \"\\f2cb\";\n}\n\n.fa-shower:before {\n  content: \"\\f2cc\";\n}\n\n.fa-bathtub:before,\n.fa-s15:before,\n.fa-bath:before {\n  content: \"\\f2cd\";\n}\n\n.fa-podcast:before {\n  content: \"\\f2ce\";\n}\n\n.fa-window-maximize:before {\n  content: \"\\f2d0\";\n}\n\n.fa-window-minimize:before {\n  content: \"\\f2d1\";\n}\n\n.fa-window-restore:before {\n  content: \"\\f2d2\";\n}\n\n.fa-times-rectangle:before,\n.fa-window-close:before {\n  content: \"\\f2d3\";\n}\n\n.fa-times-rectangle-o:before,\n.fa-window-close-o:before {\n  content: \"\\f2d4\";\n}\n\n.fa-bandcamp:before {\n  content: \"\\f2d5\";\n}\n\n.fa-grav:before {\n  content: \"\\f2d6\";\n}\n\n.fa-etsy:before {\n  content: \"\\f2d7\";\n}\n\n.fa-imdb:before {\n  content: \"\\f2d8\";\n}\n\n.fa-ravelry:before {\n  content: \"\\f2d9\";\n}\n\n.fa-eercast:before {\n  content: \"\\f2da\";\n}\n\n.fa-microchip:before {\n  content: \"\\f2db\";\n}\n\n.fa-snowflake-o:before {\n  content: \"\\f2dc\";\n}\n\n.fa-superpowers:before {\n  content: \"\\f2dd\";\n}\n\n.fa-wpexplorer:before {\n  content: \"\\f2de\";\n}\n\n.fa-meetup:before {\n  content: \"\\f2e0\";\n}\n\n.sr-only {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  padding: 0;\n  margin: -1px;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n}\n\n.sr-only-focusable:active, .sr-only-focusable:focus {\n  position: static;\n  width: auto;\n  height: auto;\n  margin: 0;\n  overflow: visible;\n  clip: auto;\n}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/runtime/api.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/api.js ***!
+  \*****************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+// eslint-disable-next-line func-names
+module.exports = function (cssWithMappingToString) {
+  var list = []; // return the list of modules as css string
+
+  list.toString = function toString() {
+    return this.map(function (item) {
+      var content = cssWithMappingToString(item);
+
+      if (item[2]) {
+        return "@media ".concat(item[2], " {").concat(content, "}");
+      }
+
+      return content;
+    }).join("");
+  }; // import a list of modules into the list
+  // eslint-disable-next-line func-names
+
+
+  list.i = function (modules, mediaQuery, dedupe) {
+    if (typeof modules === "string") {
+      // eslint-disable-next-line no-param-reassign
+      modules = [[null, modules, ""]];
+    }
+
+    var alreadyImportedModules = {};
+
+    if (dedupe) {
+      for (var i = 0; i < this.length; i++) {
+        // eslint-disable-next-line prefer-destructuring
+        var id = this[i][0];
+
+        if (id != null) {
+          alreadyImportedModules[id] = true;
+        }
+      }
+    }
+
+    for (var _i = 0; _i < modules.length; _i++) {
+      var item = [].concat(modules[_i]);
+
+      if (dedupe && alreadyImportedModules[item[0]]) {
+        // eslint-disable-next-line no-continue
+        continue;
+      }
+
+      if (mediaQuery) {
+        if (!item[2]) {
+          item[2] = mediaQuery;
+        } else {
+          item[2] = "".concat(mediaQuery, " and ").concat(item[2]);
+        }
+      }
+
+      list.push(item);
+    }
+  };
+
+  return list;
+};
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/runtime/getUrl.js":
+/*!********************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/getUrl.js ***!
+  \********************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+module.exports = function (url, options) {
+  if (!options) {
+    // eslint-disable-next-line no-param-reassign
+    options = {};
+  } // eslint-disable-next-line no-underscore-dangle, no-param-reassign
+
+
+  url = url && url.__esModule ? url.default : url;
+
+  if (typeof url !== "string") {
+    return url;
+  } // If url is already wrapped in quotes, remove them
+
+
+  if (/^['"].*['"]$/.test(url)) {
+    // eslint-disable-next-line no-param-reassign
+    url = url.slice(1, -1);
+  }
+
+  if (options.hash) {
+    // eslint-disable-next-line no-param-reassign
+    url += options.hash;
+  } // Should url be wrapped?
+  // See https://drafts.csswg.org/css-values-3/#urls
+
+
+  if (/["'() \t\n]/.test(url) || options.needQuotes) {
+    return "\"".concat(url.replace(/"/g, '\\"').replace(/\n/g, "\\n"), "\"");
+  }
+
+  return url;
+};
+
+/***/ }),
+
+/***/ "./node_modules/font-awesome/fonts/fontawesome-webfont.eot":
+/*!*****************************************************************!*\
+  !*** ./node_modules/font-awesome/fonts/fontawesome-webfont.eot ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/fonts/vendor/font-awesome/fontawesome-webfont.eot?8b43027f47b20503057dfbbaa9401fef");
+
+/***/ }),
+
+/***/ "./node_modules/font-awesome/fonts/fontawesome-webfont.eot?v=4.7.0":
+/*!*************************************************************************!*\
+  !*** ./node_modules/font-awesome/fonts/fontawesome-webfont.eot?v=4.7.0 ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/fonts/vendor/font-awesome/fontawesome-webfont.eot?8b43027f47b20503057dfbbaa9401fef");
+
+/***/ }),
+
+/***/ "./node_modules/font-awesome/fonts/fontawesome-webfont.svg?v=4.7.0":
+/*!*************************************************************************!*\
+  !*** ./node_modules/font-awesome/fonts/fontawesome-webfont.svg?v=4.7.0 ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/fonts/vendor/font-awesome/fontawesome-webfont.svg?c1e38fd9e0e74ba58f7a2b77ef29fdd3");
+
+/***/ }),
+
+/***/ "./node_modules/font-awesome/fonts/fontawesome-webfont.ttf?v=4.7.0":
+/*!*************************************************************************!*\
+  !*** ./node_modules/font-awesome/fonts/fontawesome-webfont.ttf?v=4.7.0 ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/fonts/vendor/font-awesome/fontawesome-webfont.ttf?1e59d2330b4c6deb84b340635ed36249");
+
+/***/ }),
+
+/***/ "./node_modules/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0":
+/*!***************************************************************************!*\
+  !*** ./node_modules/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0 ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/fonts/vendor/font-awesome/fontawesome-webfont.woff2?20fd1704ea223900efa9fd4e869efb08");
+
+/***/ }),
+
+/***/ "./node_modules/font-awesome/fonts/fontawesome-webfont.woff?v=4.7.0":
+/*!**************************************************************************!*\
+  !*** ./node_modules/font-awesome/fonts/fontawesome-webfont.woff?v=4.7.0 ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/fonts/vendor/font-awesome/fontawesome-webfont.woff?f691f37e57f04c152e2315ab7dbad881");
 
 /***/ }),
 
@@ -61267,6 +70601,345 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./resources/js/customer/css/inspection.css":
+/*!**************************************************!*\
+  !*** ./resources/js/customer/css/inspection.css ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_inspection_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!../../../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./inspection.css */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./resources/js/customer/css/inspection.css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_inspection_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_1_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_6_oneOf_1_use_2_inspection_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/font-awesome/scss/font-awesome.scss":
+/*!**********************************************************!*\
+  !*** ./node_modules/font-awesome/scss/font-awesome.scss ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_font_awesome_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!../../postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!../../sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./font-awesome.scss */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[7].oneOf[1].use[3]!./node_modules/font-awesome/scss/font-awesome.scss");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_font_awesome_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_1_postcss_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_2_sass_loader_dist_cjs_js_ruleSet_1_rules_7_oneOf_1_use_3_font_awesome_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
+  \****************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var isOldIE = function isOldIE() {
+  var memo;
+  return function memorize() {
+    if (typeof memo === 'undefined') {
+      // Test for IE <= 9 as proposed by Browserhacks
+      // @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+      // Tests for existence of standard globals is to allow style-loader
+      // to operate correctly into non-standard environments
+      // @see https://github.com/webpack-contrib/style-loader/issues/177
+      memo = Boolean(window && document && document.all && !window.atob);
+    }
+
+    return memo;
+  };
+}();
+
+var getTarget = function getTarget() {
+  var memo = {};
+  return function memorize(target) {
+    if (typeof memo[target] === 'undefined') {
+      var styleTarget = document.querySelector(target); // Special case to return head of iframe instead of iframe itself
+
+      if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+        try {
+          // This will throw an exception if access to iframe is blocked
+          // due to cross-origin restrictions
+          styleTarget = styleTarget.contentDocument.head;
+        } catch (e) {
+          // istanbul ignore next
+          styleTarget = null;
+        }
+      }
+
+      memo[target] = styleTarget;
+    }
+
+    return memo[target];
+  };
+}();
+
+var stylesInDom = [];
+
+function getIndexByIdentifier(identifier) {
+  var result = -1;
+
+  for (var i = 0; i < stylesInDom.length; i++) {
+    if (stylesInDom[i].identifier === identifier) {
+      result = i;
+      break;
+    }
+  }
+
+  return result;
+}
+
+function modulesToDom(list, options) {
+  var idCountMap = {};
+  var identifiers = [];
+
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i];
+    var id = options.base ? item[0] + options.base : item[0];
+    var count = idCountMap[id] || 0;
+    var identifier = "".concat(id, " ").concat(count);
+    idCountMap[id] = count + 1;
+    var index = getIndexByIdentifier(identifier);
+    var obj = {
+      css: item[1],
+      media: item[2],
+      sourceMap: item[3]
+    };
+
+    if (index !== -1) {
+      stylesInDom[index].references++;
+      stylesInDom[index].updater(obj);
+    } else {
+      stylesInDom.push({
+        identifier: identifier,
+        updater: addStyle(obj, options),
+        references: 1
+      });
+    }
+
+    identifiers.push(identifier);
+  }
+
+  return identifiers;
+}
+
+function insertStyleElement(options) {
+  var style = document.createElement('style');
+  var attributes = options.attributes || {};
+
+  if (typeof attributes.nonce === 'undefined') {
+    var nonce =  true ? __webpack_require__.nc : 0;
+
+    if (nonce) {
+      attributes.nonce = nonce;
+    }
+  }
+
+  Object.keys(attributes).forEach(function (key) {
+    style.setAttribute(key, attributes[key]);
+  });
+
+  if (typeof options.insert === 'function') {
+    options.insert(style);
+  } else {
+    var target = getTarget(options.insert || 'head');
+
+    if (!target) {
+      throw new Error("Couldn't find a style target. This probably means that the value for the 'insert' parameter is invalid.");
+    }
+
+    target.appendChild(style);
+  }
+
+  return style;
+}
+
+function removeStyleElement(style) {
+  // istanbul ignore if
+  if (style.parentNode === null) {
+    return false;
+  }
+
+  style.parentNode.removeChild(style);
+}
+/* istanbul ignore next  */
+
+
+var replaceText = function replaceText() {
+  var textStore = [];
+  return function replace(index, replacement) {
+    textStore[index] = replacement;
+    return textStore.filter(Boolean).join('\n');
+  };
+}();
+
+function applyToSingletonTag(style, index, remove, obj) {
+  var css = remove ? '' : obj.media ? "@media ".concat(obj.media, " {").concat(obj.css, "}") : obj.css; // For old IE
+
+  /* istanbul ignore if  */
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = replaceText(index, css);
+  } else {
+    var cssNode = document.createTextNode(css);
+    var childNodes = style.childNodes;
+
+    if (childNodes[index]) {
+      style.removeChild(childNodes[index]);
+    }
+
+    if (childNodes.length) {
+      style.insertBefore(cssNode, childNodes[index]);
+    } else {
+      style.appendChild(cssNode);
+    }
+  }
+}
+
+function applyToTag(style, options, obj) {
+  var css = obj.css;
+  var media = obj.media;
+  var sourceMap = obj.sourceMap;
+
+  if (media) {
+    style.setAttribute('media', media);
+  } else {
+    style.removeAttribute('media');
+  }
+
+  if (sourceMap && typeof btoa !== 'undefined') {
+    css += "\n/*# sourceMappingURL=data:application/json;base64,".concat(btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))), " */");
+  } // For old IE
+
+  /* istanbul ignore if  */
+
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    while (style.firstChild) {
+      style.removeChild(style.firstChild);
+    }
+
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var singleton = null;
+var singletonCounter = 0;
+
+function addStyle(obj, options) {
+  var style;
+  var update;
+  var remove;
+
+  if (options.singleton) {
+    var styleIndex = singletonCounter++;
+    style = singleton || (singleton = insertStyleElement(options));
+    update = applyToSingletonTag.bind(null, style, styleIndex, false);
+    remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+  } else {
+    style = insertStyleElement(options);
+    update = applyToTag.bind(null, style, options);
+
+    remove = function remove() {
+      removeStyleElement(style);
+    };
+  }
+
+  update(obj);
+  return function updateStyle(newObj) {
+    if (newObj) {
+      if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap) {
+        return;
+      }
+
+      update(obj = newObj);
+    } else {
+      remove();
+    }
+  };
+}
+
+module.exports = function (list, options) {
+  options = options || {}; // Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+  // tags it will allow on a page
+
+  if (!options.singleton && typeof options.singleton !== 'boolean') {
+    options.singleton = isOldIE();
+  }
+
+  list = list || [];
+  var lastIdentifiers = modulesToDom(list, options);
+  return function update(newList) {
+    newList = newList || [];
+
+    if (Object.prototype.toString.call(newList) !== '[object Array]') {
+      return;
+    }
+
+    for (var i = 0; i < lastIdentifiers.length; i++) {
+      var identifier = lastIdentifiers[i];
+      var index = getIndexByIdentifier(identifier);
+      stylesInDom[index].references--;
+    }
+
+    var newLastIdentifiers = modulesToDom(newList, options);
+
+    for (var _i = 0; _i < lastIdentifiers.length; _i++) {
+      var _identifier = lastIdentifiers[_i];
+
+      var _index = getIndexByIdentifier(_identifier);
+
+      if (stylesInDom[_index].references === 0) {
+        stylesInDom[_index].updater();
+
+        stylesInDom.splice(_index, 1);
+      }
+    }
+
+    lastIdentifiers = newLastIdentifiers;
+  };
+};
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/esm/extends.js":
 /*!************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/extends.js ***!
@@ -61360,6 +71033,18 @@ function _extends() {
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
 /******/ 		};
 /******/ 	})();
 /******/ 	
