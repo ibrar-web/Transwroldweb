@@ -84,7 +84,8 @@ class SurveyController extends Controller
         $worker_id = $request->input('worker_id');
         $customer_id = $request->input('customer_id');
         $access_token = $request->input('access_token');
-        $destinationPath = public_path('Transworld/' . $customer_id . '/');
+        $trackname = $request->input('trackname');
+        $destinationPath = public_path('Transworld/'. $customer_id . '/'.$trackname.'/');
         $count = DB::table('users')->where('id', $worker_id)->where('access_token', $access_token)->count('id');
         if ($count > 0) {
             if ($request->file('image')) {
@@ -93,7 +94,7 @@ class SurveyController extends Controller
                 $file = $request->file('image');
                 $filename = $file->getClientOriginalExtension();
                 $name=$file->getClientOriginalName();
-                $file->move($destinationPath, $name .$customer_id . '.'. $filename);
+                $file->move($destinationPath, $customer_id . $name);
             }
         } else {
             return abort(500, 'You are not allowed1');

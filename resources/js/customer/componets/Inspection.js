@@ -128,7 +128,11 @@ class GisView extends React.Component {
 
         filter: [],
 
-        filterDates: { from: '', to: '' }
+        filterDates: { from: '', to: '' },
+
+        trackMedia: {},
+
+        showImage: false,
     }
     // infowindowclosed = () => {
     //     var temp = { lat: 0, lng: 0 }
@@ -1109,18 +1113,18 @@ class GisView extends React.Component {
     // }
 
     addToTrack = (val) => {
-        console.log(val)
+        //console.log(val)
         let tempTracks = this.state.tracksShow;
         let tempMarkers = [];
         let center = this.state.center;
 
         if (tempTracks.some(value => { return value.id === val.id })) {
-            console.log('if running')
+            //console.log('if running')
             tempTracks = tempTracks.filter((track) => {
                 return track.id !== val.id
             })
 
-            console.log(tempTracks.length)
+            // console.log(tempTracks.length)
 
             tempTracks.forEach((val) => {
                 JSON.parse(val.alldata).forEach((value) => {
@@ -1142,7 +1146,8 @@ class GisView extends React.Component {
             })
 
         } else {
-            console.log('else running')
+            // console.log('else running')
+            
             tempTracks.push(val)
 
             tempTracks.forEach((val) => {
@@ -1163,6 +1168,7 @@ class GisView extends React.Component {
 
                 return val;
             })
+
         }
 
         if (tempMarkers.length > 0) {
@@ -1170,8 +1176,8 @@ class GisView extends React.Component {
         }
 
         this.setState({ tracksShow: tempTracks, markersShow: tempMarkers, center: center }, () => {
-            console.log('tracks after selection', tempTracks)
-            console.log('markers after selection', tempMarkers)
+             console.log('tracks after selection', tempTracks)
+            // console.log('markers after selection', tempMarkers)
         })
 
     }
@@ -1179,9 +1185,9 @@ class GisView extends React.Component {
 
     dropdownClicked = (regidx, type, name) => {
         let tempRegions = this.state.regions
-        console.log('TYPE', type)
+        // console.log('TYPE', type)
         if (type === 'city') {
-            console.log('inside city')
+            // console.log('inside city')
             let tempCities = [];
             tempRegions[regidx].cities.forEach((val) => {
                 let tempCity = val;
@@ -1194,11 +1200,11 @@ class GisView extends React.Component {
             tempRegions[regidx].cities = tempCities;
 
             this.setState({ regions: tempRegions }, () => {
-                console.log(this.state.regions)
+                // console.log(this.state.regions)
             })
         }
         if (type === 'region') {
-            console.log('inside region')
+            // console.log('inside region')
             tempRegions = tempRegions.map((val) => {
                 if (val.name === name) {
                     val.dropdown = !val.dropdown
@@ -1207,20 +1213,20 @@ class GisView extends React.Component {
             })
 
             this.setState({ regions: tempRegions }, () => {
-                console.log(this.state.regions)
+                // console.log(this.state.regions)
             })
         }
 
     }
 
     markerClicked = (value) => {
-        console.log(value)
+        // console.log(value)
         let tempDetailsToShow = [];
         let tempDetailsToShowMarker = value;
         let tempDetailsToShowPosition = value.position
         let tempDetailsToShowType = ''
         if (Array.isArray(value.data[0])) {
-            console.log('data elements array');
+            // console.log('data elements array');
             tempDetailsToShowType = 'floor'
             value.data.forEach((val, index) => {
 
@@ -1236,29 +1242,29 @@ class GisView extends React.Component {
 
             })
         } else {
-            console.log('not an array')
+            // console.log('not an array')
             tempDetailsToShowType = 'Not a Floor'
             value.data.forEach((val) => {
                 tempDetailsToShow.push({ name: val.name, value: val.Value })
             })
         }
 
-        console.log(tempDetailsToShow);
-        console.log(tempDetailsToShowPosition);
-        console.log(tempDetailsToShowType)
+        // console.log(tempDetailsToShow);
+        // console.log(tempDetailsToShowPosition);
+        // console.log(tempDetailsToShowType)
 
         this.setState({ detailsToShowMarker: tempDetailsToShowMarker, detailsToShow: tempDetailsToShow, detailsToShowPosition: tempDetailsToShowPosition, detailsToShowType: tempDetailsToShowType }, () => {
 
-            console.log('checkState', this.state.detailsToShowType)
+            //console.log('checkState', this.state.detailsToShowType)
         })
 
     }
 
     logoutClicked = () => {
-        console.log('logout clicked')
+        //console.log('logout clicked')
 
         Axios.post('./logout').then(res => {
-            console.log(res)
+            // console.log(res)
             window.history.back()
         })
     }
@@ -1296,7 +1302,7 @@ class GisView extends React.Component {
         })
 
         this.setState({ filter: tempFilter, tracksShow: tempTracks, markersShow: tempMarkers }, () => {
-            console.log(this.state.filter)
+            //console.log(this.state.filter)
         })
 
     }
@@ -1334,7 +1340,7 @@ class GisView extends React.Component {
         })
 
         this.setState({ filter: tempFilter, tracksShow: tempTracks, markersShow: tempMarkers }, () => {
-            console.log(this.state.filter)
+            //console.log(this.state.filter)
         })
     }
 
@@ -1353,7 +1359,7 @@ class GisView extends React.Component {
         }
 
         this.setState({ filterDates: temp }, () => {
-            console.log(this.state.filterDates)
+            //console.log(this.state.filterDates)
         })
 
 
@@ -1364,8 +1370,8 @@ class GisView extends React.Component {
         let fromDate = new Date(this.state.filterDates.from);
         let toDate = new Date(this.state.filterDates.to);
 
-        console.log('from', fromDate)
-        console.log('to', toDate)
+        // console.log('from', fromDate)
+        // console.log('to', toDate)
 
         if (this.state.filterDates.from === '' || this.state.filterDates.to === '') {
             alert('Please Select To and From Dates')
@@ -1398,7 +1404,9 @@ class GisView extends React.Component {
         this.setState({ tracksShow: tempTracks, markersShow: tempMarkers })
 
     }
-
+    resetDateFilter = () => {
+        this.setState({ tracksShow: [], markersShow: [] })
+    }
     render() {
 
         var track = this.state.track;
@@ -1423,12 +1431,13 @@ class GisView extends React.Component {
                                 <div style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center' }} title="Logout"><a href='logout'><i className="fa fa-sign-out" style={{ color: 'black' }}></i></a></div>
                                 <div className={this.state.filter.includes('Residentail') ? "orange" : ""} style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center' }} title="Residential Markers" onClick={() => this.residentialClicked()}><i className="fa fa-home" style={{ color: 'black' }}></i></div>
                                 <div className={this.state.filter.includes('Commercail') ? "orange" : ""} style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center' }} title="Commercial Markers" onClick={() => this.commercialClicked()}><i className="fa fa-building" style={{ color: 'black' }}></i></div>
+                                <div className={this.state.filter.includes('Commercail') ? "orange" : ""} style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center' }} title="Show Images" onClick={() => this.setState({showImage: true})}><i className="fa fa-image" style={{ color: 'black' }}></i></div>
 
-                                <div style={{ cursor: 'pointer', heigth: '20px', width: '70%', textAlign: 'right' }} onClick={() => this.hideSideBar()} ><i className="fa fa-arrow-left" ></i></div>
+                                <div style={{ cursor: 'pointer', heigth: '20px', width: '60%', textAlign: 'right' }} onClick={() => this.hideSideBar()} ><i className="fa fa-arrow-left" ></i></div>
                             </div>
                             <hr></hr>
                             <div className="tracks">
-                                <h5 style={{ marginTop: 0, textAlign: 'center' }}>Area & Tracks</h5>
+                                <h5 style={{ marginTop: 0, textAlign: 'center' }}>Area & Surveys</h5>
 
                                 {this.state.regions.map((val, index) => {
                                     return (
@@ -1473,6 +1482,7 @@ class GisView extends React.Component {
                                 <input type="date" placeholder="To" onChange={(e) => this.dateEntered(e, 'to')} />
                                 <br></br>
                                 <button onClick={() => this.applyDateFilter()}>Apply Filter</button>
+                                <button onClick={() => this.resetDateFilter()}>Reset</button>
                             </div>
                             {/* <div className="filters">
                                 <div style={{ height: '60px' }}>
@@ -1530,7 +1540,7 @@ class GisView extends React.Component {
                         <GoogleMap
                             mapContainerStyle={containerStyle}
                             center={this.state.center}
-                            zoom={14}
+                            zoom={10}
                             labels={true}
 
                         >
@@ -1542,7 +1552,7 @@ class GisView extends React.Component {
                                             onClick={() => this.markerClicked(value)}
                                             icon={{
                                                 url: `./markers/${value.markertype}.png`,
-                                                scaledSize: { width: 30, height: 30 },
+                                                scaledSize: { width: 16, height: 20 },
                                                 anchor: { x: 5, y: 20 }
                                             }}
                                             position={value.position}
@@ -1586,8 +1596,8 @@ class GisView extends React.Component {
                                                             {value.data.map((value1, ind) => {
                                                                 return (
                                                                     <tr key={ind}>
-                                                                        <td style={{ border: '1px solid black' ,width:"80%"}}>{value1.name}</td>
-                                                                        <td style={{ border: '1px solid black' ,width:"20%" }}>{value1.value}</td>
+                                                                        <td style={{ border: '1px solid black', width: "80%" }}>{value1.name}</td>
+                                                                        <td style={{ border: '1px solid black', width: "20%" }}>{value1.value}</td>
                                                                     </tr>
                                                                 )
                                                             })}
@@ -1613,8 +1623,8 @@ class GisView extends React.Component {
                                                 {this.state.detailsToShow.map((value, index) => {
                                                     return (
                                                         <tr key={index}>
-                                                            <td style={{ border: '1px solid black',width:"80%" }}>{value.name}</td>
-                                                            <td style={{ border: '1px solid black' ,width:"20%" }}>{value.value}</td>
+                                                            <td style={{ border: '1px solid black', width: "80%" }}>{value.name}</td>
+                                                            <td style={{ border: '1px solid black', width: "20%" }}>{value.value}</td>
                                                         </tr>
 
                                                     )
@@ -2083,6 +2093,28 @@ class GisView extends React.Component {
                     </div>
                 } */}
 
+                {this.state.showImage &&
+                    <div className="GisView_image">
+                        <div onClick={() => this.setState({showImage: false})} style={{ fontWeight: 'bold', marginRight: '20px', cursor: 'pointer', position: 'fixed', right: '0', top: '10px' }}>x</div>
+                        <div style={{ clear: 'both' }}></div>
+                        <h5 style={{ marginTop: 0, textAlign: 'center' }}> Images of Selected Surveys </h5>
+                        {this.state.tracksShow.map((value, index) => {
+                            return (
+                                <div key={index} style={{textAlign: 'center'}}>
+                                    <h5>{value.name}</h5>
+                                        {value.media.map((val, ind) => {
+                                            return (
+                                                <a href={`./Transworld/1/${value.name}/1${val}`} target='__blank'>
+                                                    <img src={`./Transworld/1/${value.name}/1${val}`} style={{height: '150px', width: '40%', marginLeft: '10px'}}></img>
+                                                </a>
+                                                
+                                            )
+                                        })}
+                                </div>
+                            )
+                        })}
+                    </div>
+                }
             </div>
         )
     }
@@ -2115,12 +2147,14 @@ class GisView extends React.Component {
 
         Axios.post('./findmydata', {}, config)
             .then(res => {
-                console.log('checking', res.data);
+                // console.log('checking', res.data);
                 //let markers = JSON.parse(res.data.data[0].alldata);
                 let markers = [];
                 let cities = [];
                 let regions = [];
+                let media = {};
                 let tracks = res.data.data;
+
 
 
                 tracks.forEach((val, i) => {
@@ -2136,6 +2170,7 @@ class GisView extends React.Component {
                         regions.push(val.region)
                     }
 
+                    media[val.name] = JSON.parse(val.media);
 
                 })
 
@@ -2174,12 +2209,19 @@ class GisView extends React.Component {
                     return val;
                 })
 
-                console.log('markers', markers)
-                console.log('regions', regions)
-                console.log('cities', cities)
+                tracks = tracks.map(val => {
 
-                this.setState({ tracks: tracks, markers: markers, center: markers[markers.length - 1].position, regions: regions }, () => {
-                    console.log(this.state.tracksShow)
+                    let media = JSON.parse(val.media);
+                    val.media = media
+                    return val
+                })
+
+                // console.log('markers', markers)
+                // console.log('regions', regions)
+                // console.log('cities', cities)
+
+                this.setState({ tracks: tracks, markers: markers, center: markers[markers.length - 1].position, regions: regions, trackMedia: media }, () => {
+                    console.log(tracks);
                 })
 
 
@@ -2245,7 +2287,7 @@ class GisView extends React.Component {
                 // })
 
             }).catch(err => {
-                console.log(err);
+                //console.log(err);
                 this.setState({ isLoading: false });
                 alert('Ambigious response from the server, Please check your internet Connection')
             })

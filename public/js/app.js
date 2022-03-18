@@ -14034,7 +14034,9 @@ var GisView = /*#__PURE__*/function (_React$Component) {
       filterDates: {
         from: '',
         to: ''
-      }
+      },
+      trackMedia: {},
+      showImage: false
     });
 
     _defineProperty(_assertThisInitialized(_this), "hideSideBar", function () {
@@ -14050,7 +14052,7 @@ var GisView = /*#__PURE__*/function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "addToTrack", function (val) {
-      console.log(val);
+      //console.log(val)
       var tempTracks = _this.state.tracksShow;
       var tempMarkers = [];
       var center = _this.state.center;
@@ -14058,11 +14060,11 @@ var GisView = /*#__PURE__*/function (_React$Component) {
       if (tempTracks.some(function (value) {
         return value.id === val.id;
       })) {
-        console.log('if running');
+        //console.log('if running')
         tempTracks = tempTracks.filter(function (track) {
           return track.id !== val.id;
-        });
-        console.log(tempTracks.length);
+        }); // console.log(tempTracks.length)
+
         tempTracks.forEach(function (val) {
           JSON.parse(val.alldata).forEach(function (value) {
             if (_this.state.filter.includes(value.markertype) || _this.state.filter.length === 0) {
@@ -14081,7 +14083,7 @@ var GisView = /*#__PURE__*/function (_React$Component) {
           return val;
         });
       } else {
-        console.log('else running');
+        // console.log('else running')
         tempTracks.push(val);
         tempTracks.forEach(function (val) {
           JSON.parse(val.alldata).forEach(function (value) {
@@ -14111,17 +14113,15 @@ var GisView = /*#__PURE__*/function (_React$Component) {
         markersShow: tempMarkers,
         center: center
       }, function () {
-        console.log('tracks after selection', tempTracks);
-        console.log('markers after selection', tempMarkers);
+        console.log('tracks after selection', tempTracks); // console.log('markers after selection', tempMarkers)
       });
     });
 
     _defineProperty(_assertThisInitialized(_this), "dropdownClicked", function (regidx, type, name) {
-      var tempRegions = _this.state.regions;
-      console.log('TYPE', type);
+      var tempRegions = _this.state.regions; // console.log('TYPE', type)
 
       if (type === 'city') {
-        console.log('inside city');
+        // console.log('inside city')
         var tempCities = [];
         tempRegions[regidx].cities.forEach(function (val) {
           var tempCity = val;
@@ -14136,13 +14136,12 @@ var GisView = /*#__PURE__*/function (_React$Component) {
 
         _this.setState({
           regions: tempRegions
-        }, function () {
-          console.log(_this.state.regions);
+        }, function () {// console.log(this.state.regions)
         });
       }
 
       if (type === 'region') {
-        console.log('inside region');
+        // console.log('inside region')
         tempRegions = tempRegions.map(function (val) {
           if (val.name === name) {
             val.dropdown = !val.dropdown;
@@ -14153,21 +14152,20 @@ var GisView = /*#__PURE__*/function (_React$Component) {
 
         _this.setState({
           regions: tempRegions
-        }, function () {
-          console.log(_this.state.regions);
+        }, function () {// console.log(this.state.regions)
         });
       }
     });
 
     _defineProperty(_assertThisInitialized(_this), "markerClicked", function (value) {
-      console.log(value);
+      // console.log(value)
       var tempDetailsToShow = [];
       var tempDetailsToShowMarker = value;
       var tempDetailsToShowPosition = value.position;
       var tempDetailsToShowType = '';
 
       if (Array.isArray(value.data[0])) {
-        console.log('data elements array');
+        // console.log('data elements array');
         tempDetailsToShowType = 'floor';
         value.data.forEach(function (val, index) {
           var num = index + 1;
@@ -14184,7 +14182,7 @@ var GisView = /*#__PURE__*/function (_React$Component) {
           tempDetailsToShow.push(temp);
         });
       } else {
-        console.log('not an array');
+        // console.log('not an array')
         tempDetailsToShowType = 'Not a Floor';
         value.data.forEach(function (val) {
           tempDetailsToShow.push({
@@ -14192,26 +14190,24 @@ var GisView = /*#__PURE__*/function (_React$Component) {
             value: val.Value
           });
         });
-      }
+      } // console.log(tempDetailsToShow);
+      // console.log(tempDetailsToShowPosition);
+      // console.log(tempDetailsToShowType)
 
-      console.log(tempDetailsToShow);
-      console.log(tempDetailsToShowPosition);
-      console.log(tempDetailsToShowType);
 
       _this.setState({
         detailsToShowMarker: tempDetailsToShowMarker,
         detailsToShow: tempDetailsToShow,
         detailsToShowPosition: tempDetailsToShowPosition,
         detailsToShowType: tempDetailsToShowType
-      }, function () {
-        console.log('checkState', _this.state.detailsToShowType);
+      }, function () {//console.log('checkState', this.state.detailsToShowType)
       });
     });
 
     _defineProperty(_assertThisInitialized(_this), "logoutClicked", function () {
-      console.log('logout clicked');
+      //console.log('logout clicked')
       axios__WEBPACK_IMPORTED_MODULE_1___default().post('./logout').then(function (res) {
-        console.log(res);
+        // console.log(res)
         window.history.back();
       });
     });
@@ -14253,8 +14249,7 @@ var GisView = /*#__PURE__*/function (_React$Component) {
         filter: tempFilter,
         tracksShow: tempTracks,
         markersShow: tempMarkers
-      }, function () {
-        console.log(_this.state.filter);
+      }, function () {//console.log(this.state.filter)
       });
     });
 
@@ -14295,8 +14290,7 @@ var GisView = /*#__PURE__*/function (_React$Component) {
         filter: tempFilter,
         tracksShow: tempTracks,
         markersShow: tempMarkers
-      }, function () {
-        console.log(_this.state.filter);
+      }, function () {//console.log(this.state.filter)
       });
     });
 
@@ -14315,16 +14309,14 @@ var GisView = /*#__PURE__*/function (_React$Component) {
 
       _this.setState({
         filterDates: temp
-      }, function () {
-        console.log(_this.state.filterDates);
+      }, function () {//console.log(this.state.filterDates)
       });
     });
 
     _defineProperty(_assertThisInitialized(_this), "applyDateFilter", function () {
       var fromDate = new Date(_this.state.filterDates.from);
-      var toDate = new Date(_this.state.filterDates.to);
-      console.log('from', fromDate);
-      console.log('to', toDate);
+      var toDate = new Date(_this.state.filterDates.to); // console.log('from', fromDate)
+      // console.log('to', toDate)
 
       if (_this.state.filterDates.from === '' || _this.state.filterDates.to === '') {
         alert('Please Select To and From Dates');
@@ -14355,6 +14347,13 @@ var GisView = /*#__PURE__*/function (_React$Component) {
       _this.setState({
         tracksShow: tempTracks,
         markersShow: tempMarkers
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "resetDateFilter", function () {
+      _this.setState({
+        tracksShow: [],
+        markersShow: []
       });
     });
 
@@ -14458,10 +14457,30 @@ var GisView = /*#__PURE__*/function (_React$Component) {
                   }
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                className: this.state.filter.includes('Commercail') ? "orange" : "",
                 style: {
                   cursor: 'pointer',
                   heigth: '20px',
-                  width: '70%',
+                  width: '10%',
+                  textAlign: 'center'
+                },
+                title: "Show Images",
+                onClick: function onClick() {
+                  return _this2.setState({
+                    showImage: true
+                  });
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
+                  className: "fa fa-image",
+                  style: {
+                    color: 'black'
+                  }
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                style: {
+                  cursor: 'pointer',
+                  heigth: '20px',
+                  width: '60%',
                   textAlign: 'right'
                 },
                 onClick: function onClick() {
@@ -14478,7 +14497,7 @@ var GisView = /*#__PURE__*/function (_React$Component) {
                   marginTop: 0,
                   textAlign: 'center'
                 },
-                children: "Area & Tracks"
+                children: "Area & Surveys"
               }), this.state.regions.map(function (val, index) {
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
@@ -14578,6 +14597,11 @@ var GisView = /*#__PURE__*/function (_React$Component) {
                   return _this2.applyDateFilter();
                 },
                 children: "Apply Filter"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+                onClick: function onClick() {
+                  return _this2.resetDateFilter();
+                },
+                children: "Reset"
               })]
             })]
           })]
@@ -14588,7 +14612,7 @@ var GisView = /*#__PURE__*/function (_React$Component) {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_8__.GoogleMap, {
               mapContainerStyle: containerStyle,
               center: this.state.center,
-              zoom: 14,
+              zoom: 10,
               labels: true,
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_8__.MarkerClusterer, {
                 options: options,
@@ -14601,8 +14625,8 @@ var GisView = /*#__PURE__*/function (_React$Component) {
                       icon: {
                         url: "./markers/".concat(value.markertype, ".png"),
                         scaledSize: {
-                          width: 30,
-                          height: 30
+                          width: 16,
+                          height: 20
                         },
                         anchor: {
                           x: 5,
@@ -14708,6 +14732,56 @@ var GisView = /*#__PURE__*/function (_React$Component) {
               })]
             })
           })
+        }), this.state.showImage && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "GisView_image",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            onClick: function onClick() {
+              return _this2.setState({
+                showImage: false
+              });
+            },
+            style: {
+              fontWeight: 'bold',
+              marginRight: '20px',
+              cursor: 'pointer',
+              position: 'fixed',
+              right: '0',
+              top: '10px'
+            },
+            children: "x"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            style: {
+              clear: 'both'
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h5", {
+            style: {
+              marginTop: 0,
+              textAlign: 'center'
+            },
+            children: " Images of Selected Surveys "
+          }), this.state.tracksShow.map(function (value, index) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+              style: {
+                textAlign: 'center'
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h5", {
+                children: value.name
+              }), value.media.map(function (val, ind) {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+                  href: "./Transworld/1/".concat(value.name, "/1").concat(val),
+                  target: "__blank",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
+                    src: "./Transworld/1/".concat(value.name, "/1").concat(val),
+                    style: {
+                      height: '150px',
+                      width: '40%',
+                      marginLeft: '10px'
+                    }
+                  })
+                });
+              })]
+            }, index);
+          })]
         })]
       });
     }
@@ -14738,11 +14812,12 @@ var GisView = /*#__PURE__*/function (_React$Component) {
         }
       };
       axios__WEBPACK_IMPORTED_MODULE_1___default().post('./findmydata', {}, config).then(function (res) {
-        console.log('checking', res.data); //let markers = JSON.parse(res.data.data[0].alldata);
-
+        // console.log('checking', res.data);
+        //let markers = JSON.parse(res.data.data[0].alldata);
         var markers = [];
         var cities = [];
         var regions = [];
+        var media = {};
         var tracks = res.data.data;
         tracks.forEach(function (val, i) {
           JSON.parse(val.alldata).forEach(function (value) {
@@ -14756,6 +14831,8 @@ var GisView = /*#__PURE__*/function (_React$Component) {
           if (regions.includes(val.region) === false) {
             regions.push(val.region);
           }
+
+          media[val.name] = JSON.parse(val.media);
         });
         cities = cities.map(function (val) {
           var tempTracks = [];
@@ -14798,17 +14875,22 @@ var GisView = /*#__PURE__*/function (_React$Component) {
           val.position = position;
           return val;
         });
-        console.log('markers', markers);
-        console.log('regions', regions);
-        console.log('cities', cities);
+        tracks = tracks.map(function (val) {
+          var media = JSON.parse(val.media);
+          val.media = media;
+          return val;
+        }); // console.log('markers', markers)
+        // console.log('regions', regions)
+        // console.log('cities', cities)
 
         _this3.setState({
           tracks: tracks,
           markers: markers,
           center: markers[markers.length - 1].position,
-          regions: regions
+          regions: regions,
+          trackMedia: media
         }, function () {
-          console.log(_this3.state.tracksShow);
+          console.log(tracks);
         }); // return
         // // if (res.data === 'login') {
         // //     //alert('No Unauthorized Access');
@@ -14866,8 +14948,7 @@ var GisView = /*#__PURE__*/function (_React$Component) {
         // })
 
       })["catch"](function (err) {
-        console.log(err);
-
+        //console.log(err);
         _this3.setState({
           isLoading: false
         });
