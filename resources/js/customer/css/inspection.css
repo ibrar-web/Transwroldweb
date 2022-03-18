@@ -32,9 +32,14 @@
 }
 
 .tracks{
-    height: calc(100% - 40px);
+    max-height: calc(65% - 40px);
     border-bottom: 2px solid black;
     overflow: auto;
+}
+
+.dateFilter{
+  height: calc(35% - 40px);
+  overflow: auto;
 }
 
 .filterApplied{

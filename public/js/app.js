@@ -13726,6 +13726,84 @@ var Rout = function Rout() {
 
 /***/ }),
 
+/***/ "./resources/js/customer/componets/Formdownload.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/customer/componets/Formdownload.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+var Formdownload = function Formdownload(JSONData, ReportTitle, ShowLabel, trackName) {
+  console.log('track check', trackName);
+  var arrData = [];
+  arrData = _typeof(JSONData) != 'object' ? JSONData : JSONData;
+  console.log(arrData, 'arrData');
+  var CSV = ''; //Set Report title in first row or line
+  //CSV += ReportTitle + '\r\n\n';
+
+  var head = ['Name', 'Value']; //This condition will generate the Label/Header
+
+  if (ShowLabel) {
+    var row = ""; //This loop will extract the label from 1st index of on array
+
+    for (var index in head) {
+      console.log(head[index]); //Now convert each value to string and comma-seprated
+
+      row += head[index] + ',';
+    }
+
+    row = row.slice(0, -1); //append Label row with line break
+
+    CSV += row + '\r\n';
+  } //1st loop is to extract each row
+
+
+  arrData.forEach(function (objectval, index) {
+    var row = "";
+    row += '"' + objectval.name + '",';
+    row += '"' + objectval.value + '",';
+    row.slice(0, row.length - 1);
+    CSV += row + '\r\n';
+    row = "";
+  });
+
+  if (CSV == '') {
+    alert("Invalid data");
+    return;
+  } //Generate a file name
+
+
+  var fileName = "Infrastrature Survey Report"; //this will remove the blank-spaces from the title and replace it with an underscore
+  //fileName += ReportTitle.replace(/ /g,"_");   
+  //Initialize file format you want csv or xls
+
+  var uri = 'data:text/kml;charset=utf-8,' + escape(CSV); // Now the little tricky part.
+  // you can use either>> window.open(uri);
+  // but this will not work in some browsers
+  // or you will not get the correct file extension    
+  //this trick will generate a temp <a /> tag
+
+  var link = document.createElement("a");
+  link.href = uri; //set the visibility hidden so it will not effect on your web-layout
+
+  link.style = "visibility:hidden";
+  link.download = fileName + ".csv"; //this part will append the anchor tag and remove it after automatic click
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Formdownload);
+
+/***/ }),
+
 /***/ "./resources/js/customer/componets/Inspection.js":
 /*!*******************************************************!*\
   !*** ./resources/js/customer/componets/Inspection.js ***!
@@ -13738,14 +13816,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _react_google_maps_api__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @react-google-maps/api */ "./node_modules/@react-google-maps/api/dist/esm.js");
+/* harmony import */ var _react_google_maps_api__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @react-google-maps/api */ "./node_modules/@react-google-maps/api/dist/esm.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _css_inspection_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../css/inspection.css */ "./resources/js/customer/css/inspection.css");
 /* harmony import */ var _node_modules_font_awesome_scss_font_awesome_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/font-awesome/scss/font-awesome.scss */ "./node_modules/font-awesome/scss/font-awesome.scss");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Formdownload__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Formdownload */ "./resources/js/customer/componets/Formdownload.js");
+/* harmony import */ var _Multiplefromdownload__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Multiplefromdownload */ "./resources/js/customer/componets/Multiplefromdownload.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -13776,6 +13856,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+
  // import Spinner from "./Spinner";
 
 
@@ -13787,6 +13869,84 @@ var persistentselectedTracks = [];
 var colors = ['#FF0000', '#00FF00', '#FFFF00', '#FFA500', '#0000FF', '#808080', '#FF5733', '#33C9FF', '#7EFF33', '#FF0000', '#00FF00', '#FFFF00', '#FFA500', '#0000FF', '#808080', '#FF5733', '#33C9FF', '#7EFF33'];
 var cableName = [];
 var color2 = ['ff0000ff', 'ff00ff00', 'ff00ffff', 'ff0080ff', 'fff0000', '506E6E6E', '#FF0000', '#00FF00', '#FFFF00', '#FFA500', '#0000FF', '#808080', '#FF5733', '#33C9FF', '#7EFF33'];
+var locations = [{
+  lat: -31.56391,
+  lng: 147.154312
+}, {
+  lat: -33.718234,
+  lng: 150.363181
+}, {
+  lat: -33.727111,
+  lng: 150.371124
+}, {
+  lat: -33.848588,
+  lng: 151.209834
+}, {
+  lat: -33.851702,
+  lng: 151.216968
+}, {
+  lat: -34.671264,
+  lng: 150.863657
+}, {
+  lat: -35.304724,
+  lng: 148.662905
+}, {
+  lat: -36.817685,
+  lng: 175.699196
+}, {
+  lat: -36.828611,
+  lng: 175.790222
+}, {
+  lat: -37.75,
+  lng: 145.116667
+}, {
+  lat: -37.759859,
+  lng: 145.128708
+}, {
+  lat: -37.765015,
+  lng: 145.133858
+}, {
+  lat: -37.770104,
+  lng: 145.143299
+}, {
+  lat: -37.7737,
+  lng: 145.145187
+}, {
+  lat: -37.774785,
+  lng: 145.137978
+}, {
+  lat: -37.819616,
+  lng: 144.968119
+}, {
+  lat: -38.330766,
+  lng: 144.695692
+}, {
+  lat: -39.927193,
+  lng: 175.053218
+}, {
+  lat: -41.330162,
+  lng: 174.865694
+}, {
+  lat: -42.734358,
+  lng: 147.439506
+}, {
+  lat: -42.734358,
+  lng: 147.501315
+}, {
+  lat: -42.735258,
+  lng: 147.438
+}, {
+  lat: -43.999792,
+  lng: 170.463352
+}];
+var options = {
+  imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' // so you must have m1.png, m2.png, m3.png, m4.png, m5.png and m6.png in that folder
+
+};
+
+function createKey(location) {
+  return location.lat + location.lng;
+}
 
 var GisView = /*#__PURE__*/function (_React$Component) {
   _inherits(GisView, _React$Component);
@@ -13869,7 +14029,12 @@ var GisView = /*#__PURE__*/function (_React$Component) {
         lng: 0
       },
       detailsToShowType: '',
-      filter: []
+      detailsToShowMarker: {},
+      filter: [],
+      filterDates: {
+        from: '',
+        to: ''
+      }
     });
 
     _defineProperty(_assertThisInitialized(_this), "hideSideBar", function () {
@@ -13901,7 +14066,9 @@ var GisView = /*#__PURE__*/function (_React$Component) {
         tempTracks.forEach(function (val) {
           JSON.parse(val.alldata).forEach(function (value) {
             if (_this.state.filter.includes(value.markertype) || _this.state.filter.length === 0) {
-              tempMarkers.push(value);
+              var myMarker = value;
+              myMarker.track = val.name;
+              tempMarkers.push(myMarker);
             }
           });
         });
@@ -13919,7 +14086,9 @@ var GisView = /*#__PURE__*/function (_React$Component) {
         tempTracks.forEach(function (val) {
           JSON.parse(val.alldata).forEach(function (value) {
             if (_this.state.filter.includes(value.markertype) || _this.state.filter.length === 0) {
-              tempMarkers.push(value);
+              var myMarker = value;
+              myMarker.track = val.name;
+              tempMarkers.push(myMarker);
             }
           });
         });
@@ -13993,6 +14162,7 @@ var GisView = /*#__PURE__*/function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "markerClicked", function (value) {
       console.log(value);
       var tempDetailsToShow = [];
+      var tempDetailsToShowMarker = value;
       var tempDetailsToShowPosition = value.position;
       var tempDetailsToShowType = '';
 
@@ -14029,6 +14199,7 @@ var GisView = /*#__PURE__*/function (_React$Component) {
       console.log(tempDetailsToShowType);
 
       _this.setState({
+        detailsToShowMarker: tempDetailsToShowMarker,
         detailsToShow: tempDetailsToShow,
         detailsToShowPosition: tempDetailsToShowPosition,
         detailsToShowType: tempDetailsToShowType
@@ -14063,7 +14234,9 @@ var GisView = /*#__PURE__*/function (_React$Component) {
       tempTracks.forEach(function (val) {
         JSON.parse(val.alldata).forEach(function (value) {
           if (tempFilter.includes(value.markertype) || _this.state.filter.length === 0) {
-            tempMarkers.push(value);
+            var myMarker = value;
+            myMarker.track = val.name;
+            tempMarkers.push(myMarker);
           }
         });
       });
@@ -14103,7 +14276,9 @@ var GisView = /*#__PURE__*/function (_React$Component) {
       tempTracks.forEach(function (val) {
         JSON.parse(val.alldata).forEach(function (value) {
           if (tempFilter.includes(value.markertype) || _this.state.filter.length === 0) {
-            tempMarkers.push(value);
+            var myMarker = value;
+            myMarker.track = val.name;
+            tempMarkers.push(myMarker);
           }
         });
       });
@@ -14125,6 +14300,64 @@ var GisView = /*#__PURE__*/function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "dateEntered", function (event, type) {
+      var temp = _this.state.filterDates;
+
+      if (type == 'from') {
+        //console.log('from', event.target.value)
+        temp.from = event.target.value;
+      }
+
+      if (type == 'to') {
+        //console.log('to', event.target.value)
+        temp.to = event.target.value;
+      }
+
+      _this.setState({
+        filterDates: temp
+      }, function () {
+        console.log(_this.state.filterDates);
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "applyDateFilter", function () {
+      var fromDate = new Date(_this.state.filterDates.from);
+      var toDate = new Date(_this.state.filterDates.to);
+      console.log('from', fromDate);
+      console.log('to', toDate);
+
+      if (_this.state.filterDates.from === '' || _this.state.filterDates.to === '') {
+        alert('Please Select To and From Dates');
+        return;
+      }
+
+      var tempTracks = _this.state.tracks;
+      var tempMarkers = [];
+      tempTracks.forEach(function (val) {
+        var dateObj = new Date(val.created_at);
+        JSON.parse(val.alldata).forEach(function (value) {
+          if (dateObj.getTime() >= fromDate.getTime() && dateObj.getTime() <= toDate.getTime()) {
+            var myMarker = value;
+            myMarker.track = val.name;
+            tempMarkers.push(myMarker);
+          }
+        });
+      });
+      tempMarkers = tempMarkers.map(function (val) {
+        var position = {
+          lat: val.postion[0],
+          lng: val.postion[1]
+        };
+        val.position = position;
+        return val;
+      });
+
+      _this.setState({
+        tracksShow: tempTracks,
+        markersShow: tempMarkers
+      });
+    });
+
     return _this;
   }
 
@@ -14139,7 +14372,7 @@ var GisView = /*#__PURE__*/function (_React$Component) {
         width: '100%',
         height: '100%'
       };
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         style: {
           height: 'calc(100vh - 30px)',
           width: '100vw',
@@ -14149,9 +14382,9 @@ var GisView = /*#__PURE__*/function (_React$Component) {
           overflow: 'hidden',
           position: 'relative'
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "mapSideBar ".concat(this.state.sideBarHide ? "mapSideBarShorten" : ""),
-          children: [this.state.sideBarHide && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          children: [this.state.sideBarHide && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
             onClick: function onClick() {
               return _this2.showSideBar();
             },
@@ -14161,17 +14394,17 @@ var GisView = /*#__PURE__*/function (_React$Component) {
               textAlign: 'center',
               cursor: 'pointer'
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
               className: "fa fa-arrow-right"
             })
-          }), this.state.sideBarHide == false && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          }), this.state.sideBarHide == false && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
               style: {
                 display: 'flex',
                 flexWrap: 'wrap',
                 justifyContent: 'center'
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                 style: {
                   cursor: 'pointer',
                   heigth: '20px',
@@ -14179,16 +14412,16 @@ var GisView = /*#__PURE__*/function (_React$Component) {
                   textAlign: 'center'
                 },
                 title: "Logout",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
                   href: "logout",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
                     className: "fa fa-sign-out",
                     style: {
                       color: 'black'
                     }
                   })
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                 className: this.state.filter.includes('Residentail') ? "orange" : "",
                 style: {
                   cursor: 'pointer',
@@ -14200,13 +14433,13 @@ var GisView = /*#__PURE__*/function (_React$Component) {
                 onClick: function onClick() {
                   return _this2.residentialClicked();
                 },
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
                   className: "fa fa-home",
                   style: {
                     color: 'black'
                   }
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                 className: this.state.filter.includes('Commercail') ? "orange" : "",
                 style: {
                   cursor: 'pointer',
@@ -14218,13 +14451,13 @@ var GisView = /*#__PURE__*/function (_React$Component) {
                 onClick: function onClick() {
                   return _this2.commercialClicked();
                 },
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
                   className: "fa fa-building",
                   style: {
                     color: 'black'
                   }
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                 style: {
                   cursor: 'pointer',
                   heigth: '20px',
@@ -14234,55 +14467,55 @@ var GisView = /*#__PURE__*/function (_React$Component) {
                 onClick: function onClick() {
                   return _this2.hideSideBar();
                 },
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
                   className: "fa fa-arrow-left"
                 })
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
               className: "tracks",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h5", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h5", {
                 style: {
                   marginTop: 0,
                   textAlign: 'center'
                 },
                 children: "Area & Tracks"
               }), this.state.regions.map(function (val, index) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
                     style: {
                       cursor: 'pointer'
                     },
                     onClick: function onClick() {
                       return _this2.dropdownClicked(index, 'region', val.name);
                     },
-                    children: [val.name, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                    children: [val.name, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
                       className: "fa fa-angle-down",
                       style: {
                         color: 'black'
                       }
                     })]
                   }), val.cities.map(function (val1, index1) {
-                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
-                      children: val.dropdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+                      children: val.dropdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                         style: {
                           marginLeft: '20px'
                         },
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
                           style: {
                             cursor: 'pointer'
                           },
                           onClick: function onClick() {
                             return _this2.dropdownClicked(index, 'city', val1.name);
                           },
-                          children: [val1.name, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                          children: [val1.name, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
                             className: "fa fa-angle-down",
                             style: {
                               color: 'black'
                             }
                           })]
                         }), val1.tracks.map(function (val2, index2) {
-                          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
-                            children: val1.dropdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+                            children: val1.dropdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                               style: {
                                 width: 'calc(100% - 20px)',
                                 margin: '0 auto',
@@ -14291,12 +14524,12 @@ var GisView = /*#__PURE__*/function (_React$Component) {
                                 justifyContent: 'center',
                                 borderBottom: '1px solid gray'
                               },
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                                 style: {
                                   width: '12%',
                                   textAlign: 'left'
                                 },
-                                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+                                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
                                   onChange: function onChange() {
                                     return _this2.addToTrack(val2);
                                   },
@@ -14305,7 +14538,7 @@ var GisView = /*#__PURE__*/function (_React$Component) {
                                   }),
                                   type: "checkbox"
                                 }), " "]
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                                 style: {
                                   width: '88%',
                                   textAlign: 'left',
@@ -14324,38 +14557,65 @@ var GisView = /*#__PURE__*/function (_React$Component) {
                   })]
                 }, index);
               })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+              className: "dateFilter",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h5", {
+                children: "Date Filter"
+              }), "From", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+                type: "date",
+                placeholder: "From",
+                onChange: function onChange(e) {
+                  return _this2.dateEntered(e, 'from');
+                }
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("br", {}), "To", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+                type: "date",
+                placeholder: "To",
+                onChange: function onChange(e) {
+                  return _this2.dateEntered(e, 'to');
+                }
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+                onClick: function onClick() {
+                  return _this2.applyDateFilter();
+                },
+                children: "Apply Filter"
+              })]
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "map ".concat(this.state.sideBarHide ? "mapBigger" : ""),
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_6__.LoadScript, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_8__.LoadScript, {
             googleMapsApiKey: "AIzaSyC7heras8LxUkJxZSbXmJvPBB1qMStJTM4",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_6__.GoogleMap, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_8__.GoogleMap, {
               mapContainerStyle: containerStyle,
               center: this.state.center,
               zoom: 14,
               labels: true,
-              children: [this.state.markersShow.map(function (value, index) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_6__.Marker, {
-                    onClick: function onClick() {
-                      return _this2.markerClicked(value);
-                    },
-                    icon: {
-                      url: "./markers/".concat(value.markertype, ".png"),
-                      scaledSize: {
-                        width: 30,
-                        height: 30
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_8__.MarkerClusterer, {
+                options: options,
+                children: function children(clusterer) {
+                  return _this2.state.markersShow.map(function (value, index) {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_8__.Marker, {
+                      onClick: function onClick() {
+                        return _this2.markerClicked(value);
                       },
-                      anchor: {
-                        x: 5,
-                        y: 20
-                      }
-                    },
-                    position: value.position
-                  }, index)
-                });
-              }), this.state.detailsToShowPosition.lat !== 0 && this.state.detailsToShowPosition.lng !== 0 && this.state.detailsToShowType === 'floor' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_6__.InfoWindow, {
+                      icon: {
+                        url: "./markers/".concat(value.markertype, ".png"),
+                        scaledSize: {
+                          width: 30,
+                          height: 30
+                        },
+                        anchor: {
+                          x: 5,
+                          y: 20
+                        }
+                      },
+                      position: value.position,
+                      clusterer: clusterer
+                    }, index) // <Marker key={createKey(location)} position={location} clusterer={clusterer} />
+                    ;
+                  });
+                }
+              }), this.state.detailsToShowPosition.lat !== 0 && this.state.detailsToShowPosition.lng !== 0 && this.state.detailsToShowType === 'floor' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_8__.InfoWindow, {
                 position: this.state.detailsToShowPosition,
                 onCloseClick: function onCloseClick() {
                   return _this2.setState({
@@ -14365,27 +14625,34 @@ var GisView = /*#__PURE__*/function (_React$Component) {
                     }
                   });
                 },
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                  children: this.state.detailsToShow.map(function (value, index) {
-                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h5", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
+                    className: "fa fa-download",
+                    onClick: function onClick() {
+                      return (0,_Multiplefromdownload__WEBPACK_IMPORTED_MODULE_6__["default"])(_this2.state.detailsToShow, "Vehicle Report", true, _this2.state.detailsToShowMarker.track);
+                    }
+                  }), this.state.detailsToShow.map(function (value, index) {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h5", {
                         children: value.floor
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("table", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("table", {
                         border: "1",
                         style: {
                           width: '100%'
                         },
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("tbody", {
                           children: value.data.map(function (value1, ind) {
-                            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
                                 style: {
-                                  border: '1px solid black'
+                                  border: '1px solid black',
+                                  width: "80%"
                                 },
                                 children: value1.name
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
                                 style: {
-                                  border: '1px solid black'
+                                  border: '1px solid black',
+                                  width: "20%"
                                 },
                                 children: value1.value
                               })]
@@ -14394,9 +14661,9 @@ var GisView = /*#__PURE__*/function (_React$Component) {
                         })
                       })]
                     }, index);
-                  })
+                  })]
                 })
-              }), this.state.detailsToShowPosition.lat !== 0 && this.state.detailsToShowPosition.lng !== 0 && this.state.detailsToShowType === 'Not a Floor' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_6__.InfoWindow, {
+              }), this.state.detailsToShowPosition.lat !== 0 && this.state.detailsToShowPosition.lng !== 0 && this.state.detailsToShowType === 'Not a Floor' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_8__.InfoWindow, {
                 position: this.state.detailsToShowPosition,
                 onCloseClick: function onCloseClick() {
                   return _this2.setState({
@@ -14406,30 +14673,37 @@ var GisView = /*#__PURE__*/function (_React$Component) {
                     }
                   });
                 },
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("table", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
+                    className: "fa fa-download",
+                    onClick: function onClick() {
+                      return (0,_Formdownload__WEBPACK_IMPORTED_MODULE_5__["default"])(_this2.state.detailsToShow, "Vehicle Report", true, _this2.state.detailsToShowMarker.track);
+                    }
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("table", {
                     border: "1",
                     style: {
                       width: '100%'
                     },
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("tbody", {
                       children: this.state.detailsToShow.map(function (value, index) {
-                        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
                             style: {
-                              border: '1px solid black'
+                              border: '1px solid black',
+                              width: "80%"
                             },
                             children: value.name
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
                             style: {
-                              border: '1px solid black'
+                              border: '1px solid black',
+                              width: "20%"
                             },
                             children: value.value
                           })]
                         }, index);
                       })
                     })
-                  })
+                  })]
                 })
               })]
             })
@@ -14607,6 +14881,90 @@ var GisView = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (GisView);
+
+/***/ }),
+
+/***/ "./resources/js/customer/componets/Multiplefromdownload.js":
+/*!*****************************************************************!*\
+  !*** ./resources/js/customer/componets/Multiplefromdownload.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+var Multiplefromdownload = function Multiplefromdownload(JSONData, ReportTitle, ShowLabel, trackName) {
+  var arrData = [];
+  arrData = _typeof(JSONData) != 'object' ? JSONData : JSONData;
+  console.log(arrData, 'arrData');
+  var CSV = ''; //Set Report title in first row or line
+  //CSV += ReportTitle + '\r\n\n';
+
+  var head = ['Name', 'Value']; //This condition will generate the Label/Header
+
+  if (ShowLabel) {
+    var row = ""; //This loop will extract the label from 1st index of on array
+
+    for (var index in head) {
+      //Now convert each value to string and comma-seprated
+      row += head[index] + ',';
+    }
+
+    row = row.slice(0, -1); //append Label row with line break
+
+    CSV += row + '\r\n';
+  } //1st loop is to extract each row
+
+
+  arrData.forEach(function (objectval, index) {
+    var row = "";
+    row += '"' + objectval.floor + '",';
+    row.slice(0, row.length - 1);
+    CSV += row + '\r\n';
+    row = "";
+    objectval.data.forEach(function (objectval2, index) {
+      var row = "";
+      row += '"' + objectval2.name + '",';
+      row += '"' + objectval2.value + '",';
+      row.slice(0, row.length - 1);
+      CSV += row + '\r\n';
+      row = "";
+    });
+    CSV += row + '\r\n';
+  });
+
+  if (CSV == '') {
+    alert("Invalid data");
+    return;
+  } //Generate a file name
+
+
+  var fileName = "Infrastrature Survey Report"; //this will remove the blank-spaces from the title and replace it with an underscore
+  //fileName += ReportTitle.replace(/ /g,"_");   
+  //Initialize file format you want csv or xls
+
+  var uri = 'data:text/kml;charset=utf-8,' + escape(CSV); // Now the little tricky part.
+  // you can use either>> window.open(uri);
+  // but this will not work in some browsers
+  // or you will not get the correct file extension    
+  //this trick will generate a temp <a /> tag
+
+  var link = document.createElement("a");
+  link.href = uri; //set the visibility hidden so it will not effect on your web-layout
+
+  link.style = "visibility:hidden";
+  link.download = fileName + ".csv"; //this part will append the anchor tag and remove it after automatic click
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Multiplefromdownload);
 
 /***/ }),
 
@@ -19654,7 +20012,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* width */\r\n::-webkit-scrollbar {\r\n    width: 10px;\r\n  }\r\n  \r\n  /* Track */\r\n  ::-webkit-scrollbar-track {\r\n    background: #f1f1f1;\r\n  }\r\n  \r\n  /* Handle */\r\n  ::-webkit-scrollbar-thumb {\r\n    background: #888;\r\n  }\r\n  \r\n  /* Handle on hover */\r\n  ::-webkit-scrollbar-thumb:hover {\r\n    background: #555;\r\n  }\r\n\r\n.mapSideBar{\r\n    height: 100%;\r\n    width: 20%;\r\n    background: lightgray;\r\n    transition: all 1s ease;\r\n    position: relative;\r\n    z-index: 2;\r\n}\r\n\r\n.mapSideBarShorten{\r\n    width: 2%;\r\n}\r\n\r\n.tracks{\r\n    height: calc(100% - 40px);\r\n    border-bottom: 2px solid black;\r\n    overflow: auto;\r\n}\r\n\r\n.filterApplied{\r\n  color: rgb(235, 176, 16) !important;\r\n}\r\n\r\n.orange{\r\n  background-color: orange;\r\n}\r\n\r\n.filters{\r\n    height: 50%;\r\n}\r\n\r\n.map{\r\n    height: 100%;\r\n    width: 80%;\r\n    transition: all 1s ease;\r\n}\r\n\r\n.mapBigger{\r\n  width: 98%;\r\n}\r\n\r\n.GisView_report{\r\n    position: absolute;\r\n    height: 100%;\r\n    background: lightslategrey;\r\n    width: 30%;\r\n    right: 0;\r\n    top: 0;\r\n    right: 0;\r\n    z-index: 10000000;\r\n    color: white;\r\n    -webkit-animation: mymove 1s;\r\n            animation: mymove 1s;\r\n    -webkit-animation-fill-mode: forwards;\r\n            animation-fill-mode: forwards;\r\n    overflow: hidden;\r\n    \r\n}\r\n\r\n.GisView_image{\r\n  position: absolute;\r\n    height: 100%;\r\n    background: lightslategrey;\r\n    width: 30%;\r\n    right: 0;\r\n    top: 0;\r\n    right: 0;\r\n    z-index: 10000000;\r\n    color: white;\r\n    -webkit-animation: mymove 1s;\r\n            animation: mymove 1s;\r\n    -webkit-animation-fill-mode: forwards;\r\n            animation-fill-mode: forwards;\r\n    overflow: auto;\r\n}\r\n\r\n.GisView_filterWindow{\r\n  z-index: -1;\r\n  background: lightgray;\r\n  color: black;\r\n  font-size: 12px;\r\n  -webkit-animation: mymoveside 1s;\r\n          animation: mymoveside 1s;\r\n    -webkit-animation-fill-mode: forwards;\r\n            animation-fill-mode: forwards;\r\n}\r\n\r\n@-webkit-keyframes mymoveside {\r\n  from {top: -100%;}\r\n  to {top: 0;}\r\n}\r\n\r\n@keyframes mymoveside {\r\n  from {top: -100%;}\r\n  to {top: 0;}\r\n}\r\n\r\n@-webkit-keyframes mymove {\r\n    from {right: -100%;}\r\n    to {right: 0px;}\r\n  }\r\n\r\n@keyframes mymove {\r\n    from {right: -100%;}\r\n    to {right: 0px;}\r\n  }", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* width */\r\n::-webkit-scrollbar {\r\n    width: 10px;\r\n  }\r\n  \r\n  /* Track */\r\n  ::-webkit-scrollbar-track {\r\n    background: #f1f1f1;\r\n  }\r\n  \r\n  /* Handle */\r\n  ::-webkit-scrollbar-thumb {\r\n    background: #888;\r\n  }\r\n  \r\n  /* Handle on hover */\r\n  ::-webkit-scrollbar-thumb:hover {\r\n    background: #555;\r\n  }\r\n\r\n.mapSideBar{\r\n    height: 100%;\r\n    width: 20%;\r\n    background: lightgray;\r\n    transition: all 1s ease;\r\n    position: relative;\r\n    z-index: 2;\r\n}\r\n\r\n.mapSideBarShorten{\r\n    width: 2%;\r\n}\r\n\r\n.tracks{\r\n    max-height: calc(65% - 40px);\r\n    border-bottom: 2px solid black;\r\n    overflow: auto;\r\n}\r\n\r\n.dateFilter{\r\n  height: calc(35% - 40px);\r\n  overflow: auto;\r\n}\r\n\r\n.filterApplied{\r\n  color: rgb(235, 176, 16) !important;\r\n}\r\n\r\n.orange{\r\n  background-color: orange;\r\n}\r\n\r\n.filters{\r\n    height: 50%;\r\n}\r\n\r\n.map{\r\n    height: 100%;\r\n    width: 80%;\r\n    transition: all 1s ease;\r\n}\r\n\r\n.mapBigger{\r\n  width: 98%;\r\n}\r\n\r\n.GisView_report{\r\n    position: absolute;\r\n    height: 100%;\r\n    background: lightslategrey;\r\n    width: 30%;\r\n    right: 0;\r\n    top: 0;\r\n    right: 0;\r\n    z-index: 10000000;\r\n    color: white;\r\n    -webkit-animation: mymove 1s;\r\n            animation: mymove 1s;\r\n    -webkit-animation-fill-mode: forwards;\r\n            animation-fill-mode: forwards;\r\n    overflow: hidden;\r\n    \r\n}\r\n\r\n.GisView_image{\r\n  position: absolute;\r\n    height: 100%;\r\n    background: lightslategrey;\r\n    width: 30%;\r\n    right: 0;\r\n    top: 0;\r\n    right: 0;\r\n    z-index: 10000000;\r\n    color: white;\r\n    -webkit-animation: mymove 1s;\r\n            animation: mymove 1s;\r\n    -webkit-animation-fill-mode: forwards;\r\n            animation-fill-mode: forwards;\r\n    overflow: auto;\r\n}\r\n\r\n.GisView_filterWindow{\r\n  z-index: -1;\r\n  background: lightgray;\r\n  color: black;\r\n  font-size: 12px;\r\n  -webkit-animation: mymoveside 1s;\r\n          animation: mymoveside 1s;\r\n    -webkit-animation-fill-mode: forwards;\r\n            animation-fill-mode: forwards;\r\n}\r\n\r\n@-webkit-keyframes mymoveside {\r\n  from {top: -100%;}\r\n  to {top: 0;}\r\n}\r\n\r\n@keyframes mymoveside {\r\n  from {top: -100%;}\r\n  to {top: 0;}\r\n}\r\n\r\n@-webkit-keyframes mymove {\r\n    from {right: -100%;}\r\n    to {right: 0px;}\r\n  }\r\n\r\n@keyframes mymove {\r\n    from {right: -100%;}\r\n    to {right: 0px;}\r\n  }", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

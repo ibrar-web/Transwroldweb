@@ -24,7 +24,8 @@ return new class extends Migration
             $table->string('area');
             $table->string('name');
             $table->json('media');
-            $table->timestamps();
+            $table->timestamp('upload_at')->CURRENT_TIMESTAMP;
+            $table->timestamp('created_at')->nullable();
         });
     }
 

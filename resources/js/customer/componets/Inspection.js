@@ -1,11 +1,12 @@
 import React from "react";
-import { GoogleMap, LoadScript, Polyline, Marker, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Polyline, Marker, InfoWindow, MarkerClusterer } from '@react-google-maps/api';
 import Axios from 'axios';
 import '../css/inspection.css'
 import "../../../../node_modules/font-awesome/scss/font-awesome.scss";
 import { Link } from 'react-router-dom'
 import { forEach } from "lodash";
-
+import Formdownload from './Formdownload';
+import Multiplefromdownload from './Multiplefromdownload'
 // import Spinner from "./Spinner";
 
 var data = [];
@@ -15,7 +16,40 @@ var persistentselectedTracks = [];
 let colors = ['#FF0000', '#00FF00', '#FFFF00', '#FFA500', '#0000FF', '#808080', '#FF5733', '#33C9FF', '#7EFF33', '#FF0000', '#00FF00', '#FFFF00', '#FFA500', '#0000FF', '#808080', '#FF5733', '#33C9FF', '#7EFF33'];
 let cableName = [];
 let color2 = ['ff0000ff', 'ff00ff00', 'ff00ffff', 'ff0080ff', 'fff0000', '506E6E6E', '#FF0000', '#00FF00', '#FFFF00', '#FFA500', '#0000FF', '#808080', '#FF5733', '#33C9FF', '#7EFF33'];
+const locations = [
+    { lat: -31.56391, lng: 147.154312 },
+    { lat: -33.718234, lng: 150.363181 },
+    { lat: -33.727111, lng: 150.371124 },
+    { lat: -33.848588, lng: 151.209834 },
+    { lat: -33.851702, lng: 151.216968 },
+    { lat: -34.671264, lng: 150.863657 },
+    { lat: -35.304724, lng: 148.662905 },
+    { lat: -36.817685, lng: 175.699196 },
+    { lat: -36.828611, lng: 175.790222 },
+    { lat: -37.75, lng: 145.116667 },
+    { lat: -37.759859, lng: 145.128708 },
+    { lat: -37.765015, lng: 145.133858 },
+    { lat: -37.770104, lng: 145.143299 },
+    { lat: -37.7737, lng: 145.145187 },
+    { lat: -37.774785, lng: 145.137978 },
+    { lat: -37.819616, lng: 144.968119 },
+    { lat: -38.330766, lng: 144.695692 },
+    { lat: -39.927193, lng: 175.053218 },
+    { lat: -41.330162, lng: 174.865694 },
+    { lat: -42.734358, lng: 147.439506 },
+    { lat: -42.734358, lng: 147.501315 },
+    { lat: -42.735258, lng: 147.438 },
+    { lat: -43.999792, lng: 170.463352 },
+]
 
+const options = {
+    imagePath:
+        'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m', // so you must have m1.png, m2.png, m3.png, m4.png, m5.png and m6.png in that folder
+}
+
+function createKey(location) {
+    return location.lat + location.lng
+}
 class GisView extends React.Component {
 
     state = {
@@ -90,8 +124,11 @@ class GisView extends React.Component {
         detailsToShow: [],
         detailsToShowPosition: { lat: 0, lng: 0 },
         detailsToShowType: '',
+        detailsToShowMarker: {},
 
-        filter: []
+        filter: [],
+
+        filterDates: { from: '', to: '' }
     }
     // infowindowclosed = () => {
     //     var temp = { lat: 0, lng: 0 }
@@ -1087,8 +1124,10 @@ class GisView extends React.Component {
 
             tempTracks.forEach((val) => {
                 JSON.parse(val.alldata).forEach((value) => {
-                    if(this.state.filter.includes(value.markertype) || this.state.filter.length === 0){
-                        tempMarkers.push(value)
+                    if (this.state.filter.includes(value.markertype) || this.state.filter.length === 0) {
+                        let myMarker = value;
+                        myMarker.track = val.name;
+                        tempMarkers.push(myMarker);
                     }
                 })
             })
@@ -1108,8 +1147,10 @@ class GisView extends React.Component {
 
             tempTracks.forEach((val) => {
                 JSON.parse(val.alldata).forEach((value) => {
-                    if(this.state.filter.includes(value.markertype) || this.state.filter.length === 0){
-                        tempMarkers.push(value)
+                    if (this.state.filter.includes(value.markertype) || this.state.filter.length === 0) {
+                        let myMarker = value;
+                        myMarker.track = val.name;
+                        tempMarkers.push(myMarker);
                     }
                 })
             })
@@ -1175,6 +1216,7 @@ class GisView extends React.Component {
     markerClicked = (value) => {
         console.log(value)
         let tempDetailsToShow = [];
+        let tempDetailsToShowMarker = value;
         let tempDetailsToShowPosition = value.position
         let tempDetailsToShowType = ''
         if (Array.isArray(value.data[0])) {
@@ -1205,7 +1247,7 @@ class GisView extends React.Component {
         console.log(tempDetailsToShowPosition);
         console.log(tempDetailsToShowType)
 
-        this.setState({ detailsToShow: tempDetailsToShow, detailsToShowPosition: tempDetailsToShowPosition, detailsToShowType: tempDetailsToShowType }, () => {
+        this.setState({ detailsToShowMarker: tempDetailsToShowMarker, detailsToShow: tempDetailsToShow, detailsToShowPosition: tempDetailsToShowPosition, detailsToShowType: tempDetailsToShowType }, () => {
 
             console.log('checkState', this.state.detailsToShowType)
         })
@@ -1230,14 +1272,16 @@ class GisView extends React.Component {
             if (index !== -1) {
                 tempFilter.splice(index, 1);
             }
-        }else{
+        } else {
             tempFilter.push('Residentail');
         }
 
         tempTracks.forEach((val) => {
             JSON.parse(val.alldata).forEach((value) => {
-                if(tempFilter.includes(value.markertype) || this.state.filter.length === 0){
-                    tempMarkers.push(value)
+                if (tempFilter.includes(value.markertype) || this.state.filter.length === 0) {
+                    let myMarker = value;
+                    myMarker.track = val.name;
+                    tempMarkers.push(myMarker);
                 }
             })
         })
@@ -1251,7 +1295,7 @@ class GisView extends React.Component {
             return val;
         })
 
-        this.setState({filter: tempFilter, tracksShow: tempTracks, markersShow: tempMarkers } , () => {
+        this.setState({ filter: tempFilter, tracksShow: tempTracks, markersShow: tempMarkers }, () => {
             console.log(this.state.filter)
         })
 
@@ -1266,14 +1310,16 @@ class GisView extends React.Component {
             if (index !== -1) {
                 tempFilter.splice(index, 1);
             }
-        }else{
+        } else {
             tempFilter.push('Commercail');
         }
 
         tempTracks.forEach((val) => {
             JSON.parse(val.alldata).forEach((value) => {
-                if(tempFilter.includes(value.markertype) || this.state.filter.length === 0){
-                    tempMarkers.push(value)
+                if (tempFilter.includes(value.markertype) || this.state.filter.length === 0) {
+                    let myMarker = value;
+                    myMarker.track = val.name;
+                    tempMarkers.push(myMarker);
                 }
             })
         })
@@ -1287,9 +1333,70 @@ class GisView extends React.Component {
             return val;
         })
 
-        this.setState({filter: tempFilter, tracksShow: tempTracks, markersShow: tempMarkers } , () => {
+        this.setState({ filter: tempFilter, tracksShow: tempTracks, markersShow: tempMarkers }, () => {
             console.log(this.state.filter)
         })
+    }
+
+    dateEntered = (event, type) => {
+
+        let temp = this.state.filterDates
+
+        if (type == 'from') {
+            //console.log('from', event.target.value)
+            temp.from = event.target.value
+        }
+
+        if (type == 'to') {
+            //console.log('to', event.target.value)
+            temp.to = event.target.value
+        }
+
+        this.setState({ filterDates: temp }, () => {
+            console.log(this.state.filterDates)
+        })
+
+
+    }
+
+    applyDateFilter = () => {
+
+        let fromDate = new Date(this.state.filterDates.from);
+        let toDate = new Date(this.state.filterDates.to);
+
+        console.log('from', fromDate)
+        console.log('to', toDate)
+
+        if (this.state.filterDates.from === '' || this.state.filterDates.to === '') {
+            alert('Please Select To and From Dates')
+            return
+        }
+
+        let tempTracks = this.state.tracks;
+        let tempMarkers = [];
+
+        tempTracks.forEach((val) => {
+            let dateObj = new Date(val.created_at)
+            JSON.parse(val.alldata).forEach((value) => {
+                if (dateObj.getTime() >= fromDate.getTime() && dateObj.getTime() <= toDate.getTime()) {
+                    let myMarker = value;
+                    myMarker.track = val.name;
+                    tempMarkers.push(myMarker);
+                }
+            })
+        })
+
+        tempMarkers = tempMarkers.map(val => {
+
+            let position = { lat: val.postion[0], lng: val.postion[1] };
+
+            val.position = position
+
+            return val;
+        })
+
+        this.setState({ tracksShow: tempTracks, markersShow: tempMarkers })
+
     }
 
     render() {
@@ -1355,6 +1462,18 @@ class GisView extends React.Component {
                                 })}
 
                             </div>
+                            <div className="dateFilter">
+                                <h5>Date Filter</h5>
+                                From
+                                <br></br>
+                                <input type="date" placeholder="From" onChange={(e) => this.dateEntered(e, 'from')} />
+                                <br></br>
+                                To
+                                <br></br>
+                                <input type="date" placeholder="To" onChange={(e) => this.dateEntered(e, 'to')} />
+                                <br></br>
+                                <button onClick={() => this.applyDateFilter()}>Apply Filter</button>
+                            </div>
                             {/* <div className="filters">
                                 <div style={{ height: '60px' }}>
                                     <h5 style={{ margin: 0, textAlign: 'center', height: '50%' }}>Filters <i className="fa fa-filter" onClick={() => this.applyFilter()} title="Apply Filter" style={{ cursor: 'pointer' }}></i></h5>
@@ -1415,7 +1534,25 @@ class GisView extends React.Component {
                             labels={true}
 
                         >
-                            {this.state.markersShow.map((value, index) => {
+                            <MarkerClusterer options={options}>
+                                {(clusterer) =>
+                                    this.state.markersShow.map((value, index) => (
+                                        <Marker
+                                            key={index}
+                                            onClick={() => this.markerClicked(value)}
+                                            icon={{
+                                                url: `./markers/${value.markertype}.png`,
+                                                scaledSize: { width: 30, height: 30 },
+                                                anchor: { x: 5, y: 20 }
+                                            }}
+                                            position={value.position}
+                                            clusterer={clusterer}
+                                        />
+                                        // <Marker key={createKey(location)} position={location} clusterer={clusterer} />
+                                    ))
+                                }
+                            </MarkerClusterer>
+                            {/* {this.state.markersShow.map((value, index) => {
                                 return (
                                     <div>
                                         <Marker
@@ -1430,7 +1567,7 @@ class GisView extends React.Component {
                                         />
                                     </div>
                                 )
-                            })}
+                            })} */}
 
 
                             {this.state.detailsToShowPosition.lat !== 0 && this.state.detailsToShowPosition.lng !== 0 && this.state.detailsToShowType === 'floor' &&
@@ -1439,6 +1576,7 @@ class GisView extends React.Component {
                                     onCloseClick={() => this.setState({ detailsToShowPosition: { lat: 0, lng: 0 } })}
                                 >
                                     <div>
+                                        <i className="fa fa-download" onClick={() => Multiplefromdownload(this.state.detailsToShow, "Vehicle Report", true, this.state.detailsToShowMarker.track)}></i>
                                         {this.state.detailsToShow.map((value, index) => {
                                             return (
                                                 <div key={index}>
@@ -1448,8 +1586,8 @@ class GisView extends React.Component {
                                                             {value.data.map((value1, ind) => {
                                                                 return (
                                                                     <tr key={ind}>
-                                                                        <td style={{ border: '1px solid black' }}>{value1.name}</td>
-                                                                        <td style={{ border: '1px solid black' }}>{value1.value}</td>
+                                                                        <td style={{ border: '1px solid black' ,width:"80%"}}>{value1.name}</td>
+                                                                        <td style={{ border: '1px solid black' ,width:"20%" }}>{value1.value}</td>
                                                                     </tr>
                                                                 )
                                                             })}
@@ -1469,13 +1607,14 @@ class GisView extends React.Component {
                                     onCloseClick={() => this.setState({ detailsToShowPosition: { lat: 0, lng: 0 } })}
                                 >
                                     <div>
+                                        <i className="fa fa-download" onClick={() => Formdownload(this.state.detailsToShow, "Vehicle Report", true, this.state.detailsToShowMarker.track)}></i>
                                         <table border="1" style={{ width: '100%' }}>
                                             <tbody>
                                                 {this.state.detailsToShow.map((value, index) => {
                                                     return (
                                                         <tr key={index}>
-                                                            <td style={{ border: '1px solid black' }}>{value.name}</td>
-                                                            <td style={{ border: '1px solid black' }}>{value.value}</td>
+                                                            <td style={{ border: '1px solid black',width:"80%" }}>{value.name}</td>
+                                                            <td style={{ border: '1px solid black' ,width:"20%" }}>{value.value}</td>
                                                         </tr>
 
                                                     )

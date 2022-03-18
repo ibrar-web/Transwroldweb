@@ -54,6 +54,7 @@ class SurveyController extends Controller
         $accesstoken = $request->input('access_token');
         $worker_id = $request->input('worker_id');
         $customer_id = $request->input('customer_id');
+        $created_at = $request->input('created_at');
         $count = DB::table('users')->where('id', $worker_id)->where('access_token', $accesstoken)->count('id');
         if ($count > 0) {
             $data['access_token'] = $this->random_strings(64);
@@ -67,6 +68,7 @@ class SurveyController extends Controller
                 "city"=>$city,
                 "region"=>$region,
                 "media"=>$media,
+                'created_at'=> $created_at
             ]);
             $data['access_token'] = DB::table('users')->where('id', $worker_id)->pluck('access_token')[0];
             
@@ -82,7 +84,6 @@ class SurveyController extends Controller
         $worker_id = $request->input('worker_id');
         $customer_id = $request->input('customer_id');
         $access_token = $request->input('access_token');
-        Log::info($access_token);
         $destinationPath = public_path('Transworld/' . $customer_id . '/');
         $count = DB::table('users')->where('id', $worker_id)->where('access_token', $access_token)->count('id');
         if ($count > 0) {
