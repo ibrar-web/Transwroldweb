@@ -14457,7 +14457,6 @@ var GisView = /*#__PURE__*/function (_React$Component) {
                   }
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                className: this.state.filter.includes('Commercail') ? "orange" : "",
                 style: {
                   cursor: 'pointer',
                   heigth: '20px',
@@ -14507,7 +14506,7 @@ var GisView = /*#__PURE__*/function (_React$Component) {
                     onClick: function onClick() {
                       return _this2.dropdownClicked(index, 'region', val.name);
                     },
-                    children: [val.name, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
+                    children: [val.name.charAt(0).toUpperCase() + val.name.slice(1), "  ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
                       className: "fa fa-angle-down",
                       style: {
                         color: 'black'
@@ -14608,7 +14607,7 @@ var GisView = /*#__PURE__*/function (_React$Component) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "map ".concat(this.state.sideBarHide ? "mapBigger" : ""),
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_8__.LoadScript, {
-            googleMapsApiKey: "AIzaSyC7heras8LxUkJxZSbXmJvPBB1qMStJTM4",
+            googleMapsApiKey: "AIzaSyBbp9LWF-8lHjhc3Utgn-FAP53q25fCoPg",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_react_google_maps_api__WEBPACK_IMPORTED_MODULE_8__.GoogleMap, {
               mapContainerStyle: containerStyle,
               center: this.state.center,

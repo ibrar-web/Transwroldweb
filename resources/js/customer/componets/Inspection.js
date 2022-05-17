@@ -1431,7 +1431,7 @@ class GisView extends React.Component {
                                 <div style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center' }} title="Logout"><a href='logout'><i className="fa fa-sign-out" style={{ color: 'black' }}></i></a></div>
                                 <div className={this.state.filter.includes('Residentail') ? "orange" : ""} style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center' }} title="Residential Markers" onClick={() => this.residentialClicked()}><i className="fa fa-home" style={{ color: 'black' }}></i></div>
                                 <div className={this.state.filter.includes('Commercail') ? "orange" : ""} style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center' }} title="Commercial Markers" onClick={() => this.commercialClicked()}><i className="fa fa-building" style={{ color: 'black' }}></i></div>
-                                <div className={this.state.filter.includes('Commercail') ? "orange" : ""} style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center' }} title="Show Images" onClick={() => this.setState({showImage: true})}><i className="fa fa-image" style={{ color: 'black' }}></i></div>
+                                <div style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center' }} title="Show Images" onClick={() => this.setState({showImage: true})}><i className="fa fa-image" style={{ color: 'black' }}></i></div>
 
                                 <div style={{ cursor: 'pointer', heigth: '20px', width: '60%', textAlign: 'right' }} onClick={() => this.hideSideBar()} ><i className="fa fa-arrow-left" ></i></div>
                             </div>
@@ -1442,7 +1442,7 @@ class GisView extends React.Component {
                                 {this.state.regions.map((val, index) => {
                                     return (
                                         <div key={index} >
-                                            <span style={{ cursor: 'pointer' }} onClick={() => this.dropdownClicked(index, 'region', val.name)}>{val.name} <i className="fa fa-angle-down" style={{ color: 'black' }}></i></span>
+                                            <span style={{ cursor: 'pointer' }} onClick={() => this.dropdownClicked(index, 'region', val.name)}>{val.name.charAt(0).toUpperCase() + val.name.slice(1)}  <i className="fa fa-angle-down" style={{ color: 'black' }}></i></span>
                                             {val.cities.map((val1, index1) => {
                                                 return (
                                                     <>
@@ -1535,7 +1535,8 @@ class GisView extends React.Component {
 
                 <div className={`map ${this.state.sideBarHide ? "mapBigger" : ""}`}>
                     <LoadScript
-                        googleMapsApiKey="AIzaSyC7heras8LxUkJxZSbXmJvPBB1qMStJTM4"
+                        googleMapsApiKey="AIzaSyBbp9LWF-8lHjhc3Utgn-FAP53q25fCoPg"
+                        
                     >
                         <GoogleMap
                             mapContainerStyle={containerStyle}

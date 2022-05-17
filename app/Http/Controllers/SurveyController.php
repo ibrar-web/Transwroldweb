@@ -30,7 +30,8 @@ class SurveyController extends Controller
             if (Hash::check($password, $userpass)) {
                 $data = [];
                 $data['workerid'] = DB::table('users')->where('email', $email)->pluck('id')[0];
-                $data['customerid'] = 1;
+                Log::info($data['workerid']);
+                $data['customerid'] = 4;
                 $data['access_token'] = $this->random_strings(64);
                 DB::table('users')->where('email', $email)->update(['access_token' => $data['access_token']]);
                 return $data;
@@ -56,6 +57,8 @@ class SurveyController extends Controller
         $customer_id = $request->input('customer_id');
         $created_at = $request->input('created_at');
         $count = DB::table('users')->where('id', $worker_id)->where('access_token', $accesstoken)->count('id');
+        Log::info($count);
+        Log::info('$count');
         if ($count > 0) {
             $data['access_token'] = $this->random_strings(64);
             //DB::table('users')->where('id', $worker_id)->update(['access_token' => $data['access_token']]);
@@ -71,7 +74,6 @@ class SurveyController extends Controller
                 'created_at'=> $created_at
             ]);
             $data['access_token'] = DB::table('users')->where('id', $worker_id)->pluck('access_token')[0];
-            
             return $data;
         } else {
             return abort(500, 'You are not allowed1');
@@ -94,7 +96,8 @@ class SurveyController extends Controller
                 $file = $request->file('image');
                 $filename = $file->getClientOriginalExtension();
                 $name=$file->getClientOriginalName();
-                $file->move($destinationPath, $customer_id . $name);
+                Log::info($name);
+                $file->move($destinationPath,$name);
             }
         } else {
             return abort(500, 'You are not allowed1');
