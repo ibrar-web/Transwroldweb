@@ -14158,7 +14158,7 @@ var GisView = /*#__PURE__*/function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "markerClicked", function (value) {
-      // console.log(value)
+      console.log(value);
       var tempDetailsToShow = [];
       var tempDetailsToShowMarker = value;
       var tempDetailsToShowPosition = value.position;
@@ -14174,10 +14174,17 @@ var GisView = /*#__PURE__*/function (_React$Component) {
             data: []
           };
           val.forEach(function (v) {
-            temp.data.push({
-              name: v.name,
-              value: v.Value
-            });
+            if (v.type == "Dropdown") {
+              temp.data.push({
+                name: v.name,
+                value: v.dropdownvalue
+              });
+            } else if (v.type == "Input") {
+              temp.data.push({
+                name: v.name,
+                value: v.Value
+              });
+            }
           });
           tempDetailsToShow.push(temp);
         });
@@ -14185,10 +14192,17 @@ var GisView = /*#__PURE__*/function (_React$Component) {
         // console.log('not an array')
         tempDetailsToShowType = 'Not a Floor';
         value.data.forEach(function (val) {
-          tempDetailsToShow.push({
-            name: val.name,
-            value: val.Value
-          });
+          if (val.type == "Dropdown") {
+            tempDetailsToShow.push({
+              name: val.name,
+              value: val.dropdownvalue
+            });
+          } else if (val.type == "Input") {
+            tempDetailsToShow.push({
+              name: val.name,
+              value: val.Value
+            });
+          }
         });
       } // console.log(tempDetailsToShow);
       // console.log(tempDetailsToShowPosition);
@@ -14767,10 +14781,10 @@ var GisView = /*#__PURE__*/function (_React$Component) {
                 children: value.name
               }), value.media.map(function (val, ind) {
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
-                  href: "./Transworld/1/".concat(value.name, "/1").concat(val),
+                  href: "./Transworld/4/".concat(value.name, "/").concat(val),
                   target: "__blank",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
-                    src: "./Transworld/1/".concat(value.name, "/1").concat(val),
+                    src: "./Transworld/4/".concat(value.name, "/").concat(val),
                     style: {
                       height: '150px',
                       width: '40%',
@@ -20305,7 +20319,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/fonts/vendor/font-awesome/fontawesome-webfont.svg?c1e38fd9e0e74ba58f7a2b77ef29fdd3");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/fonts/vendor/font-awesome/fontawesome-webfont.svg?6878d55e3615ccf40c386ec2a90dfd6a");
 
 /***/ }),
 

@@ -1147,7 +1147,7 @@ class GisView extends React.Component {
 
         } else {
             // console.log('else running')
-            
+
             tempTracks.push(val)
 
             tempTracks.forEach((val) => {
@@ -1176,7 +1176,7 @@ class GisView extends React.Component {
         }
 
         this.setState({ tracksShow: tempTracks, markersShow: tempMarkers, center: center }, () => {
-             console.log('tracks after selection', tempTracks)
+            console.log('tracks after selection', tempTracks)
             // console.log('markers after selection', tempMarkers)
         })
 
@@ -1220,7 +1220,7 @@ class GisView extends React.Component {
     }
 
     markerClicked = (value) => {
-        // console.log(value)
+        console.log(value)
         let tempDetailsToShow = [];
         let tempDetailsToShowMarker = value;
         let tempDetailsToShowPosition = value.position
@@ -1235,7 +1235,11 @@ class GisView extends React.Component {
                 let temp = { floor: 'Floor ' + num, data: [] }
 
                 val.forEach(v => {
-                    temp.data.push({ name: v.name, value: v.Value })
+                    if(v.type=="Dropdown"){
+                        temp.data.push({ name: v.name, value: v.dropdownvalue })
+                    }else if(v.type=="Input"){
+                        temp.data.push({ name: v.name, value: v.Value })
+                    }
                 })
 
                 tempDetailsToShow.push(temp);
@@ -1245,7 +1249,14 @@ class GisView extends React.Component {
             // console.log('not an array')
             tempDetailsToShowType = 'Not a Floor'
             value.data.forEach((val) => {
-                tempDetailsToShow.push({ name: val.name, value: val.Value })
+           
+                if(val.type=="Dropdown"){
+                    tempDetailsToShow.push({ name: val.name, value: val.dropdownvalue })
+                }
+                else if(val.type=="Input"){
+                    tempDetailsToShow.push({ name: val.name, value: val.Value })
+                }
+
             })
         }
 
@@ -1407,6 +1418,7 @@ class GisView extends React.Component {
     resetDateFilter = () => {
         this.setState({ tracksShow: [], markersShow: [] })
     }
+
     render() {
 
         var track = this.state.track;
@@ -1431,7 +1443,7 @@ class GisView extends React.Component {
                                 <div style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center' }} title="Logout"><a href='logout'><i className="fa fa-sign-out" style={{ color: 'black' }}></i></a></div>
                                 <div className={this.state.filter.includes('Residentail') ? "orange" : ""} style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center' }} title="Residential Markers" onClick={() => this.residentialClicked()}><i className="fa fa-home" style={{ color: 'black' }}></i></div>
                                 <div className={this.state.filter.includes('Commercail') ? "orange" : ""} style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center' }} title="Commercial Markers" onClick={() => this.commercialClicked()}><i className="fa fa-building" style={{ color: 'black' }}></i></div>
-                                <div style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center' }} title="Show Images" onClick={() => this.setState({showImage: true})}><i className="fa fa-image" style={{ color: 'black' }}></i></div>
+                                <div style={{ cursor: 'pointer', heigth: '20px', width: '10%', textAlign: 'center' }} title="Show Images" onClick={() => this.setState({ showImage: true })}><i className="fa fa-image" style={{ color: 'black' }}></i></div>
 
                                 <div style={{ cursor: 'pointer', heigth: '20px', width: '60%', textAlign: 'right' }} onClick={() => this.hideSideBar()} ><i className="fa fa-arrow-left" ></i></div>
                             </div>
@@ -1536,7 +1548,7 @@ class GisView extends React.Component {
                 <div className={`map ${this.state.sideBarHide ? "mapBigger" : ""}`}>
                     <LoadScript
                         googleMapsApiKey="AIzaSyBbp9LWF-8lHjhc3Utgn-FAP53q25fCoPg"
-                        
+
                     >
                         <GoogleMap
                             mapContainerStyle={containerStyle}
@@ -1594,6 +1606,7 @@ class GisView extends React.Component {
                                                     <h5>{value.floor}</h5>
                                                     <table border="1" style={{ width: '100%' }}>
                                                         <tbody>
+
                                                             {value.data.map((value1, ind) => {
                                                                 return (
                                                                     <tr key={ind}>
@@ -2096,21 +2109,21 @@ class GisView extends React.Component {
 
                 {this.state.showImage &&
                     <div className="GisView_image">
-                        <div onClick={() => this.setState({showImage: false})} style={{ fontWeight: 'bold', marginRight: '20px', cursor: 'pointer', position: 'fixed', right: '0', top: '10px' }}>x</div>
+                        <div onClick={() => this.setState({ showImage: false })} style={{ fontWeight: 'bold', marginRight: '20px', cursor: 'pointer', position: 'fixed', right: '0', top: '10px' }}>x</div>
                         <div style={{ clear: 'both' }}></div>
                         <h5 style={{ marginTop: 0, textAlign: 'center' }}> Images of Selected Surveys </h5>
                         {this.state.tracksShow.map((value, index) => {
                             return (
-                                <div key={index} style={{textAlign: 'center'}}>
+                                <div key={index} style={{ textAlign: 'center' }}>
                                     <h5>{value.name}</h5>
-                                        {value.media.map((val, ind) => {
-                                            return (
-                                                <a href={`./Transworld/1/${value.name}/1${val}`} target='__blank'>
-                                                    <img src={`./Transworld/1/${value.name}/1${val}`} style={{height: '150px', width: '40%', marginLeft: '10px'}}></img>
-                                                </a>
-                                                
-                                            )
-                                        })}
+                                    {value.media.map((val, ind) => {
+                                        return (
+                                            <a href={`./Transworld/4/${value.name}/${val}`} target='__blank'>
+                                                <img src={`./Transworld/4/${value.name}/${val}`} style={{ height: '150px', width: '40%', marginLeft: '10px' }}></img>
+                                            </a>
+
+                                        )
+                                    })}
                                 </div>
                             )
                         })}
